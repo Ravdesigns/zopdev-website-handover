@@ -932,3 +932,25 @@ html[data-theme="light"] .btn-accent span,
 .live-strip-cta, .ann-bar{
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
 }
+
+
+/* ============================================================
+   .table-scroll · responsive scroll wrapper for arbitrary <table>
+   content. Wrap any wide <table> in a <div class="table-scroll">
+   to prevent the table from forcing the whole page to scroll
+   horizontally on mobile. Inside the wrapper the table itself
+   gets its own horizontal scrollbar.
+   ============================================================ */
+.table-scroll{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  /* tiny visual cue: thin scrollbar on supporting browsers */
+  scrollbar-width:thin;
+}
+.table-scroll > table{
+  width:100%;
+  /* keep tables from compressing their columns too aggressively */
+  min-width:max-content;
+}

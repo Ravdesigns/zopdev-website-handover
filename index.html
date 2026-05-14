@@ -9081,15 +9081,52 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
     .showcase-arc-wrap{ height: 180px; }
     .showcase-tab{ padding: 9px 14px; font-size: 12.5px; }
   }
-  /* Mobile · hide the entire 8-tab walkthrough section. The autoplay
-     loop, sun/moon arc and 16:9 video frame don't condense well below
-     this breakpoint, so we drop it from small screens entirely. */
+  /* Mobile · the 5-tab walkthrough is the homepage's most important
+     narrative beat (Provision → Organize → Schedule → Optimize → Prove)
+     so we keep it visible on small screens. Adjustments below 760px:
+       · Hide the decorative SVG arc + sun/moon orbs (purely ornamental)
+       · Make the tab strip horizontally scrollable instead of wrapping
+         (scroll-snap so each tab lands centred when flicked)
+       · Trim the section's vertical padding
+       · Drop the tab[data-idx="4"] left-divider that signals the
+         ZopDay → ZopNight handoff — replace with a top hairline at
+         the smallest sizes where tabs wrap
+     The video frame keeps `aspect-ratio:16/9` so it scales fluidly. */
   @media (max-width: 760px){
-    .showcase{ display: none !important; }
+    .showcase{ padding: 32px 0 48px; }
+    .showcase-arc-wrap{ display: none; }
+    .showcase-stage{ padding-top: 0; }
+    .showcase-tabs{
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      max-width: 100%;
+      padding: 6px;
+      /* hide scrollbar for cleanliness */
+      scrollbar-width: none;
+    }
+    .showcase-tabs::-webkit-scrollbar{ display: none; }
+    .showcase-tab{
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .showcase-tab[data-idx="4"]{
+      box-shadow: -1px 0 0 var(--line);
+      padding-left: 18px;
+      margin-left: 4px;
+    }
+    .showcase-throughline{ margin-top: 28px; font-size: 14.5px; padding: 0 20px; }
+    .showcase-throughline strong{ display: block; margin-left: 0; margin-top: 4px; }
   }
-  @media (max-width: 640px){
-    .showcase-tabs{ flex-direction: column; align-items: stretch; }
-    .showcase-tab[data-idx="4"]{ box-shadow: 0 -1px 0 var(--line); padding-left: 18px; margin-left: 0; padding-top: 14px; margin-top: 4px; }
+  /* Below 420px the strip still scrolls, but pad the section edges so
+     the first/last tab don't crash into the viewport edges. */
+  @media (max-width: 420px){
+    .showcase .container{ padding-left: 16px; padding-right: 16px; }
+    .showcase-tab{ padding: 9px 12px; font-size: 12.5px; }
   }
 
   /* Showcase throughline · 5-step flow summary that sits below the tab

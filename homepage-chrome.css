@@ -273,11 +273,16 @@ code, .mono{font-family:var(--mono); letter-spacing:0}
      so the bg never matches the text colour in either theme. */
   background:rgba(0,0,0,.04);
 }
-/* ghost / tertiary, text link with underline */
+/* ghost / tertiary, text link with underline.
+   Mobile tap-target safety: padding-block bumped on small screens so the
+   tappable area meets the 44×44 a11y guideline without changing the visual
+   underline alignment (border-bottom still sits at the text baseline). */
 .btn-ghost{
   border:0; border-bottom:1px solid var(--ink);
-  padding:10px 0; color:var(--ink);
+  padding:10px 2px; color:var(--ink);
   font-weight:600; font-size:14px; letter-spacing:-0.02em;
+  min-height:44px;
+  display:inline-flex; align-items:center;
   transition:color var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out);
 }
 .btn-ghost:hover{ color:var(--zop-blue); border-bottom-color:var(--zop-blue); }

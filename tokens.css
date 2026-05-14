@@ -350,7 +350,42 @@ button{
 
 
 /* =========================================================================
-   10 · UTILITY · container
+   10 · BREAKPOINTS · canonical responsive scale
+   -------------------------------------------------------------------------
+   Five breakpoints. Every NEW @media query in chrome / page CSS should
+   use ONE of these values. Do not invent intermediate sizes.
+
+   These are CSS custom properties for documentation + JS reference;
+   @media() cannot read CSS variables, so the integer values below are
+   the authoritative source — use them literally in @media().
+
+     --bp-sm   480px   ·  small phone landscape / tablet portrait edge
+     --bp-md   768px   ·  tablet portrait → small desktop transition
+     --bp-lg   1024px  ·  small desktop / standard tablet landscape
+     --bp-xl   1280px  ·  standard desktop
+     --bp-xxl  1536px  ·  large desktop / ultrawide
+
+   Pattern (desktop-first; override downward):
+     @media (max-width: 480px)   · small phone
+     @media (max-width: 768px)   · phone / portrait tablet
+     @media (max-width: 1024px)  · landscape tablet / narrow desktop
+     @media (max-width: 1280px)  · standard desktop
+
+   Legacy queries at 420/520/560/600/640/720/760/780/820/880/960/980
+   px exist throughout chrome CSS — they should be migrated to the
+   canonical scale gradually. See TICKET-06 in ACCEPTANCE-CRITERIA-VISUAL-BUGS.md.
+   ========================================================================= */
+:root{
+  --bp-sm:  480px;
+  --bp-md:  768px;
+  --bp-lg:  1024px;
+  --bp-xl:  1280px;
+  --bp-xxl: 1536px;
+}
+
+
+/* =========================================================================
+   11 · UTILITY · container
    ========================================================================= */
 .container{
   max-width: var(--max);
