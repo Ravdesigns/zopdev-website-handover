@@ -258,6 +258,11 @@ em,i,cite,dfn,var,address,blockquote{font-style:normal}
   gap:0; border:1px solid var(--line); background:var(--line);
 }
 @media (max-width:780px){ .cs-results-grid{ grid-template-columns:1fr; } }
+@media (max-width:768px){
+  /* Before / change / after stat row · stack vertically on mobile so each
+     value gets a full line instead of being crammed into one row. */
+  .cs-ba-row{ grid-template-columns:1fr; gap:6px; padding:14px 0; }
+}
 .cs-result{
   background:var(--bg-1); padding:var(--sp-7);
   display:flex; flex-direction:column; gap:var(--sp-3);

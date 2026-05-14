@@ -847,6 +847,12 @@ html[data-theme="dark"] .cdcr-steps li{ background:#0F0F12; border-color:#2a2a30
   align-items:baseline;
   padding:14px 0 0; border-top:1px solid var(--line);
 }
+@media (max-width:768px){
+  /* Stack CDCR step rows on mobile · number, name and description each
+     get their own line for readability at narrow widths. */
+  .cdcr-steps li.flat-legacy{ grid-template-columns:1fr; gap:4px; }
+  .cdcr-steps .s-desc{ grid-column:1; }
+}
 .cdcr-steps .s-num{ font-family:var(--mono); font-size:11px; color:var(--g-500); letter-spacing:.14em; }
 .cdcr-steps .s-name{ font-size:15px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); }
 .cdcr-steps .s-desc{ grid-column:3; font-size:13px; color:var(--g-600); line-height:1.5; }
