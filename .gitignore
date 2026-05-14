@@ -1,0 +1,26 @@
+# macOS junk
+.DS_Store
+
+# Working-folder backups (pre-edit snapshots created by editors)
+*.calcbak
+*.navbak
+
+# Internal dev playground (not for handover)
+_dev/
+
+# Node / build outputs (in case anyone runs npm here)
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor temp
+.vscode/
+.idea/
+*.swp
+*.swo
