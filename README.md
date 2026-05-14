@@ -27,9 +27,7 @@ This repo is the **static prototype + design system + acceptance criteria** for 
 | `cur-calculator.html` | AWS CUR waste estimator (form-driven) |
 | `walkthrough.html` | 7-surface video walkthrough hub |
 | `site-map.html` | Auto-generated site map (46 public URLs) |
-| `brand-launch.html` | Internal launch dashboard |
-| `_shell.html` | Page template — copy this for any new page |
-| ~50 other `*.html` files | Marketing, content, legal, brand, error, internal pages |
+| ~40 other `*.html` files | Marketing pages (about, careers, customers, blog, case studies), content (ebooks, guides), legal (trust, accessibility), error pages |
 
 ### Chrome (shared CSS + JS)
 
