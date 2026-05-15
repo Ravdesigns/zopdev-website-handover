@@ -544,7 +544,34 @@
       </div>
     </div>
     <div class="nav-cta">
-      <a class="chip-playground" href="playground.html"><span>Playground</span></a>
+      <div class="nav-pg-wrap">
+        <a class="chip-playground" href="playground.html" aria-haspopup="menu" aria-expanded="false">
+          <span>Playground</span>
+          <span class="nav-caret nav-pg-caret" aria-hidden="true"></span>
+        </a>
+        <div class="nav-pg-menu" role="menu" aria-label="Playground options">
+          <a class="nav-pg-card nav-pg-card--night" href="playground.html#zopnight" role="menuitem">
+            <span class="nav-pg-mark">
+              <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark-zopnight"/></svg>
+            </span>
+            <span class="nav-pg-body">
+              <span class="nav-pg-name">ZopNight playground</span>
+              <span class="nav-pg-desc">Cost loop &middot; idle, schedules, anomalies</span>
+            </span>
+            <span class="nav-pg-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="nav-pg-card nav-pg-card--day" href="playground.html#zopday" role="menuitem">
+            <span class="nav-pg-mark">
+              <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark-zopday"/></svg>
+            </span>
+            <span class="nav-pg-body">
+              <span class="nav-pg-name">ZopDay playground</span>
+              <span class="nav-pg-desc">Deploy loop &middot; clusters, datastores, push</span>
+            </span>
+            <span class="nav-pg-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
       <a class="sign" href="signin.html">Sign In</a>
       <a class="btn btn-accent" href="demo.html"><span>Book a Demo</span> <span class="arrow">→</span></a>
     </div>

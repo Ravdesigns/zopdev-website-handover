@@ -335,6 +335,195 @@ code, .mono{font-family:var(--mono); letter-spacing:0}
   box-shadow:0 0 0 1px var(--ink);
 }
 html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent; }
+/* ── PLAYGROUND chip · dropdown variant ─────────────────────────────────
+   The chip is a hover-anchor for a 2-option mini dropdown (ZopNight playground +
+   ZopDay playground). Visual chrome matches the big nav-overlay: paper bg, 1px
+   line border, sharp corners, hard offset shadow. Hover animations:
+     · panel fades + translateY(-8px → 0)  (same easing as nav-overlay)
+     · brand-coloured rail slides up from bottom on card hover
+     · brand mark scales 1.08 + arrow slides 4px right
+     · name + arrow recolour to the card's brand colour (orange/blue)
+   On mobile (≤760px) the dropdown is suppressed — the mobile drawer handles it. */
+.nav-pg-wrap{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-pg-caret{
+  /* Inherit the .nav-caret base + tighten its margin since the chip is mono */
+  margin-left: 2px;
+  margin-top: 0;
+  opacity: .55;
+  transition: transform 0.18s cubic-bezier(.22,1,.36,1), opacity 0.18s;
+}
+.nav-pg-wrap:hover .nav-pg-caret,
+.nav-pg-wrap:focus-within .nav-pg-caret{
+  transform: rotate(-135deg) translateY(-2px);
+  opacity: 0.9;
+}
+
+.nav-pg-menu{
+  position: absolute;
+  top: calc(100% + 6px); right: 0;
+  width: 320px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 20px 60px -8px rgba(0,0,0,0.12),
+    0 4px 14px rgba(0,0,0,0.05);
+  opacity: 0; visibility: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 0.20s cubic-bezier(.22,1,.36,1),
+    transform 0.20s cubic-bezier(.22,1,.36,1),
+    visibility 0s linear 0.20s;
+  pointer-events: none;
+  z-index: 1101;
+  overflow: hidden;
+}
+html[data-theme="dark"] .nav-pg-menu{
+  background: #15151B;
+  border-color: #2a2a30;
+  box-shadow:
+    0 20px 60px -8px rgba(0,0,0,0.5),
+    0 4px 14px rgba(0,0,0,0.3);
+}
+.nav-pg-wrap:hover .nav-pg-menu,
+.nav-pg-wrap:focus-within .nav-pg-menu{
+  opacity: 1; visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+/* Card · brand-mark + name + desc + arrow row */
+.nav-pg-card{
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.16s cubic-bezier(.22,1,.36,1),
+              padding-left 0.18s cubic-bezier(.22,1,.36,1);
+}
+html[data-theme="dark"] .nav-pg-card{ border-bottom-color: #2a2a30; }
+.nav-pg-card:last-child{ border-bottom: 0; }
+
+/* Brand mark · 32×32 square holding the inline SVG <use> */
+.nav-pg-mark{
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.20s cubic-bezier(.22,1,.36,1);
+}
+.nav-pg-mark svg{ width: 100%; height: 100%; display: block; }
+
+/* Body · name + mono description stacked */
+.nav-pg-body{ display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nav-pg-name{
+  font-family: var(--font);
+  font-size: 14px; font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  line-height: 1.2;
+  transition: color 0.16s cubic-bezier(.22,1,.36,1);
+}
+.nav-pg-desc{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  line-height: 1.35;
+}
+
+/* Trailing arrow · slides right + colour-shifts on hover */
+.nav-pg-arrow{
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-4);
+  transition: transform 0.20s cubic-bezier(.22,1,.36,1),
+              color 0.18s cubic-bezier(.22,1,.36,1);
+}
+
+/* Brand accent rail · 3px vertical bar on the left edge that scales
+   from 0 → full height on hover. Brand-orange for ZopDay, brand-blue
+   for ZopNight. */
+.nav-pg-card::before{
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--zop-orange);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.22s cubic-bezier(.22,1,.36,1);
+}
+.nav-pg-card--night::before{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--day::before{ background: var(--zop-orange); }
+
+/* Card hover · backgrounds, rail, mark scale, arrow translate, name colour */
+.nav-pg-card:hover{
+  background: rgba(245,133,73,.05);
+  padding-left: 20px;
+}
+html[data-theme="dark"] .nav-pg-card:hover{ background: rgba(245,133,73,.08); }
+.nav-pg-card:hover::before{
+  transform: scaleY(1);
+  transform-origin: top center;
+}
+.nav-pg-card:hover .nav-pg-mark{ transform: scale(1.08); }
+.nav-pg-card:hover .nav-pg-arrow{
+  transform: translateX(4px);
+  color: var(--zop-orange);
+}
+.nav-pg-card--day:hover .nav-pg-name{ color: var(--zop-orange); }
+
+/* ZopNight card · blue accent on hover instead of orange */
+.nav-pg-card--night:hover{
+  background: rgba(42,68,148,.05);
+}
+html[data-theme="dark"] .nav-pg-card--night:hover{ background: rgba(74,102,212,.10); }
+.nav-pg-card--night:hover .nav-pg-name{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-name{ color: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--night:hover .nav-pg-arrow{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
+
+/* Focus-visible · keyboard a11y · matches sitewide pattern */
+.nav-pg-card:focus-visible{
+  outline: 2px solid var(--zop-orange);
+  outline-offset: -2px;
+}
+
+/* Mobile · hide the dropdown menu (mobile drawer handles Playground separately) */
+@media (max-width: 760px){
+  .nav-pg-wrap:hover .nav-pg-menu,
+  .nav-pg-wrap:focus-within .nav-pg-menu{
+    display: none;
+  }
+  .nav-pg-caret{ display: none; }
+}
+
+/* Reduced motion · drop hover-translates + transforms, keep colour/visibility */
+@media (prefers-reduced-motion: reduce){
+  .nav-pg-menu,
+  .nav-pg-card,
+  .nav-pg-card::before,
+  .nav-pg-mark,
+  .nav-pg-arrow,
+  .nav-pg-caret{
+    transition: none !important;
+    transform: none !important;
+  }
+  .nav-pg-card:hover{ padding-left: 16px; }
+  .nav-pg-card:hover::before{ transform: scaleY(1) !important; }
+}
+
 /* Variants dropdown · 36px pill, square corners */
 .nav-cta .nav-variants > summary{ height:36px; padding:0 12px; border-radius:0; box-sizing:border-box; }
 .nav-cta .nav-variants-menu{ border-radius:0; }
