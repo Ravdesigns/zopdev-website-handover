@@ -335,29 +335,30 @@ code, .mono{font-family:var(--mono); letter-spacing:0}
   box-shadow:0 0 0 1px var(--ink);
 }
 html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent; }
-/* ── PLAYGROUND chip · dropdown variant ─────────────────────────────────
-   The chip is a hover-anchor for a 2-option mini dropdown (ZopNight playground +
-   ZopDay playground). Visual chrome matches the big nav-overlay: paper bg, 1px
-   line border, sharp corners, hard offset shadow. Hover animations:
-     · panel fades + translateY(-8px → 0)  (same easing as nav-overlay)
-     · brand-coloured rail slides up from bottom on card hover
-     · brand mark scales 1.08 + arrow slides 4px right
-     · name + arrow recolour to the card's brand colour (orange/blue)
-   On mobile (≤760px) the dropdown is suppressed — the mobile drawer handles it. */
+/* ── PLAYGROUND + SIGN IN chip · dropdown variants ─────────────────────────
+   The chip is a hover-anchor for a 2-option mini dropdown (ZopNight + ZopDay).
+   Visual chrome matches the big nav-overlay: paper bg, 1px line border, sharp
+   corners, hard offset shadow. Each card has a header row (mark + body + arrow)
+   plus a "peek" slot at the bottom that holds a tiny dashboard mock; the peek
+   sits offscreen by default (translateY 70%) and slides up to 0 on card hover.
+   .nav-pg-* = Playground variant; .nav-si-* = Sign In variant. Same shape, same
+   behaviour — different peek artwork (Playground = sandbox/launch, Sign In =
+   workspace/login).  On mobile (≤760px) the dropdown is suppressed entirely. */
 .nav-pg-wrap, .nav-si-wrap{
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 .nav-pg-caret, .nav-si-caret{
-  /* Inherit the .nav-caret base + tighten its margin since the chip is mono */
   margin-left: 2px;
   margin-top: 0;
   opacity: .55;
   transition: transform 0.18s cubic-bezier(.22,1,.36,1), opacity 0.18s;
 }
-.nav-pg-wrap, .nav-si-wrap:hover .nav-pg-caret, .nav-si-caret,
-.nav-pg-wrap, .nav-si-wrap:focus-within .nav-pg-caret, .nav-si-caret{
+.nav-pg-wrap:hover .nav-pg-caret,
+.nav-pg-wrap:focus-within .nav-pg-caret,
+.nav-si-wrap:hover .nav-si-caret,
+.nav-si-wrap:focus-within .nav-si-caret{
   transform: rotate(-135deg) translateY(-2px);
   opacity: 0.9;
 }
@@ -365,7 +366,7 @@ html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent;
 .nav-pg-menu, .nav-si-menu{
   position: absolute;
   top: calc(100% + 6px); right: 0;
-  width: 320px;
+  width: 440px;
   background: var(--paper);
   border: 1px solid var(--line);
   box-shadow:
@@ -382,37 +383,50 @@ html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent;
   z-index: 1101;
   overflow: hidden;
 }
-html[data-theme="dark"] .nav-pg-menu, .nav-si-menu{
+html[data-theme="dark"] .nav-pg-menu,
+html[data-theme="dark"] .nav-si-menu{
   background: #15151B;
   border-color: #2a2a30;
   box-shadow:
     0 20px 60px -8px rgba(0,0,0,0.5),
     0 4px 14px rgba(0,0,0,0.3);
 }
-.nav-pg-wrap, .nav-si-wrap:hover .nav-pg-menu, .nav-si-menu,
-.nav-pg-wrap, .nav-si-wrap:focus-within .nav-pg-menu, .nav-si-menu{
+.nav-pg-wrap:hover .nav-pg-menu,
+.nav-pg-wrap:focus-within .nav-pg-menu,
+.nav-si-wrap:hover .nav-si-menu,
+.nav-si-wrap:focus-within .nav-si-menu{
   opacity: 1; visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
   transition-delay: 0s;
 }
 
-/* Card · brand-mark + name + desc + arrow row */
+/* Card · 168px tall, overflow-hidden so the peek can slide up. The head
+   row occupies the top ~70px; the peek (96px) overlays the bottom on
+   hover, leaving ~14px breathing room between the desc text and the
+   peek's top edge. */
 .nav-pg-card, .nav-si-card{
-  display: grid;
-  grid-template-columns: 32px 1fr auto;
-  gap: 14px;
-  align-items: center;
-  padding: 14px 16px;
+  display: block;
+  position: relative;
+  min-height: 168px;
+  padding: 14px 16px 0 16px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
-  position: relative;
   overflow: hidden;
   transition: background 0.16s cubic-bezier(.22,1,.36,1),
               padding-left 0.18s cubic-bezier(.22,1,.36,1);
 }
-html[data-theme="dark"] .nav-pg-card, .nav-si-card{ border-bottom-color: #2a2a30; }
-.nav-pg-card, .nav-si-card:last-child{ border-bottom: 0; }
+html[data-theme="dark"] .nav-pg-card,
+html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
+.nav-pg-card:last-child, .nav-si-card:last-child{ border-bottom: 0; }
+
+/* Header zone · 32-mark + body + trailing arrow row */
+.nav-pg-card-head, .nav-si-card-head{
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
 
 /* Brand mark · 32×32 square holding the inline SVG <use> */
 .nav-pg-mark, .nav-si-mark{
@@ -421,7 +435,7 @@ html[data-theme="dark"] .nav-pg-card, .nav-si-card{ border-bottom-color: #2a2a30
   flex-shrink: 0;
   transition: transform 0.20s cubic-bezier(.22,1,.36,1);
 }
-.nav-pg-mark, .nav-si-mark svg{ width: 100%; height: 100%; display: block; }
+.nav-pg-mark svg, .nav-si-mark svg{ width: 100%; height: 100%; display: block; }
 
 /* Body · name + mono description stacked */
 .nav-pg-body, .nav-si-body{ display: flex; flex-direction: column; gap: 3px; min-width: 0; }
@@ -450,10 +464,8 @@ html[data-theme="dark"] .nav-pg-card, .nav-si-card{ border-bottom-color: #2a2a30
               color 0.18s cubic-bezier(.22,1,.36,1);
 }
 
-/* Brand accent rail · 3px vertical bar on the left edge that scales
-   from 0 → full height on hover. Brand-orange for ZopDay, brand-blue
-   for ZopNight. */
-.nav-pg-card, .nav-si-card::before{
+/* Brand accent rail · 3px vertical bar on the left edge */
+.nav-pg-card::before, .nav-si-card::before{
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
@@ -462,66 +474,164 @@ html[data-theme="dark"] .nav-pg-card, .nav-si-card{ border-bottom-color: #2a2a30
   transform: scaleY(0);
   transform-origin: bottom center;
   transition: transform 0.22s cubic-bezier(.22,1,.36,1);
+  z-index: 3;
 }
-.nav-pg-card--night, .nav-si-card--night::before{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night, .nav-si-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
-.nav-pg-card--day, .nav-si-card--day::before{ background: var(--zop-orange); }
+.nav-pg-card--night::before, .nav-si-card--night::before{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night::before,
+html[data-theme="dark"] .nav-si-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--day::before, .nav-si-card--day::before{ background: var(--zop-orange); }
+
+/* Peek slot · absolute bottom panel, sits 70% offscreen by default and
+   slides up to 0 on card hover. Contains the tiny dashboard mock. */
+.nav-pg-peek, .nav-si-peek{
+  position: absolute;
+  left: 16px; right: 16px; bottom: 0;
+  height: 96px;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  background: var(--paper-2, #FAF7EE);
+  overflow: hidden;
+  transform: translateY(70%);
+  opacity: .55;
+  transition: transform 0.28s cubic-bezier(.22,1,.36,1),
+              opacity 0.22s cubic-bezier(.22,1,.36,1);
+  pointer-events: none;
+  z-index: 1;
+}
+html[data-theme="dark"] .nav-pg-peek,
+html[data-theme="dark"] .nav-si-peek{
+  background: #1B1B22;
+  border-color: #2a2a30;
+}
+.nav-pg-card:hover .nav-pg-peek,
+.nav-si-card:hover .nav-si-peek{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Peek mockup primitives · used inside .nav-pg-peek + .nav-si-peek */
+.nav-pg-peek-top, .nav-si-peek-top{
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--ink-3);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+html[data-theme="dark"] .nav-pg-peek-top,
+html[data-theme="dark"] .nav-si-peek-top{
+  background: #15151B; border-bottom-color: #2a2a30;
+}
+.nav-pg-peek-dot, .nav-si-peek-dot{
+  width: 6px; height: 6px;
+  background: var(--zop-orange);
+  display: inline-block;
+}
+.nav-pg-card--night .nav-pg-peek-dot,
+.nav-si-card--night .nav-si-peek-dot{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-dot,
+html[data-theme="dark"] .nav-si-card--night .nav-si-peek-dot{ background: var(--logo-blue-on-dark, #4A66D4); }
+
+.nav-pg-peek-body, .nav-si-peek-body{
+  padding: 7px 8px 0 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.nav-pg-peek-tile, .nav-si-peek-tile{
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 5px 6px;
+  display: flex; flex-direction: column; gap: 2px;
+  min-height: 38px;
+}
+html[data-theme="dark"] .nav-pg-peek-tile,
+html[data-theme="dark"] .nav-si-peek-tile{ background: #15151B; border-color: #2a2a30; }
+.nav-pg-peek-label, .nav-si-peek-label{
+  font-family: var(--mono); font-size: 8px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-4);
+}
+.nav-pg-peek-val, .nav-si-peek-val{
+  font-family: var(--font); font-size: 11px; font-weight: 600;
+  color: var(--ink); line-height: 1;
+}
+.nav-pg-peek-val--accent, .nav-si-peek-val--accent{ color: var(--zop-orange); }
+.nav-pg-card--night .nav-pg-peek-val--accent,
+.nav-si-card--night .nav-si-peek-val--accent{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-val--accent,
+html[data-theme="dark"] .nav-si-card--night .nav-si-peek-val--accent{ color: var(--logo-blue-on-dark, #4A66D4); }
 
 /* Card hover · backgrounds, rail, mark scale, arrow translate, name colour */
-.nav-pg-card, .nav-si-card:hover{
+.nav-pg-card:hover, .nav-si-card:hover{
   background: rgba(245,133,73,.05);
   padding-left: 20px;
 }
-html[data-theme="dark"] .nav-pg-card, .nav-si-card:hover{ background: rgba(245,133,73,.08); }
-.nav-pg-card, .nav-si-card:hover::before{
+html[data-theme="dark"] .nav-pg-card:hover,
+html[data-theme="dark"] .nav-si-card:hover{ background: rgba(245,133,73,.08); }
+.nav-pg-card:hover::before, .nav-si-card:hover::before{
   transform: scaleY(1);
   transform-origin: top center;
 }
-.nav-pg-card, .nav-si-card:hover .nav-pg-mark, .nav-si-mark{ transform: scale(1.08); }
-.nav-pg-card, .nav-si-card:hover .nav-pg-arrow, .nav-si-arrow{
+.nav-pg-card:hover .nav-pg-mark, .nav-si-card:hover .nav-si-mark{ transform: scale(1.08); }
+.nav-pg-card:hover .nav-pg-arrow, .nav-si-card:hover .nav-si-arrow{
   transform: translateX(4px);
   color: var(--zop-orange);
 }
-.nav-pg-card--day, .nav-si-card--day:hover .nav-pg-name, .nav-si-name{ color: var(--zop-orange); }
+.nav-pg-card--day:hover .nav-pg-name,
+.nav-si-card--day:hover .nav-si-name{ color: var(--zop-orange); }
 
 /* ZopNight card · blue accent on hover instead of orange */
-.nav-pg-card--night, .nav-si-card--night:hover{
+.nav-pg-card--night:hover, .nav-si-card--night:hover{
   background: rgba(42,68,148,.05);
 }
-html[data-theme="dark"] .nav-pg-card--night, .nav-si-card--night:hover{ background: rgba(74,102,212,.10); }
-.nav-pg-card--night, .nav-si-card--night:hover .nav-pg-name, .nav-si-name{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night, .nav-si-card--night:hover .nav-pg-name, .nav-si-name{ color: var(--logo-blue-on-dark, #4A66D4); }
-.nav-pg-card--night, .nav-si-card--night:hover .nav-pg-arrow, .nav-si-arrow{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night, .nav-si-card--night:hover .nav-pg-arrow, .nav-si-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
+html[data-theme="dark"] .nav-pg-card--night:hover,
+html[data-theme="dark"] .nav-si-card--night:hover{ background: rgba(74,102,212,.10); }
+.nav-pg-card--night:hover .nav-pg-name,
+.nav-si-card--night:hover .nav-si-name{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-name,
+html[data-theme="dark"] .nav-si-card--night:hover .nav-si-name{ color: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--night:hover .nav-pg-arrow,
+.nav-si-card--night:hover .nav-si-arrow{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-arrow,
+html[data-theme="dark"] .nav-si-card--night:hover .nav-si-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
 
 /* Focus-visible · keyboard a11y · matches sitewide pattern */
-.nav-pg-card, .nav-si-card:focus-visible{
+.nav-pg-card:focus-visible, .nav-si-card:focus-visible{
   outline: 2px solid var(--zop-orange);
   outline-offset: -2px;
 }
 
-/* Mobile · hide the dropdown menu (mobile drawer handles Playground separately) */
+/* Mobile · hide the dropdown menu (mobile drawer handles these separately) */
 @media (max-width: 760px){
-  .nav-pg-wrap, .nav-si-wrap:hover .nav-pg-menu, .nav-si-menu,
-  .nav-pg-wrap, .nav-si-wrap:focus-within .nav-pg-menu, .nav-si-menu{
+  .nav-pg-wrap:hover .nav-pg-menu,
+  .nav-pg-wrap:focus-within .nav-pg-menu,
+  .nav-si-wrap:hover .nav-si-menu,
+  .nav-si-wrap:focus-within .nav-si-menu{
     display: none;
   }
   .nav-pg-caret, .nav-si-caret{ display: none; }
 }
 
-/* Reduced motion · drop hover-translates + transforms, keep colour/visibility */
+/* Reduced motion · drop translates + transforms, keep colour/visibility.
+   Peek snaps into view instantly instead of sliding. */
 @media (prefers-reduced-motion: reduce){
   .nav-pg-menu, .nav-si-menu,
   .nav-pg-card, .nav-si-card,
-  .nav-pg-card, .nav-si-card::before,
+  .nav-pg-card::before, .nav-si-card::before,
   .nav-pg-mark, .nav-si-mark,
   .nav-pg-arrow, .nav-si-arrow,
-  .nav-pg-caret, .nav-si-caret{
+  .nav-pg-caret, .nav-si-caret,
+  .nav-pg-peek, .nav-si-peek{
     transition: none !important;
-    transform: none !important;
   }
-  .nav-pg-card, .nav-si-card:hover{ padding-left: 16px; }
-  .nav-pg-card, .nav-si-card:hover::before{ transform: scaleY(1) !important; }
+  .nav-pg-card:hover, .nav-si-card:hover{ padding-left: 16px; }
+  .nav-pg-card:hover::before, .nav-si-card:hover::before{ transform: scaleY(1) !important; }
+  .nav-pg-card:hover .nav-pg-peek,
+  .nav-si-card:hover .nav-si-peek{ transform: translateY(0) !important; opacity: 1 !important; }
 }
 
 /* Variants dropdown · 36px pill, square corners */
