@@ -789,7 +789,34 @@ html[data-theme="dark"] .sm-jumps{ background:#0F0F12; }
           </a>
         </div>
       </div>
-      <a class="sign" href="signin.html">Sign In</a>
+      <div class="nav-si-wrap">
+        <a class="sign" href="signin.html" aria-haspopup="menu" aria-expanded="false">
+          Sign In
+          <span class="nav-caret nav-si-caret" aria-hidden="true"></span>
+        </a>
+        <div class="nav-si-menu" role="menu" aria-label="Sign in options">
+          <a class="nav-si-card nav-si-card--night" href="signin.html#zopnight" role="menuitem">
+            <span class="nav-si-mark">
+              <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark-zopnight"/></svg>
+            </span>
+            <span class="nav-si-body">
+              <span class="nav-si-name">Sign in to ZopNight</span>
+              <span class="nav-si-desc">Cloud cost &middot; FinOps console</span>
+            </span>
+            <span class="nav-si-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="nav-si-card nav-si-card--day" href="signin.html#zopday" role="menuitem">
+            <span class="nav-si-mark">
+              <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark-zopday"/></svg>
+            </span>
+            <span class="nav-si-body">
+              <span class="nav-si-name">Sign in to ZopDay</span>
+              <span class="nav-si-desc">Deploy &middot; Internal Developer Platform</span>
+            </span>
+            <span class="nav-si-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
       <a class="btn btn-accent" href="demo.html"><span>Book a Demo</span> <span class="arrow">→</span></a>
     </div>
     <button class="mob-nav-toggle" id="mob-nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mob-nav-drawer" type="button">
