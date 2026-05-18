@@ -335,35 +335,35 @@ code, .mono{font-family:var(--mono); letter-spacing:0}
   box-shadow:0 0 0 1px var(--ink);
 }
 html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent; }
-/* ── PLAYGROUND + SIGN IN chip · dropdown variants ─────────────────────────
-   The chip is a hover-anchor for a 2-option mini dropdown (ZopNight + ZopDay).
-   Visual chrome matches the big nav-overlay: paper bg, 1px line border, sharp
-   corners, hard offset shadow. Each card has a header row (mark + body + arrow)
-   plus a "peek" slot at the bottom that holds a tiny dashboard mock; the peek
-   sits offscreen by default (translateY 70%) and slides up to 0 on card hover.
-   .nav-pg-* = Playground variant; .nav-si-* = Sign In variant. Same shape, same
-   behaviour — different peek artwork (Playground = sandbox/launch, Sign In =
-   workspace/login).  On mobile (≤760px) the dropdown is suppressed entirely. */
-.nav-pg-wrap, .nav-si-wrap{
+/* ── PLAYGROUND chip · dropdown variant ─────────────────────────────────
+   The chip is a hover-anchor for a 2-option mini dropdown (ZopNight + ZopDay
+   playgrounds). Visual chrome matches the big nav-overlay: paper bg, 1px line
+   border, sharp corners, hard offset shadow. Each card has a header row
+   (mark + body + arrow) plus a "peek" slot at the bottom that holds a tiny
+   dashboard mock; the peek sits offscreen by default (translateY 70%) and
+   slides up to 0 on card hover.
+   On mobile (≤760px) the dropdown is suppressed — the mobile drawer handles
+   the Playground entry separately.
+   Sign In is intentionally a plain link — product selection happens ON the
+   signin page itself, above the form (.signin-chooser-*). */
+.nav-pg-wrap{
   position: relative;
   display: inline-flex;
   align-items: center;
 }
-.nav-pg-caret, .nav-si-caret{
+.nav-pg-caret{
   margin-left: 2px;
   margin-top: 0;
   opacity: .55;
   transition: transform 0.18s cubic-bezier(.22,1,.36,1), opacity 0.18s;
 }
 .nav-pg-wrap:hover .nav-pg-caret,
-.nav-pg-wrap:focus-within .nav-pg-caret,
-.nav-si-wrap:hover .nav-si-caret,
-.nav-si-wrap:focus-within .nav-si-caret{
+.nav-pg-wrap:focus-within .nav-pg-caret{
   transform: rotate(-135deg) translateY(-2px);
   opacity: 0.9;
 }
 
-.nav-pg-menu, .nav-si-menu{
+.nav-pg-menu{
   position: absolute;
   top: calc(100% + 6px); right: 0;
   width: 440px;
@@ -383,8 +383,7 @@ html[data-theme="dark"] .nav-cta .chip-playground:hover{ background:transparent;
   z-index: 1101;
   overflow: hidden;
 }
-html[data-theme="dark"] .nav-pg-menu,
-html[data-theme="dark"] .nav-si-menu{
+html[data-theme="dark"] .nav-pg-menu{
   background: #15151B;
   border-color: #2a2a30;
   box-shadow:
@@ -392,20 +391,16 @@ html[data-theme="dark"] .nav-si-menu{
     0 4px 14px rgba(0,0,0,0.3);
 }
 .nav-pg-wrap:hover .nav-pg-menu,
-.nav-pg-wrap:focus-within .nav-pg-menu,
-.nav-si-wrap:hover .nav-si-menu,
-.nav-si-wrap:focus-within .nav-si-menu{
+.nav-pg-wrap:focus-within .nav-pg-menu{
   opacity: 1; visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
   transition-delay: 0s;
 }
 
-/* Card · 168px tall, overflow-hidden so the peek can slide up. The head
-   row occupies the top ~70px; the peek (96px) overlays the bottom on
-   hover, leaving ~14px breathing room between the desc text and the
-   peek's top edge. */
-.nav-pg-card, .nav-si-card{
+/* Card · 168px tall, overflow-hidden so the peek can slide up. Head row
+   occupies the top ~70px; the peek (96px) overlays the bottom on hover. */
+.nav-pg-card{
   display: block;
   position: relative;
   min-height: 168px;
@@ -416,12 +411,11 @@ html[data-theme="dark"] .nav-si-menu{
   transition: background 0.16s cubic-bezier(.22,1,.36,1),
               padding-left 0.18s cubic-bezier(.22,1,.36,1);
 }
-html[data-theme="dark"] .nav-pg-card,
-html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
-.nav-pg-card:last-child, .nav-si-card:last-child{ border-bottom: 0; }
+html[data-theme="dark"] .nav-pg-card{ border-bottom-color: #2a2a30; }
+.nav-pg-card:last-child{ border-bottom: 0; }
 
 /* Header zone · 32-mark + body + trailing arrow row */
-.nav-pg-card-head, .nav-si-card-head{
+.nav-pg-card-head{
   display: grid;
   grid-template-columns: 32px 1fr auto;
   gap: 14px;
@@ -429,17 +423,17 @@ html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
 }
 
 /* Brand mark · 32×32 square holding the inline SVG <use> */
-.nav-pg-mark, .nav-si-mark{
+.nav-pg-mark{
   width: 32px; height: 32px;
   display: inline-flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   transition: transform 0.20s cubic-bezier(.22,1,.36,1);
 }
-.nav-pg-mark svg, .nav-si-mark svg{ width: 100%; height: 100%; display: block; }
+.nav-pg-mark svg{ width: 100%; height: 100%; display: block; }
 
 /* Body · name + mono description stacked */
-.nav-pg-body, .nav-si-body{ display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.nav-pg-name, .nav-si-name{
+.nav-pg-body{ display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nav-pg-name{
   font-family: var(--font);
   font-size: 14px; font-weight: 600;
   letter-spacing: -.01em;
@@ -447,7 +441,7 @@ html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
   line-height: 1.2;
   transition: color 0.16s cubic-bezier(.22,1,.36,1);
 }
-.nav-pg-desc, .nav-si-desc{
+.nav-pg-desc{
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: .04em;
@@ -456,7 +450,7 @@ html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
 }
 
 /* Trailing arrow · slides right + colour-shifts on hover */
-.nav-pg-arrow, .nav-si-arrow{
+.nav-pg-arrow{
   font-family: var(--mono);
   font-size: 14px;
   color: var(--ink-4);
@@ -465,7 +459,7 @@ html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
 }
 
 /* Brand accent rail · 3px vertical bar on the left edge */
-.nav-pg-card::before, .nav-si-card::before{
+.nav-pg-card::before{
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
@@ -476,14 +470,13 @@ html[data-theme="dark"] .nav-si-card{ border-bottom-color: #2a2a30; }
   transition: transform 0.22s cubic-bezier(.22,1,.36,1);
   z-index: 3;
 }
-.nav-pg-card--night::before, .nav-si-card--night::before{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night::before,
-html[data-theme="dark"] .nav-si-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
-.nav-pg-card--day::before, .nav-si-card--day::before{ background: var(--zop-orange); }
+.nav-pg-card--night::before{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--day::before{ background: var(--zop-orange); }
 
 /* Peek slot · absolute bottom panel, sits 70% offscreen by default and
    slides up to 0 on card hover. Contains the tiny dashboard mock. */
-.nav-pg-peek, .nav-si-peek{
+.nav-pg-peek{
   position: absolute;
   left: 16px; right: 16px; bottom: 0;
   height: 96px;
@@ -498,19 +491,17 @@ html[data-theme="dark"] .nav-si-card--night::before{ background: var(--logo-blue
   pointer-events: none;
   z-index: 1;
 }
-html[data-theme="dark"] .nav-pg-peek,
-html[data-theme="dark"] .nav-si-peek{
+html[data-theme="dark"] .nav-pg-peek{
   background: #1B1B22;
   border-color: #2a2a30;
 }
-.nav-pg-card:hover .nav-pg-peek,
-.nav-si-card:hover .nav-si-peek{
+.nav-pg-card:hover .nav-pg-peek{
   transform: translateY(0);
   opacity: 1;
 }
 
-/* Peek mockup primitives · used inside .nav-pg-peek + .nav-si-peek */
-.nav-pg-peek-top, .nav-si-peek-top{
+/* Peek mockup primitives · used inside .nav-pg-peek */
+.nav-pg-peek-top{
   display: flex; align-items: center; gap: 6px;
   padding: 6px 8px;
   border-bottom: 1px solid var(--line);
@@ -521,117 +512,92 @@ html[data-theme="dark"] .nav-si-peek{
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-html[data-theme="dark"] .nav-pg-peek-top,
-html[data-theme="dark"] .nav-si-peek-top{
+html[data-theme="dark"] .nav-pg-peek-top{
   background: #15151B; border-bottom-color: #2a2a30;
 }
-.nav-pg-peek-dot, .nav-si-peek-dot{
+.nav-pg-peek-dot{
   width: 6px; height: 6px;
   background: var(--zop-orange);
   display: inline-block;
 }
-.nav-pg-card--night .nav-pg-peek-dot,
-.nav-si-card--night .nav-si-peek-dot{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-dot,
-html[data-theme="dark"] .nav-si-card--night .nav-si-peek-dot{ background: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--night .nav-pg-peek-dot{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-dot{ background: var(--logo-blue-on-dark, #4A66D4); }
 
-.nav-pg-peek-body, .nav-si-peek-body{
+.nav-pg-peek-body{
   padding: 7px 8px 0 8px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
 }
-.nav-pg-peek-tile, .nav-si-peek-tile{
+.nav-pg-peek-tile{
   border: 1px solid var(--line);
   background: var(--paper);
   padding: 5px 6px;
   display: flex; flex-direction: column; gap: 2px;
   min-height: 38px;
 }
-html[data-theme="dark"] .nav-pg-peek-tile,
-html[data-theme="dark"] .nav-si-peek-tile{ background: #15151B; border-color: #2a2a30; }
-.nav-pg-peek-label, .nav-si-peek-label{
+html[data-theme="dark"] .nav-pg-peek-tile{ background: #15151B; border-color: #2a2a30; }
+.nav-pg-peek-label{
   font-family: var(--mono); font-size: 8px;
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--ink-4);
 }
-.nav-pg-peek-val, .nav-si-peek-val{
+.nav-pg-peek-val{
   font-family: var(--font); font-size: 11px; font-weight: 600;
   color: var(--ink); line-height: 1;
 }
-.nav-pg-peek-val--accent, .nav-si-peek-val--accent{ color: var(--zop-orange); }
-.nav-pg-card--night .nav-pg-peek-val--accent,
-.nav-si-card--night .nav-si-peek-val--accent{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-val--accent,
-html[data-theme="dark"] .nav-si-card--night .nav-si-peek-val--accent{ color: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-peek-val--accent{ color: var(--zop-orange); }
+.nav-pg-card--night .nav-pg-peek-val--accent{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night .nav-pg-peek-val--accent{ color: var(--logo-blue-on-dark, #4A66D4); }
 
 /* Card hover · backgrounds, rail, mark scale, arrow translate, name colour */
-.nav-pg-card:hover, .nav-si-card:hover{
+.nav-pg-card:hover{
   background: rgba(245,133,73,.05);
   padding-left: 20px;
 }
-html[data-theme="dark"] .nav-pg-card:hover,
-html[data-theme="dark"] .nav-si-card:hover{ background: rgba(245,133,73,.08); }
-.nav-pg-card:hover::before, .nav-si-card:hover::before{
+html[data-theme="dark"] .nav-pg-card:hover{ background: rgba(245,133,73,.08); }
+.nav-pg-card:hover::before{
   transform: scaleY(1);
   transform-origin: top center;
 }
-.nav-pg-card:hover .nav-pg-mark, .nav-si-card:hover .nav-si-mark{ transform: scale(1.08); }
-.nav-pg-card:hover .nav-pg-arrow, .nav-si-card:hover .nav-si-arrow{
+.nav-pg-card:hover .nav-pg-mark{ transform: scale(1.08); }
+.nav-pg-card:hover .nav-pg-arrow{
   transform: translateX(4px);
   color: var(--zop-orange);
 }
-.nav-pg-card--day:hover .nav-pg-name,
-.nav-si-card--day:hover .nav-si-name{ color: var(--zop-orange); }
+.nav-pg-card--day:hover .nav-pg-name{ color: var(--zop-orange); }
 
 /* ZopNight card · blue accent on hover instead of orange */
-.nav-pg-card--night:hover, .nav-si-card--night:hover{
-  background: rgba(42,68,148,.05);
-}
-html[data-theme="dark"] .nav-pg-card--night:hover,
-html[data-theme="dark"] .nav-si-card--night:hover{ background: rgba(74,102,212,.10); }
-.nav-pg-card--night:hover .nav-pg-name,
-.nav-si-card--night:hover .nav-si-name{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-name,
-html[data-theme="dark"] .nav-si-card--night:hover .nav-si-name{ color: var(--logo-blue-on-dark, #4A66D4); }
-.nav-pg-card--night:hover .nav-pg-arrow,
-.nav-si-card--night:hover .nav-si-arrow{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-arrow,
-html[data-theme="dark"] .nav-si-card--night:hover .nav-si-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--night:hover{ background: rgba(42,68,148,.05); }
+html[data-theme="dark"] .nav-pg-card--night:hover{ background: rgba(74,102,212,.10); }
+.nav-pg-card--night:hover .nav-pg-name{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-name{ color: var(--logo-blue-on-dark, #4A66D4); }
+.nav-pg-card--night:hover .nav-pg-arrow{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .nav-pg-card--night:hover .nav-pg-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
 
 /* Focus-visible · keyboard a11y · matches sitewide pattern */
-.nav-pg-card:focus-visible, .nav-si-card:focus-visible{
+.nav-pg-card:focus-visible{
   outline: 2px solid var(--zop-orange);
   outline-offset: -2px;
 }
 
-/* Mobile · hide the dropdown menu (mobile drawer handles these separately) */
+/* Mobile · hide the dropdown menu (mobile drawer handles Playground separately) */
 @media (max-width: 760px){
   .nav-pg-wrap:hover .nav-pg-menu,
-  .nav-pg-wrap:focus-within .nav-pg-menu,
-  .nav-si-wrap:hover .nav-si-menu,
-  .nav-si-wrap:focus-within .nav-si-menu{
-    display: none;
-  }
-  .nav-pg-caret, .nav-si-caret{ display: none; }
+  .nav-pg-wrap:focus-within .nav-pg-menu{ display: none; }
+  .nav-pg-caret{ display: none; }
 }
 
 /* Reduced motion · drop translates + transforms, keep colour/visibility.
    Peek snaps into view instantly instead of sliding. */
 @media (prefers-reduced-motion: reduce){
-  .nav-pg-menu, .nav-si-menu,
-  .nav-pg-card, .nav-si-card,
-  .nav-pg-card::before, .nav-si-card::before,
-  .nav-pg-mark, .nav-si-mark,
-  .nav-pg-arrow, .nav-si-arrow,
-  .nav-pg-caret, .nav-si-caret,
-  .nav-pg-peek, .nav-si-peek{
+  .nav-pg-menu, .nav-pg-card, .nav-pg-card::before,
+  .nav-pg-mark, .nav-pg-arrow, .nav-pg-caret, .nav-pg-peek{
     transition: none !important;
   }
-  .nav-pg-card:hover, .nav-si-card:hover{ padding-left: 16px; }
-  .nav-pg-card:hover::before, .nav-si-card:hover::before{ transform: scaleY(1) !important; }
-  .nav-pg-card:hover .nav-pg-peek,
-  .nav-si-card:hover .nav-si-peek{ transform: translateY(0) !important; opacity: 1 !important; }
+  .nav-pg-card:hover{ padding-left: 16px; }
+  .nav-pg-card:hover::before{ transform: scaleY(1) !important; }
+  .nav-pg-card:hover .nav-pg-peek{ transform: translateY(0) !important; opacity: 1 !important; }
 }
 
 /* Variants dropdown · 36px pill, square corners */
