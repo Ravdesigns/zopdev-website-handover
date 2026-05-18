@@ -1017,163 +1017,95 @@ html[data-theme="dark"] .magic-form input[type="email"],
 html[data-theme="dark"] .trust-quote{ background:#0F0F12; color:var(--ink); }
 html[data-theme="dark"] .magic-form .magic-submit{ background:var(--ink); color:#0F0F12; border-color:var(--ink); }
 
-/* ── Hybrid signin · product chooser + themed form ─────────────────────
-   When the URL has no #zopnight / #zopday hash the chooser shows above
-   the grid and the form column drops the product-specific h1/eyebrow.
-   When a product is picked (URL hash or chooser card click) the chooser
-   collapses and the form column accents recolour to that brand. */
+/* ── Signin product toggle ────────────────────────────────────────────
+   A sun/moon segmented toggle sits at the top of the form column.
+   One click flips the form theme (eyebrow accent, h1 copy, sub copy).
+   No page shift, no two-step. The sliding thumb fills the active half
+   with the brand colour (blue for ZopNight, orange for ZopDay) and the
+   matching icon recolours white. The previous URL hash + localStorage
+   stay in sync so deep links and return visits keep their pick. */
 
-/* Product chooser · two big cards, ZopNight + ZopDay */
-.signin-chooser{
-  margin-bottom: 28px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-}
-.signin-chooser-head{
-  padding: 28px 32px 18px;
-  border-bottom: 1px solid var(--line);
-}
-.signin-chooser-eyebrow{
-  font-family: var(--mono); font-size: 11px; font-weight: 600;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--zop-orange);
-  display: inline-flex; align-items: center; gap: 8px;
-  margin: 0 0 12px;
-}
-.signin-chooser-eyebrow::before{
-  content: ''; width: 10px; height: 10px; background: var(--zop-orange);
-}
-.signin-chooser-head h2{
-  font-family: var(--font);
-  font-size: clamp(24px, 2.4vw, 30px); font-weight: 700;
-  letter-spacing: -.025em; line-height: 1.15; margin: 0 0 6px;
-  color: var(--ink);
-}
-.signin-chooser-head p{
-  font-size: 14px; color: var(--g-600); margin: 0;
-  max-width: 60ch; line-height: 1.55;
-}
-.signin-chooser-cards{
-  display: grid; gap: 0;
-  grid-template-columns: 1fr 1fr;
-}
-.signin-chooser-card{
-  display: block; text-decoration: none; color: var(--ink);
-  padding: 26px 28px 24px;
+.signin-product-toggle{
   position: relative;
-  border-right: 1px solid var(--line);
-  cursor: pointer;
-  transition: background .18s cubic-bezier(.22,1,.36,1),
-              padding-left .18s cubic-bezier(.22,1,.36,1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  padding: 4px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  margin: 0 0 26px;
+  isolation: isolate;
 }
-.signin-chooser-card:last-child{ border-right: 0; }
-.signin-chooser-card::before{
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 4px; background: var(--zop-orange);
-  transform: scaleY(0); transform-origin: bottom center;
-  transition: transform .24s cubic-bezier(.22,1,.36,1);
+html[data-theme="dark"] .signin-product-toggle{ background: #15151B; border-color: #2a2a30; }
+
+/* Sliding thumb · positioned absolutely behind the two buttons. Snaps
+   between the two halves on toggle. Colour switches to the active
+   product brand. */
+.signin-product-toggle::before{
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: var(--zop-blue, #2A4494);
+  z-index: 0;
+  transition: transform .32s cubic-bezier(.22,1,.36,1),
+              background-color .22s cubic-bezier(.22,1,.36,1);
 }
-.signin-chooser-card--night::before{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .signin-chooser-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
-.signin-chooser-card--day::before{ background: var(--zop-orange); }
-.signin-chooser-card:hover{ background: rgba(245,133,73,.05); padding-left: 32px; }
-.signin-chooser-card--night:hover{ background: rgba(42,68,148,.05); }
-html[data-theme="dark"] .signin-chooser-card--night:hover{ background: rgba(74,102,212,.10); }
-.signin-chooser-card:hover::before{ transform: scaleY(1); transform-origin: top center; }
-.signin-chooser-mark{
-  width: 44px; height: 44px;
+html[data-theme="dark"] .signin-product-toggle::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.signin-wrap[data-signin-product="zopday"] .signin-product-toggle::before{
+  transform: translateX(100%);
+  background: var(--zop-orange);
+}
+
+/* Each option · transparent button on top of the thumb. Active option
+   gets paper-coloured text + icon; inactive stays muted ink. */
+.signin-product-toggle-opt{
+  position: relative; z-index: 1;
   display: inline-flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
-  transition: transform .22s cubic-bezier(.22,1,.36,1);
+  gap: 10px;
+  padding: 14px 18px;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  letter-spacing: -.005em;
+  color: var(--ink-3);
+  transition: color .22s cubic-bezier(.22,1,.36,1);
 }
-.signin-chooser-card:hover .signin-chooser-mark{ transform: scale(1.06); }
-.signin-chooser-mark svg{ width: 100%; height: 100%; display: block; }
-.signin-chooser-name{
-  font-family: var(--font); font-size: 19px; font-weight: 700;
-  letter-spacing: -.015em; line-height: 1.2;
-  color: var(--ink); margin: 0 0 6px;
-  transition: color .16s cubic-bezier(.22,1,.36,1);
+.signin-product-toggle-opt:focus-visible{
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
 }
-.signin-chooser-card--day:hover .signin-chooser-name{ color: var(--zop-orange); }
-.signin-chooser-card--night:hover .signin-chooser-name{ color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .signin-chooser-card--night:hover .signin-chooser-name{ color: var(--logo-blue-on-dark, #4A66D4); }
-.signin-chooser-desc{
-  font-size: 13px; line-height: 1.55; color: var(--g-600);
-  margin: 0 0 14px; max-width: 32ch;
+.signin-product-toggle-opt .signin-toggle-icon{
+  width: 18px; height: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: transform .32s cubic-bezier(.22,1,.36,1),
+              color .22s cubic-bezier(.22,1,.36,1);
 }
-.signin-chooser-rail{
-  display: flex; gap: 14px; flex-wrap: wrap;
-  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  color: var(--ink-3); margin: 0 0 16px;
+.signin-product-toggle-opt .signin-toggle-icon svg{
+  width: 100%; height: 100%; display: block;
 }
-.signin-chooser-rail span{ display: inline-flex; align-items: center; gap: 6px; }
-.signin-chooser-rail span::before{
-  content: ''; width: 6px; height: 6px; background: var(--zop-orange);
+/* Active state recolours the matching half */
+.signin-wrap[data-signin-product="zopnight"] .signin-product-toggle-opt[data-product="zopnight"],
+.signin-wrap[data-signin-product="zopday"]   .signin-product-toggle-opt[data-product="zopday"]{
+  color: #F0EBDB;
 }
-.signin-chooser-card--night .signin-chooser-rail span::before{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .signin-chooser-card--night .signin-chooser-rail span::before{ background: var(--logo-blue-on-dark, #4A66D4); }
-.signin-chooser-cta{
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font); font-size: 13px; font-weight: 600;
-  color: var(--ink);
-  padding-bottom: 2px;
-  border-bottom: 1px solid var(--ink);
-  transition: color .16s ease, border-color .16s ease, transform .16s ease;
-}
-.signin-chooser-card:hover .signin-chooser-cta{ transform: translateX(3px); }
-.signin-chooser-card--day:hover .signin-chooser-cta{ color: var(--zop-orange); border-bottom-color: var(--zop-orange); }
-.signin-chooser-card--night:hover .signin-chooser-cta{ color: var(--zop-blue, #2A4494); border-bottom-color: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .signin-chooser-card--night:hover .signin-chooser-cta{ color: var(--logo-blue-on-dark, #4A66D4); border-bottom-color: var(--logo-blue-on-dark, #4A66D4); }
+/* Subtle icon flair · rotate the inactive icon a touch so the active
+   side feels more "lit up" */
+.signin-wrap[data-signin-product="zopday"]   .signin-product-toggle-opt[data-product="zopnight"] .signin-toggle-icon{ transform: rotate(-12deg); opacity: .65; }
+.signin-wrap[data-signin-product="zopnight"] .signin-product-toggle-opt[data-product="zopday"]   .signin-toggle-icon{ transform: rotate(12deg);  opacity: .65; }
 
-/* Two-step state machine:
-   · No product picked → show chooser, HIDE the form grid entirely
-   · Product picked    → hide chooser, show the form grid
-   The chooser and the form never share the screen. Picking a product
-   is a discrete first step; the "← Switch product" link in the form
-   column rewinds to the chooser. */
-.signin-wrap[data-signin-product="zopnight"] .signin-chooser,
-.signin-wrap[data-signin-product="zopday"] .signin-chooser{ display: none; }
-.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]) .signin-grid{
-  display: none;
-}
-
-/* Chooser-only canvas · narrower frame + vertical breathing so the two
-   cards read as a focused first step, not a marketing block. */
-.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]){
-  max-width: 720px;
-}
-.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]) .signin-chooser{
-  margin-bottom: 0;
-}
-
-/* Form-column accent retheme · ZopNight = blue, ZopDay = orange (default) */
+/* Form-column accent retheme · ZopNight = blue, ZopDay = orange (default).
+   Eyebrow + ::before chip swap colour. */
 .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow{ color: var(--zop-blue, #2A4494); }
 .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow::before{ background: var(--zop-blue, #2A4494); }
 html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow{ color: var(--logo-blue-on-dark, #4A66D4); }
 html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow::before{ background: var(--logo-blue-on-dark, #4A66D4); }
 
-/* "Switch product" tiny link shown above h1 once a product is selected */
-.signin-switch{
-  display: none;
-  font-family: var(--mono); font-size: 11px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--g-600);
-  background: none; border: 0; padding: 0; cursor: pointer;
-  margin: 0 0 14px;
-  transition: color .16s ease;
-}
-.signin-switch:hover{ color: var(--zop-orange); }
-.signin-switch::before{ content: '← '; opacity: .6; }
-.signin-wrap[data-signin-product="zopnight"] .signin-switch,
-.signin-wrap[data-signin-product="zopday"] .signin-switch{ display: inline-block; }
-
-/* Chooser responsive · stack the 2 cards on narrow viewports */
+/* Mobile · keep the toggle compact, drop the eyebrow margin since the
+   toggle already provides visual padding above the h1. */
 @media (max-width: 780px){
-  .signin-chooser-head{ padding: 22px 22px 14px; }
-  .signin-chooser-cards{ grid-template-columns: 1fr; }
-  .signin-chooser-card{ border-right: 0; border-bottom: 1px solid var(--line); padding: 22px; }
-  .signin-chooser-card:last-child{ border-bottom: 0; }
+  .signin-product-toggle{ margin-bottom: 22px; }
+  .signin-product-toggle-opt{ padding: 12px 14px; font-size: 13px; gap: 8px; }
 }
 </style>
 
@@ -1181,47 +1113,48 @@ html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eye
 
   <div class="crumb"><a href="index.html">home</a> <span class="sep">/</span> sign in</div>
 
-  <div class="signin-wrap" data-signin-product="">
-
-    <!-- Product chooser · shown when URL has no #zopnight / #zopday hash.
-         JS toggles .signin-wrap[data-signin-product] to hide it when one
-         of the products is picked (URL hash OR card click). -->
-    <section class="signin-chooser" aria-label="Choose a product to sign in to">
-      <div class="signin-chooser-head">
-        <p class="signin-chooser-eyebrow">welcome back</p>
-        <h2>Which workspace are you signing in to?</h2>
-        <p>ZopDev runs two products on separate sign-in surfaces. Pick the one you use &mdash; you can switch from inside the workspace.</p>
-      </div>
-      <div class="signin-chooser-cards">
-        <a class="signin-chooser-card signin-chooser-card--night" href="#zopnight" data-signin-pick="zopnight">
-          <span class="signin-chooser-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopnight"/></svg>
-          </span>
-          <h3 class="signin-chooser-name">Sign in to ZopNight</h3>
-          <p class="signin-chooser-desc">Cloud cost &middot; FinOps console. Idle, schedules, anomalies across AWS, GCP, Azure.</p>
-          <p class="signin-chooser-rail"><span>Cost</span><span>FinOps</span><span>Multi-cloud</span></p>
-          <span class="signin-chooser-cta">Continue <span aria-hidden="true">&rarr;</span></span>
-        </a>
-        <a class="signin-chooser-card signin-chooser-card--day" href="#zopday" data-signin-pick="zopday">
-          <span class="signin-chooser-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopday"/></svg>
-          </span>
-          <h3 class="signin-chooser-name">Sign in to ZopDay</h3>
-          <p class="signin-chooser-desc">Deploy &middot; Internal developer platform. Apps, environments, datastores, push.</p>
-          <p class="signin-chooser-rail"><span>Deploy</span><span>IDP</span><span>Workflows</span></p>
-          <span class="signin-chooser-cta">Continue <span aria-hidden="true">&rarr;</span></span>
-        </a>
-      </div>
-    </section>
+  <div class="signin-wrap" data-signin-product="zopnight">
 
     <div class="signin-grid">
 
       <!-- LEFT · the form -->
       <div class="signin-form-col">
-        <button type="button" class="signin-switch" data-signin-switch>Switch product</button>
+
+        <!-- Product toggle · always visible · one click flips the form
+             theme. Sun = ZopDay, Moon = ZopNight. JS sets the
+             data-signin-product attr on .signin-wrap and persists the
+             pick in localStorage. URL hash also stays in sync. -->
+        <div class="signin-product-toggle" role="tablist" aria-label="Choose product to sign in to">
+          <button type="button"
+                  class="signin-product-toggle-opt"
+                  data-product="zopnight"
+                  role="tab"
+                  aria-selected="true">
+            <span class="signin-toggle-icon" aria-hidden="true">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 10.2A6 6 0 1 1 7.8 3.5a4.5 4.5 0 0 0 6.7 6.7Z"/>
+              </svg>
+            </span>
+            ZopNight
+          </button>
+          <button type="button"
+                  class="signin-product-toggle-opt"
+                  data-product="zopday"
+                  role="tab"
+                  aria-selected="false">
+            <span class="signin-toggle-icon" aria-hidden="true">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="9" r="3.2"/>
+                <path d="M9 1.5v1.7M9 14.8v1.7M1.5 9h1.7M14.8 9h1.7M3.6 3.6l1.2 1.2M13.2 13.2l1.2 1.2M3.6 14.4l1.2-1.2M13.2 4.8l1.2-1.2"/>
+              </svg>
+            </span>
+            ZopDay
+          </button>
+        </div>
+
         <span class="signin-eyebrow" data-signin-eyebrow>welcome back</span>
-        <h1 data-signin-h1>Sign in to ZopDev.</h1>
-        <p class="sub" data-signin-sub>Continue with your work account, or send a magic link to your inbox. No passwords on this site.</p>
+        <h1 data-signin-h1>Sign in to ZopNight.</h1>
+        <p class="sub" data-signin-sub>Continue to your cost &amp; FinOps console. Magic link or SSO &mdash; no passwords on this site.</p>
 
         <!-- SSO -->
         <div class="sso-buttons">
@@ -1410,64 +1343,73 @@ html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eye
 </main>
 
 <script>
-  // Hybrid signin · hash-driven product selection.
-  // Reads location.hash on load (and on hashchange). If it matches one
-  // of the two supported products, hides the chooser and themes the
-  // form column to that product. Chooser cards + the "Switch product"
-  // link drive state via history.replaceState so the URL stays canonical.
+  // Signin product toggle · one-click sun/moon segmented control.
+  // Single source of truth: the data-signin-product attribute on
+  // .signin-wrap. Initial value resolves in priority order:
+  //   1. URL hash (#zopnight / #zopday) — deep-link wins
+  //   2. localStorage — remembers last pick
+  //   3. 'zopnight'  — default
+  // Every toggle click updates the attr, the toggle's aria-selected
+  // pair, the h1, the sub, persists to localStorage, and rewrites the
+  // hash via history.replaceState (no scroll jump).
   (function(){
     var wrap = document.querySelector('.signin-wrap');
     if(!wrap) return;
     var PRODUCTS = {
-      zopnight: { name: 'ZopNight', desc: 'Continue to your cost &amp; FinOps console. Magic link or SSO &mdash; no passwords on this site.' },
-      zopday:   { name: 'ZopDay',   desc: 'Continue to your deploy console &amp; internal developer platform. Magic link or SSO &mdash; no passwords on this site.' }
+      zopnight: {
+        name: 'ZopNight',
+        desc: 'Continue to your cost &amp; FinOps console. Magic link or SSO &mdash; no passwords on this site.'
+      },
+      zopday: {
+        name: 'ZopDay',
+        desc: 'Continue to your deploy console &amp; internal developer platform. Magic link or SSO &mdash; no passwords on this site.'
+      }
     };
-    var h1     = wrap.querySelector('[data-signin-h1]');
-    var sub    = wrap.querySelector('[data-signin-sub]');
-    var defaults = { h1: h1 ? h1.innerHTML : '', sub: sub ? sub.innerHTML : '' };
+    var STORAGE_KEY = 'zop-signin-product';
+    var h1   = wrap.querySelector('[data-signin-h1]');
+    var sub  = wrap.querySelector('[data-signin-sub]');
+    var opts = wrap.querySelectorAll('.signin-product-toggle-opt');
 
-    function apply(product){
-      if(product && PRODUCTS[product]){
-        wrap.setAttribute('data-signin-product', product);
-        if(h1)  h1.innerHTML  = 'Sign in to ' + PRODUCTS[product].name + '.';
-        if(sub) sub.innerHTML = PRODUCTS[product].desc;
-      } else {
-        wrap.setAttribute('data-signin-product', '');
-        if(h1)  h1.innerHTML  = defaults.h1;
-        if(sub) sub.innerHTML = defaults.sub;
+    function apply(product, persistHash){
+      if(!PRODUCTS[product]) product = 'zopnight';
+      wrap.setAttribute('data-signin-product', product);
+      if(h1)  h1.innerHTML  = 'Sign in to ' + PRODUCTS[product].name + '.';
+      if(sub) sub.innerHTML = PRODUCTS[product].desc;
+      opts.forEach(function(b){
+        b.setAttribute('aria-selected', b.getAttribute('data-product') === product ? 'true' : 'false');
+      });
+      try { localStorage.setItem(STORAGE_KEY, product); } catch(e){}
+      if(persistHash){
+        history.replaceState(null, '', '#' + product);
       }
     }
-    function fromHash(){
-      var h = (location.hash || '').replace('#','').toLowerCase();
-      apply(PRODUCTS[h] ? h : '');
-    }
-    fromHash();
-    window.addEventListener('hashchange', fromHash);
 
-    // Chooser card clicks · set hash without scroll jump
-    wrap.querySelectorAll('[data-signin-pick]').forEach(function(a){
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        var pick = a.getAttribute('data-signin-pick');
-        history.replaceState(null, '', '#' + pick);
-        apply(pick);
-        // Scroll the form into view smoothly on small screens
-        var form = document.getElementById('magic-form');
-        if(form && window.matchMedia('(max-width: 780px)').matches){
-          form.scrollIntoView({ behavior:'smooth', block:'start' });
-        }
-      });
+    function resolveInitial(){
+      var h = (location.hash || '').replace('#','').toLowerCase();
+      if(PRODUCTS[h]) return h;
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if(PRODUCTS[saved]) return saved;
+      } catch(e){}
+      return 'zopnight';
+    }
+
+    apply(resolveInitial(), false);
+
+    // Sync to external hash changes (back/forward nav, cross-page links)
+    window.addEventListener('hashchange', function(){
+      var h = (location.hash || '').replace('#','').toLowerCase();
+      if(PRODUCTS[h]) apply(h, false);
     });
 
-    // "Switch product" link · clear hash + show chooser
-    var sw = wrap.querySelector('[data-signin-switch]');
-    if(sw){
-      sw.addEventListener('click', function(){
-        history.replaceState(null, '', location.pathname + location.search);
-        apply('');
-        wrap.scrollIntoView({ behavior:'smooth', block:'start' });
+    // Toggle clicks · one tap flips the form theme
+    opts.forEach(function(b){
+      b.addEventListener('click', function(){
+        var pick = b.getAttribute('data-product');
+        if(!PRODUCTS[pick]) return;
+        apply(pick, true);
       });
-    }
+    });
   })();
 
   // Magic-link button: shows a "sent" state for the demo.
