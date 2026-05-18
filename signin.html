@@ -1126,9 +1126,26 @@ html[data-theme="dark"] .signin-chooser-card--night .signin-chooser-rail span::b
 .signin-chooser-card--night:hover .signin-chooser-cta{ color: var(--zop-blue, #2A4494); border-bottom-color: var(--zop-blue, #2A4494); }
 html[data-theme="dark"] .signin-chooser-card--night:hover .signin-chooser-cta{ color: var(--logo-blue-on-dark, #4A66D4); border-bottom-color: var(--logo-blue-on-dark, #4A66D4); }
 
-/* When a product is selected, hide the chooser and slim padding above the grid */
+/* Two-step state machine:
+   · No product picked → show chooser, HIDE the form grid entirely
+   · Product picked    → hide chooser, show the form grid
+   The chooser and the form never share the screen. Picking a product
+   is a discrete first step; the "← Switch product" link in the form
+   column rewinds to the chooser. */
 .signin-wrap[data-signin-product="zopnight"] .signin-chooser,
 .signin-wrap[data-signin-product="zopday"] .signin-chooser{ display: none; }
+.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]) .signin-grid{
+  display: none;
+}
+
+/* Chooser-only canvas · narrower frame + vertical breathing so the two
+   cards read as a focused first step, not a marketing block. */
+.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]){
+  max-width: 720px;
+}
+.signin-wrap:not([data-signin-product="zopnight"]):not([data-signin-product="zopday"]) .signin-chooser{
+  margin-bottom: 0;
+}
 
 /* Form-column accent retheme · ZopNight = blue, ZopDay = orange (default) */
 .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow{ color: var(--zop-blue, #2A4494); }
