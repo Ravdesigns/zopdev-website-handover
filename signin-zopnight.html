@@ -660,7 +660,7 @@
   overflow:hidden;
   isolation:isolate;
 }
-/* Audit · simplified right column · "Just shipped" + "Coming next"
+/* Audit · simplified right column · "Just shipped" + "From the field"
    cards replace the verbose 7-row manifest. Sits on the same dark
    Unsplash backdrop. Two cards stacked vertically with generous
    breathing room. */
@@ -712,7 +712,7 @@
   border:1px solid currentColor;
 }
 .signin-feat-tag--shipped{ color:var(--zop-orange); }
-.signin-feat-tag--upcoming{ color:var(--zop-green, #7FB236); }
+.signin-feat-tag--proof{ color:var(--zop-green, #7FB236); }
 .signin-feat-date{
   font-family:var(--mono); font-size:11px;
   color:rgba(240,235,219,.55); letter-spacing:.04em;
@@ -741,7 +741,7 @@
 .signin-feat-card--shipped .signin-feat-cta:hover{
   color:var(--zop-orange); border-bottom-color:var(--zop-orange);
 }
-.signin-feat-card--upcoming .signin-feat-cta:hover{
+.signin-feat-card--proof .signin-feat-cta:hover{
   color:var(--zop-green, #7FB236); border-bottom-color:var(--zop-green, #7FB236);
 }
 .signin-trust-col-legacy{ display:none !important; }
@@ -1149,7 +1149,7 @@ html[data-theme="dark"] .magic-form .magic-submit{ background:var(--ink); color:
         </p>
       </div>
 
-      <!-- RIGHT · simplified "Just shipped" + "Coming next" cards.
+      <!-- RIGHT · simplified "Just shipped" + "From the field" cards.
            Replaces the 7-row security manifest with a single latest-
            feature card and a single upcoming-feature card. Keeps the
            dark Unsplash backdrop the manifest sat on. -->
@@ -1173,15 +1173,16 @@ html[data-theme="dark"] .magic-form .magic-submit{ background:var(--ink); color:
           <a class="signin-feat-cta" href="changelog.html">See the full changelog <span aria-hidden="true">&rarr;</span></a>
         </article>
 
-        <!-- Card 2 · Coming next (upcoming feature) -->
-        <article class="signin-feat-card signin-feat-card--upcoming">
+        <!-- Card 2 · From the field (replaced the old "Coming next"
+             card; the roadmap page is not being implemented). -->
+        <article class="signin-feat-card signin-feat-card--proof">
           <div class="signin-feat-head">
-            <span class="signin-feat-tag signin-feat-tag--upcoming">Coming next</span>
-            <span class="signin-feat-date">Late Q2 2026</span>
+            <span class="signin-feat-tag signin-feat-tag--proof">From the field</span>
+            <span class="signin-feat-date">Q1 2026</span>
           </div>
-          <h3 class="signin-feat-title">Cross-cloud cost anomaly alerts.</h3>
-          <p class="signin-feat-desc">Spot a regression across AWS, GCP, and Azure in the same hour it happens &mdash; one alert per anomaly, scoped to the team that owns the resource.</p>
-          <a class="signin-feat-cta" href="roadmap.html">Read the roadmap <span aria-hidden="true">&rarr;</span></a>
+          <h3 class="signin-feat-title">Linarc cut compute 68% in one quarter.</h3>
+          <p class="signin-feat-desc">&ldquo;First cost tool our security team approved in the same quarter we found it. Read-only by default, audit-logged from day one.&rdquo; &mdash; Marcus Webb, CISO at Linarc.</p>
+          <a class="signin-feat-cta" href="customers.html">Read the Linarc story <span aria-hidden="true">&rarr;</span></a>
         </article>
       </aside>
       <aside class="signin-trust-col-legacy" hidden>
