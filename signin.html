@@ -759,133 +759,13 @@
   display:none !important;
   background:transparent !important;
 }
-.signin-eyebrow{
-  font-family:var(--mono); font-size:11px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--zop-orange); font-weight:600;
-  display:inline-flex; align-items:center; gap:8px; margin:0 0 18px;
-}
-.signin-eyebrow::before{ content:''; width:10px; height:10px; background:var(--zop-orange); }
-.signin-form-col h1{
-  font-size:clamp(28px, 3vw, 40px); font-weight:700;
-  letter-spacing:-0.025em; line-height:1.1; margin:0 0 12px;
-  color:var(--ink);
-}
-.signin-form-col .sub{
-  color:var(--g-600); font-size:15px; line-height:1.55;
-  margin:0 0 28px; max-width:36ch;
-}
-/* SSO row */
-.sso-buttons{ display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
-.sso-btn{
-  display:flex; align-items:center; gap:12px;
-  padding:12px 18px; border:1px solid var(--line); background:var(--paper);
-  font-family:var(--font); font-size:14px; font-weight:600; color:var(--ink);
-  text-decoration:none;
-  transition:border-color var(--dur-med) var(--ease-out),
-             box-shadow var(--dur-med) var(--ease-out),
-             transform var(--dur-med) var(--ease-out);
-  cursor:pointer; width:100%;
-}
-.sso-btn:hover{
-  border-color:var(--ink); transform:translateY(-2px);
-  box-shadow:0 6px 0 -3px var(--zop-orange);
-}
-.sso-btn:active{
-  transform:translateY(0);
-  box-shadow:0 2px 0 -1px var(--zop-orange);
-}
-.sso-btn:focus-visible{
-  outline:2px solid var(--zop-orange); outline-offset:2px;
-}
-.sso-btn .sso-mark{ width:18px; height:18px; flex-shrink:0; }
-.sso-btn .sso-arr{
-  margin-left:auto; opacity:0.5; font-family:var(--mono); font-size:13px;
-  transition:transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast);
-}
-.sso-btn:hover .sso-arr{ transform:translateX(3px); opacity:1; }
-/* SAML row · tertiary visual weight · text + outline mark, no fill,
-   sits as an option for enterprise reviewers without competing
-   with the three primary SSO buttons. */
-.sso-btn--saml{
-  color:var(--g-700);
-  text-decoration:none;
-}
-.sso-btn--saml:hover{ color:var(--ink); }
-.sso-btn--saml .sso-mark{ color:var(--g-500); }
-.sso-btn--saml:hover .sso-mark{ color:var(--zop-orange); }
-
-.signin-divider{
-  display:flex; align-items:center; gap:14px;
-  margin:8px 0 22px; color:var(--g-500);
-  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-}
-.signin-divider::before, .signin-divider::after{
-  content:''; flex:1; height:1px; background:var(--line);
-}
-
-/* Magic-link form */
-.magic-form{ display:flex; flex-direction:column; gap:14px; margin-bottom:18px; }
-.magic-form label{
-  font-family:var(--mono); font-size:11px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--g-600); font-weight:600;
-}
-.magic-form input[type="email"]{
-  font-family:var(--font); font-size:15px; padding:13px 16px;
-  border:1px solid var(--line); background:var(--paper); color:var(--ink);
-  letter-spacing:-0.01em; outline:none; width:100%;
-  transition:border-color var(--dur-fast) var(--ease-out),
-             box-shadow var(--dur-fast) var(--ease-out);
-}
-.magic-form input[type="email"]:focus{
-  border-color:var(--ink);
-}
-.magic-form input[type="email"]:focus-visible{
-  border-color:var(--ink);
-  box-shadow:0 0 0 3px rgba(245,133,73,.18);
-  outline:none;
-}
-.magic-form .magic-submit{
-  font-family:var(--font); font-size:14px; font-weight:700;
-  padding:14px 20px; background:var(--ink); color:var(--paper);
-  border:1px solid var(--ink); cursor:pointer;
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  transition:transform var(--dur-med) var(--ease-out),
-             box-shadow var(--dur-med) var(--ease-out),
-             background var(--dur-med) var(--ease-out);
-}
-.magic-form .magic-submit:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 0 -4px var(--zop-orange);
-}
-.magic-form .magic-submit:active{
-  transform:translateY(0);
-  box-shadow:0 3px 0 -1px var(--zop-orange);
-}
-.magic-form .magic-submit:focus-visible{
-  outline:2px solid var(--zop-orange); outline-offset:2px;
-}
-.magic-form .magic-submit .arrow{ transition:transform var(--dur-fast) var(--ease-out); }
-.magic-form .magic-submit:hover .arrow{ transform:translateX(3px); }
-/* Success state · class-driven so the colour comes from tokens and
-   isn't pinned via inline JS styles. JS just toggles .is-sent on the
-   button after the magic-link submit. */
-.magic-form .magic-submit.is-sent,
-.magic-form .magic-submit.is-sent:hover{
-  background:var(--zop-green);
-  border-color:var(--zop-green);
-  color:var(--ink);
-  cursor:default;
-  transform:none;
-  box-shadow:none;
-}
-
-.signin-foot{
-  margin-top:auto; padding-top:24px;
-  border-top:1px solid var(--line);
-  font-size:13px; color:var(--g-600); line-height:1.55;
-}
-.signin-foot a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
-.signin-foot a:hover{ color:var(--zop-orange); }
+/* Form-related CSS removed.
+   ────────────────────────────────────────────────────────────────────
+   Auth is no longer hosted on the marketing site. Following dev
+   feedback (cross-origin POST / session cookie / per-product redirect
+   complexity), we now route to each product app's login page instead
+   of submitting a form on this domain. New CSS lives further down
+   under "Signin product router". */
 
 /* Trust column · security manifest layout
    Each row: numbered tag (mono) + icon square + body (title + desc),
@@ -1012,100 +892,160 @@
 html[data-theme="dark"] .signin-grid{ background:#0F0F12; }
 /* Trust column is always dark with the Unsplash backdrop — no
    theme-specific override needed. */
-html[data-theme="dark"] .sso-btn,
-html[data-theme="dark"] .magic-form input[type="email"],
 html[data-theme="dark"] .trust-quote{ background:#0F0F12; color:var(--ink); }
-html[data-theme="dark"] .magic-form .magic-submit{ background:var(--ink); color:#0F0F12; border-color:var(--ink); }
 
-/* ── Signin product toggle ────────────────────────────────────────────
-   A sun/moon segmented toggle sits at the top of the form column.
-   One click flips the form theme (eyebrow accent, h1 copy, sub copy).
-   No page shift, no two-step. The sliding thumb fills the active half
-   with the brand colour (blue for ZopNight, orange for ZopDay) and the
-   matching icon recolours white. The previous URL hash + localStorage
-   stay in sync so deep links and return visits keep their pick. */
+/* ── Signin product router ────────────────────────────────────────────
+   The marketing site no longer hosts the auth form. This page acts as
+   a disambiguator only: pick a product, get routed to that product's
+   own login page (separate app, separate cookies, separate flow).
 
-.signin-product-toggle{
-  position: relative;
+   Devs swap the destination URLs in one place — see the SIGNIN_URLS
+   constant inside the inline script at the bottom of this page. */
+
+.signin-router-head{
+  margin-bottom: 32px;
+}
+.signin-router-eyebrow{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--zop-orange); font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 0 0 14px;
+}
+.signin-router-eyebrow::before{
+  content: ''; width: 10px; height: 10px; background: var(--zop-orange);
+}
+.signin-router-head h1{
+  font-size: clamp(28px, 3vw, 40px); font-weight: 700;
+  letter-spacing: -.025em; line-height: 1.1; margin: 0 0 12px;
+  color: var(--ink);
+}
+.signin-router-head .sub{
+  color: var(--g-600); font-size: 15px; line-height: 1.55;
+  margin: 0; max-width: 44ch;
+}
+
+/* Cards stack · 2 cards stacked vertically. Each card is a real <a>
+   that links to its product's hosted login page. */
+.signin-router-cards{
+  display: flex; flex-direction: column; gap: 14px;
+  margin-bottom: 24px;
+}
+.signin-router-card{
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-  padding: 4px;
+  grid-template-columns: 48px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px 24px;
+  position: relative;
   background: var(--paper);
   border: 1px solid var(--line);
-  margin: 0 0 26px;
-  isolation: isolate;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .18s cubic-bezier(.22,1,.36,1),
+              border-color .18s cubic-bezier(.22,1,.36,1),
+              transform .18s cubic-bezier(.22,1,.36,1),
+              box-shadow .18s cubic-bezier(.22,1,.36,1);
 }
-html[data-theme="dark"] .signin-product-toggle{ background: #15151B; border-color: #2a2a30; }
+html[data-theme="dark"] .signin-router-card{ background: #15151B; border-color: #2a2a30; }
+.signin-router-card::before{
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--zop-orange);
+  transform: scaleY(0); transform-origin: bottom center;
+  transition: transform .24s cubic-bezier(.22,1,.36,1);
+}
+.signin-router-card--night::before{ background: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .signin-router-card--night::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.signin-router-card--day::before{ background: var(--zop-orange); }
+.signin-router-card:hover{
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 -3px var(--zop-orange);
+}
+.signin-router-card--night:hover{ box-shadow: 0 6px 0 -3px var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .signin-router-card--night:hover{ box-shadow: 0 6px 0 -3px var(--logo-blue-on-dark, #4A66D4); }
+.signin-router-card:hover::before{ transform: scaleY(1); transform-origin: top center; }
+.signin-router-card:focus-visible{
+  outline: 2px solid var(--zop-orange);
+  outline-offset: 2px;
+}
+.signin-router-card--night:focus-visible{ outline-color: var(--zop-blue, #2A4494); }
 
-/* Sliding thumb · positioned absolutely behind the two buttons. Snaps
-   between the two halves on toggle. Colour switches to the active
-   product brand. */
-.signin-product-toggle::before{
-  content: '';
-  position: absolute;
-  top: 4px; left: 4px;
-  width: calc(50% - 4px);
-  height: calc(100% - 8px);
-  background: var(--zop-blue, #2A4494);
-  z-index: 0;
-  transition: transform .32s cubic-bezier(.22,1,.36,1),
-              background-color .22s cubic-bezier(.22,1,.36,1);
-}
-html[data-theme="dark"] .signin-product-toggle::before{ background: var(--logo-blue-on-dark, #4A66D4); }
-.signin-wrap[data-signin-product="zopday"] .signin-product-toggle::before{
-  transform: translateX(100%);
-  background: var(--zop-orange);
-}
-
-/* Each option · transparent button on top of the thumb. Active option
-   gets paper-coloured text + icon; inactive stays muted ink. */
-.signin-product-toggle-opt{
-  position: relative; z-index: 1;
+/* Mark · 48×48 brand icon */
+.signin-router-mark{
+  width: 48px; height: 48px;
   display: inline-flex; align-items: center; justify-content: center;
-  gap: 10px;
-  padding: 14px 18px;
-  background: transparent; border: 0; cursor: pointer;
-  font-family: var(--font); font-size: 14px; font-weight: 600;
-  letter-spacing: -.005em;
+  flex-shrink: 0;
+  transition: transform .22s cubic-bezier(.22,1,.36,1);
+}
+.signin-router-card:hover .signin-router-mark{ transform: scale(1.06); }
+.signin-router-mark svg{ width: 100%; height: 100%; display: block; }
+
+/* Body · name (with optional "last used" pill) + desc */
+.signin-router-body{ display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.signin-router-name-row{
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.signin-router-name{
+  font-family: var(--font); font-size: 18px; font-weight: 700;
+  letter-spacing: -.015em; line-height: 1.2;
+  color: var(--ink); margin: 0;
+}
+.signin-router-card--day:hover .signin-router-name{ color: var(--zop-orange); }
+.signin-router-card--night:hover .signin-router-name{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .signin-router-card--night:hover .signin-router-name{ color: var(--logo-blue-on-dark, #4A66D4); }
+.signin-router-card .signin-router-name{ transition: color .16s cubic-bezier(.22,1,.36,1); }
+
+/* "Last used" pill · only renders when JS finds a match in localStorage */
+.signin-router-pill{
+  display: none; /* hidden by default; JS unhides on the matching card */
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink-3);
-  transition: color .22s cubic-bezier(.22,1,.36,1);
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  background: transparent;
 }
-.signin-product-toggle-opt:focus-visible{
-  outline: 2px solid var(--ink);
-  outline-offset: -4px;
-}
-.signin-product-toggle-opt .signin-toggle-icon{
-  width: 18px; height: 18px;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: transform .32s cubic-bezier(.22,1,.36,1),
-              color .22s cubic-bezier(.22,1,.36,1);
-}
-.signin-product-toggle-opt .signin-toggle-icon svg{
-  width: 100%; height: 100%; display: block;
-}
-/* Active state recolours the matching half */
-.signin-wrap[data-signin-product="zopnight"] .signin-product-toggle-opt[data-product="zopnight"],
-.signin-wrap[data-signin-product="zopday"]   .signin-product-toggle-opt[data-product="zopday"]{
-  color: #F0EBDB;
-}
-/* Subtle icon flair · rotate the inactive icon a touch so the active
-   side feels more "lit up" */
-.signin-wrap[data-signin-product="zopday"]   .signin-product-toggle-opt[data-product="zopnight"] .signin-toggle-icon{ transform: rotate(-12deg); opacity: .65; }
-.signin-wrap[data-signin-product="zopnight"] .signin-product-toggle-opt[data-product="zopday"]   .signin-toggle-icon{ transform: rotate(12deg);  opacity: .65; }
+.signin-router-pill.is-active{ display: inline-flex; }
 
-/* Form-column accent retheme · ZopNight = blue, ZopDay = orange (default).
-   Eyebrow + ::before chip swap colour. */
-.signin-wrap[data-signin-product="zopnight"] .signin-eyebrow{ color: var(--zop-blue, #2A4494); }
-.signin-wrap[data-signin-product="zopnight"] .signin-eyebrow::before{ background: var(--zop-blue, #2A4494); }
-html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow{ color: var(--logo-blue-on-dark, #4A66D4); }
-html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eyebrow::before{ background: var(--logo-blue-on-dark, #4A66D4); }
+.signin-router-desc{
+  font-family: var(--mono); font-size: 11px;
+  color: var(--ink-3); letter-spacing: .04em;
+  margin: 0; line-height: 1.4;
+}
 
-/* Mobile · keep the toggle compact, drop the eyebrow margin since the
-   toggle already provides visual padding above the h1. */
+/* Trailing arrow · ↗ for outbound link, slides on hover */
+.signin-router-arrow{
+  font-family: var(--mono); font-size: 18px;
+  color: var(--ink-4);
+  transition: transform .22s cubic-bezier(.22,1,.36,1),
+              color .18s cubic-bezier(.22,1,.36,1);
+}
+.signin-router-card:hover .signin-router-arrow{
+  transform: translate(3px, -3px);
+  color: var(--zop-orange);
+}
+.signin-router-card--night:hover .signin-router-arrow{ color: var(--zop-blue, #2A4494); }
+html[data-theme="dark"] .signin-router-card--night:hover .signin-router-arrow{ color: var(--logo-blue-on-dark, #4A66D4); }
+
+/* Foot · helper text below the cards · same shape as the old signin-foot */
+.signin-router-foot{
+  margin-top: auto; padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--g-600); line-height: 1.55;
+}
+.signin-router-foot a{ color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.signin-router-foot a:hover{ color: var(--zop-orange); }
+
+/* Mobile · tighten card padding + drop the mark to 40px */
 @media (max-width: 780px){
-  .signin-product-toggle{ margin-bottom: 22px; }
-  .signin-product-toggle-opt{ padding: 12px 14px; font-size: 13px; gap: 8px; }
+  .signin-router-card{
+    grid-template-columns: 40px 1fr auto;
+    gap: 14px;
+    padding: 18px 18px;
+  }
+  .signin-router-mark{ width: 40px; height: 40px; }
+  .signin-router-name{ font-size: 16px; }
 }
 </style>
 
@@ -1113,105 +1053,59 @@ html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eye
 
   <div class="crumb"><a href="index.html">home</a> <span class="sep">/</span> sign in</div>
 
-  <div class="signin-wrap" data-signin-product="zopnight">
+  <div class="signin-wrap">
 
     <div class="signin-grid">
 
-      <!-- LEFT · the form -->
+      <!-- LEFT · product router.
+           No auth form on the marketing site. Each card is an outbound
+           link to that product's hosted login page (separate app,
+           separate cookies, separate flow). Devs swap the destination
+           URLs at the top of the inline script. -->
       <div class="signin-form-col">
 
-        <!-- Product toggle · always visible · one click flips the form
-             theme. Sun = ZopDay, Moon = ZopNight. JS sets the
-             data-signin-product attr on .signin-wrap and persists the
-             pick in localStorage. URL hash also stays in sync. -->
-        <div class="signin-product-toggle" role="tablist" aria-label="Choose product to sign in to">
-          <button type="button"
-                  class="signin-product-toggle-opt"
-                  data-product="zopnight"
-                  role="tab"
-                  aria-selected="true">
-            <span class="signin-toggle-icon" aria-hidden="true">
-              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14.5 10.2A6 6 0 1 1 7.8 3.5a4.5 4.5 0 0 0 6.7 6.7Z"/>
-              </svg>
-            </span>
-            ZopNight
-          </button>
-          <button type="button"
-                  class="signin-product-toggle-opt"
-                  data-product="zopday"
-                  role="tab"
-                  aria-selected="false">
-            <span class="signin-toggle-icon" aria-hidden="true">
-              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="9" r="3.2"/>
-                <path d="M9 1.5v1.7M9 14.8v1.7M1.5 9h1.7M14.8 9h1.7M3.6 3.6l1.2 1.2M13.2 13.2l1.2 1.2M3.6 14.4l1.2-1.2M13.2 4.8l1.2-1.2"/>
-              </svg>
-            </span>
-            ZopDay
-          </button>
+        <div class="signin-router-head">
+          <p class="signin-router-eyebrow">welcome back</p>
+          <h1>Sign in</h1>
+          <p class="sub">Two products, two workspaces. Pick the one you use and we&rsquo;ll take you to its sign-in.</p>
         </div>
 
-        <span class="signin-eyebrow" data-signin-eyebrow>welcome back</span>
-        <h1 data-signin-h1>Sign in to ZopNight.</h1>
-        <p class="sub" data-signin-sub>Continue to your cost &amp; FinOps console. Magic link or SSO &mdash; no passwords on this site.</p>
-
-        <!-- SSO -->
-        <div class="sso-buttons">
-          <button type="button" class="sso-btn" data-provider="google">
-            <svg class="sso-mark" viewBox="0 0 18 18" aria-hidden="true">
-              <path d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z" fill="#4285F4"/>
-              <path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.83.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.92v2.33A8.99 8.99 0 0 0 9 18z" fill="#34A853"/>
-              <path d="M3.97 10.72A5.4 5.4 0 0 1 3.68 9c0-.6.1-1.18.29-1.72V4.95H.92A8.99 8.99 0 0 0 0 9c0 1.45.35 2.83.92 4.05l3.05-2.33z" fill="#FBBC05"/>
-              <path d="M9 3.58c1.32 0 2.5.45 3.44 1.34l2.58-2.58A8.97 8.97 0 0 0 9 0 8.99 8.99 0 0 0 .92 4.95L3.97 7.28C4.68 5.16 6.66 3.58 9 3.58z" fill="#EA4335"/>
-            </svg>
-            <span>Continue with Google</span>
-            <span class="sso-arr" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sso-btn" data-provider="microsoft">
-            <svg class="sso-mark" viewBox="0 0 18 18" aria-hidden="true">
-              <rect x="1" y="1" width="7.5" height="7.5" fill="#F25022"/>
-              <rect x="9.5" y="1" width="7.5" height="7.5" fill="#7FBA00"/>
-              <rect x="1" y="9.5" width="7.5" height="7.5" fill="#00A4EF"/>
-              <rect x="9.5" y="9.5" width="7.5" height="7.5" fill="#FFB900"/>
-            </svg>
-            <span>Continue with Microsoft</span>
-            <span class="sso-arr" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sso-btn" data-provider="github">
-            <svg class="sso-mark sso-mark--github" viewBox="0 0 18 18" aria-hidden="true">
-              <path fill="#181717" d="M9 .3a8.7 8.7 0 0 0-2.75 17 .45.45 0 0 0 .61-.43V15.3c-2.42.53-2.93-1.16-2.93-1.16-.4-1-.96-1.27-.96-1.27-.79-.54.06-.53.06-.53.87.06 1.33.9 1.33.9.78 1.33 2.04.95 2.54.72.08-.56.3-.95.55-1.17-1.93-.22-3.97-.97-3.97-4.3 0-.95.34-1.73.9-2.34-.09-.22-.4-1.1.08-2.3 0 0 .73-.23 2.4.89A8.4 8.4 0 0 1 9 4.34c.74 0 1.49.1 2.18.3 1.66-1.13 2.4-.9 2.4-.9.47 1.21.17 2.09.08 2.31.56.61.9 1.39.9 2.34 0 3.34-2.04 4.07-3.99 4.29.31.27.6.81.6 1.63v2.42c0 .24.16.51.62.42A8.7 8.7 0 0 0 9 .3z"/>
-            </svg>
-            <span>Continue with GitHub</span>
-            <span class="sso-arr" aria-hidden="true">→</span>
-          </button>
-          <!-- SAML / Enterprise SSO · text-only row matching the SSO
-               button cadence, lower visual weight so it sits as a tertiary
-               option rather than competing with Google/MS/GitHub. -->
-          <a class="sso-btn sso-btn--saml" href="contact.html?topic=saml-sso">
-            <svg class="sso-mark" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-              <rect x="2" y="3" width="14" height="9"/>
-              <path d="M5 12v2h8v-2"/>
-              <circle cx="9" cy="7.5" r="1.4"/>
-              <path d="M9 9 v2"/>
-            </svg>
-            <span>Use SAML SSO</span>
-            <span class="sso-arr" aria-hidden="true">→</span>
+        <div class="signin-router-cards">
+          <a class="signin-router-card signin-router-card--night"
+             href="#"
+             data-signin-route="zopnight"
+             rel="noopener">
+            <span class="signin-router-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopnight"/></svg>
+            </span>
+            <span class="signin-router-body">
+              <span class="signin-router-name-row">
+                <span class="signin-router-name">Sign in to ZopNight</span>
+                <span class="signin-router-pill" data-signin-last-pill>Last used</span>
+              </span>
+              <span class="signin-router-desc">Cloud cost &middot; FinOps console &middot; multi-cloud</span>
+            </span>
+            <span class="signin-router-arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <a class="signin-router-card signin-router-card--day"
+             href="#"
+             data-signin-route="zopday"
+             rel="noopener">
+            <span class="signin-router-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopday"/></svg>
+            </span>
+            <span class="signin-router-body">
+              <span class="signin-router-name-row">
+                <span class="signin-router-name">Sign in to ZopDay</span>
+                <span class="signin-router-pill" data-signin-last-pill>Last used</span>
+              </span>
+              <span class="signin-router-desc">Deploy &middot; Internal developer platform &middot; workflows</span>
+            </span>
+            <span class="signin-router-arrow" aria-hidden="true">&#8599;</span>
           </a>
         </div>
 
-        <div class="signin-divider">or</div>
-
-        <!-- Magic link -->
-        <form method="post" class="magic-form" id="magic-form" novalidate>
-          <label for="email">Work email</label>
-          <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required>
-          <button type="submit" class="magic-submit">
-            Send magic link <span class="arrow" aria-hidden="true">→</span>
-          </button>
-        </form>
-
-        <p class="signin-foot">
+        <p class="signin-router-foot">
           New to ZopDev? <a href="demo.html">Book a Demo</a> or
           <a href="playground.html">try the playground</a>, no account needed.
         </p>
@@ -1343,88 +1237,51 @@ html[data-theme="dark"] .signin-wrap[data-signin-product="zopnight"] .signin-eye
 </main>
 
 <script>
-  // Signin product toggle · one-click sun/moon segmented control.
-  // Single source of truth: the data-signin-product attribute on
-  // .signin-wrap. Initial value resolves in priority order:
-  //   1. URL hash (#zopnight / #zopday) — deep-link wins
-  //   2. localStorage — remembers last pick
-  //   3. 'zopnight'  — default
-  // Every toggle click updates the attr, the toggle's aria-selected
-  // pair, the h1, the sub, persists to localStorage, and rewrites the
-  // hash via history.replaceState (no scroll jump).
+  // ──────────────────────────────────────────────────────────────────
+  // Signin product router · marketing site → product app login page.
+  //
+  // The marketing site does NOT host auth UI. Each card on this page
+  // routes the user to that product's own login page where the actual
+  // SSO / magic-link flow lives. Separate apps, separate cookies,
+  // separate sessions.
+  //
+  // DEVS: swap the two URLs below when the production login endpoints
+  //       are ready. Nothing else on this page needs to change.
+  // ──────────────────────────────────────────────────────────────────
   (function(){
-    var wrap = document.querySelector('.signin-wrap');
-    if(!wrap) return;
-    var PRODUCTS = {
-      zopnight: {
-        name: 'ZopNight',
-        desc: 'Continue to your cost &amp; FinOps console. Magic link or SSO &mdash; no passwords on this site.'
-      },
-      zopday: {
-        name: 'ZopDay',
-        desc: 'Continue to your deploy console &amp; internal developer platform. Magic link or SSO &mdash; no passwords on this site.'
-      }
+    var SIGNIN_URLS = {
+      zopnight: 'https://app.zopnight.zopdev.com/login',  // TODO devs · ZopNight app login URL
+      zopday:   'https://app.zopday.zopdev.com/login'     // TODO devs · ZopDay app login URL
     };
-    var STORAGE_KEY = 'zop-signin-product';
-    var h1   = wrap.querySelector('[data-signin-h1]');
-    var sub  = wrap.querySelector('[data-signin-sub]');
-    var opts = wrap.querySelectorAll('.signin-product-toggle-opt');
+    var STORAGE_KEY = 'zop-signin-last-product';
 
-    function apply(product, persistHash){
-      if(!PRODUCTS[product]) product = 'zopnight';
-      wrap.setAttribute('data-signin-product', product);
-      if(h1)  h1.innerHTML  = 'Sign in to ' + PRODUCTS[product].name + '.';
-      if(sub) sub.innerHTML = PRODUCTS[product].desc;
-      opts.forEach(function(b){
-        b.setAttribute('aria-selected', b.getAttribute('data-product') === product ? 'true' : 'false');
-      });
-      try { localStorage.setItem(STORAGE_KEY, product); } catch(e){}
-      if(persistHash){
-        history.replaceState(null, '', '#' + product);
-      }
-    }
+    var wrap  = document.querySelector('.signin-wrap');
+    if(!wrap) return;
+    var cards = wrap.querySelectorAll('[data-signin-route]');
 
-    function resolveInitial(){
-      var h = (location.hash || '').replace('#','').toLowerCase();
-      if(PRODUCTS[h]) return h;
-      try {
-        var saved = localStorage.getItem(STORAGE_KEY);
-        if(PRODUCTS[saved]) return saved;
-      } catch(e){}
-      return 'zopnight';
-    }
-
-    apply(resolveInitial(), false);
-
-    // Sync to external hash changes (back/forward nav, cross-page links)
-    window.addEventListener('hashchange', function(){
-      var h = (location.hash || '').replace('#','').toLowerCase();
-      if(PRODUCTS[h]) apply(h, false);
-    });
-
-    // Toggle clicks · one tap flips the form theme
-    opts.forEach(function(b){
-      b.addEventListener('click', function(){
-        var pick = b.getAttribute('data-product');
-        if(!PRODUCTS[pick]) return;
-        apply(pick, true);
+    // 1. Wire up each card · clicking it persists the pick and navigates
+    //    to the matching product app login URL.
+    cards.forEach(function(card){
+      var product = card.getAttribute('data-signin-route');
+      var url     = SIGNIN_URLS[product];
+      if(!url) return;
+      // Make it a real link too (right-click → open in new tab works).
+      card.setAttribute('href', url);
+      card.addEventListener('click', function(){
+        try { localStorage.setItem(STORAGE_KEY, product); } catch(e){}
+        // Default <a> navigation handles the redirect; no preventDefault.
       });
     });
-  })();
 
-  // Magic-link button: shows a "sent" state for the demo.
-  (function(){
-    var form = document.getElementById('magic-form');
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var input = form.querySelector('input[type="email"]');
-      var btn   = form.querySelector('.magic-submit');
-      if(!input.value || !input.checkValidity()){ input.focus(); return; }
-      btn.disabled = true;
-      btn.classList.add('is-sent');
-      btn.innerHTML = '✓ Magic link sent · check ' + input.value;
-    });
+    // 2. Surface the "Last used" pill on the matching card if the user
+    //    has signed in to a product on this device before. Subtle hint,
+    //    not a forced redirect.
+    var last;
+    try { last = localStorage.getItem(STORAGE_KEY); } catch(e){}
+    if(last && SIGNIN_URLS[last]){
+      var pill = wrap.querySelector('[data-signin-route="' + last + '"] [data-signin-last-pill]');
+      if(pill) pill.classList.add('is-active');
+    }
   })();
 </script>
 
