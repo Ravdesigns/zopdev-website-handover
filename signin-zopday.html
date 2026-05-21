@@ -1026,6 +1026,12 @@ html[data-theme="dark"] .magic-form input[type="email"],
 html[data-theme="dark"] .trust-quote{ background:#0F0F12; color:var(--ink); }
 html[data-theme="dark"] .magic-form .magic-submit{ background:var(--ink); color:#0F0F12; border-color:var(--ink); }
 
+/* GitHub SSO icon · the path has a hardcoded fill="#181717" (GitHub's
+   brand black) which disappears on the #0F0F12 button background in
+   dark mode. Override to the cream ink colour for dark only — keep
+   GitHub black in light mode. */
+html[data-theme="dark"] .sso-mark--github path{ fill: var(--ink); }
+
 /* ── Per-product signin page additions ──────────────────────────────
    These pages are PROTOTYPE references showing what each product app's
    login page should look like. Devs lift this design into the product
