@@ -6737,54 +6737,116 @@ html[data-theme="dark"] .drw-outcome-check{
   70%      { transform:scaleY(.7); }
 }
 
-/* ───────────────────────── §04 EVENT READINESS · radar over verdicts ─ */
-.drw-feat-vis--readiness .drw-feat-vis-radar-stage{
-  position:relative;
-  padding:12px 0 16px;
+/* ───────────────────────── §04 EVENT READINESS · pre-flight manifest ─
+   A scope-by-scope readiness check anchored on a specific event.
+   Header carries the countdown ("T-7d · pre-scale runs in 6h 33m")
+   and the event target. The table below lists 8 scopes, each
+   surfaced sequentially with a 200ms stagger to simulate the
+   engine scoring the event scope by scope. Cycle is 6s, matching
+   the other drawer visuals; loops cleanly without an idle gap. */
+.drw-feat-vis-manifest{
+  display:flex; flex-direction:column;
+  gap:14px;
+  padding:8px 0 12px;
 }
-.drw-feat-vis-radar-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:8px;
-  position:relative;
-  z-index:2;
+
+/* Header · countdown pill + event target */
+.drw-feat-vis-manifest-head{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:10px;
+  padding:10px 14px;
+  background:rgba(245,133,73,.06);
+  border:1px solid rgba(245,133,73,.28);
+  border-left:2px solid var(--zop-orange);
 }
-.drw-feat-vis-radar-tile{
-  display:flex; align-items:center; justify-content:center;
-  height:34px;
-  background:rgba(240,235,219,.04);
+.drw-feat-vis-manifest-countdown{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  letter-spacing:.08em; color:#F0EBDB;
+}
+.drw-feat-vis-manifest-pulse{
+  display:inline-block;
+  width:8px; height:8px;
+  background:var(--zop-orange);
+  box-shadow:0 0 0 0 rgba(245,133,73,.55);
+  animation:drw-feat-vis-manifest-pulse 1.8s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes drw-feat-vis-manifest-pulse{
+  0%   { box-shadow:0 0 0 0 rgba(245,133,73,.55); }
+  70%  { box-shadow:0 0 0 7px rgba(245,133,73,0); }
+  100% { box-shadow:0 0 0 0 rgba(245,133,73,0); }
+}
+.drw-feat-vis-manifest-target{
+  font-family:var(--mono); font-size:10px;
+  letter-spacing:.08em; color:#9C9CA3;
+}
+
+/* Manifest table · 4-col grid · scope · posture · verdict · lead */
+.drw-feat-vis-manifest-table{
+  display:flex; flex-direction:column;
+  background:rgba(240,235,219,.02);
   border:1px solid #2A2A34;
-  font-family:var(--mono);
-  font-size:9.5px; letter-spacing:.12em;
-  color:#9C9CA3;
-  transition:background .35s, color .35s, border-color .35s;
-  animation:drw-feat-vis-radar-hit 6s cubic-bezier(.4,0,.6,1) infinite;
+}
+.drw-feat-vis-manifest-row{
+  display:grid;
+  grid-template-columns:1.1fr 2fr .9fr .7fr;
+  gap:12px;
+  align-items:center;
+  padding:9px 14px;
+  border-top:1px solid #2A2A34;
+  font-family:var(--mono); font-size:10.5px;
+  color:#F0EBDB;
+}
+.drw-feat-vis-manifest-row:first-child{ border-top:0; }
+.drw-feat-vis-manifest-row--head{
+  background:rgba(240,235,219,.04);
+  padding:7px 14px;
+  font-size:9px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:#7C7C84;
+}
+.drw-feat-vis-manifest-scope{
+  font-weight:600; letter-spacing:.04em; color:#F0EBDB;
+}
+.drw-feat-vis-manifest-posture{
+  color:#A8A8B0; font-weight:400;
+}
+.drw-feat-vis-manifest-lead{
+  color:#7C7C84; text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+.drw-feat-vis-manifest-verdict{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:3px 10px;
+  font-size:9.5px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  width:max-content;
+}
+.drw-feat-vis-manifest-verdict--ready{
+  color:#7FB236;
+  border:1px solid rgba(127,178,54,.5);
+  background:rgba(127,178,54,.10);
+}
+.drw-feat-vis-manifest-verdict--action{
+  color:var(--zop-orange);
+  border:1px solid rgba(245,133,73,.55);
+  background:rgba(245,133,73,.12);
+}
+
+/* Row enter animation · each row surfaces sequentially.
+   Initial state: dimmed + offset-down. At its --d offset, slides
+   up into place with the verdict appearing. Stays visible for the
+   remainder of the 6s cycle, then resets at 90% for the loop. */
+.drw-feat-vis-manifest-row:not(.drw-feat-vis-manifest-row--head){
+  opacity:0;
+  transform:translateY(4px);
+  animation:drw-feat-vis-manifest-row 6s cubic-bezier(.4,0,.6,1) infinite;
   animation-delay:var(--d, 0ms);
 }
-@keyframes drw-feat-vis-radar-hit{
-  0%, 88%, 100% { background:rgba(240,235,219,.04); border-color:#2A2A34; color:#9C9CA3; }
-  10%, 18%      { background:rgba(127,178,54,.22); border-color:#7FB236; color:#F0EBDB; }
-  22%, 30%      { background:rgba(245,133,73,.22); border-color:var(--zop-orange); color:#F0EBDB; }
-  34%, 42%      { background:rgba(74,102,212,.22); border-color:var(--logo-blue-on-dark, #4A66D4); color:#F0EBDB; }
-  46%, 80%      { background:rgba(127,178,54,.22); border-color:#7FB236; color:#F0EBDB; }
-}
-.drw-feat-vis-radar-sweep{
-  position:absolute; top:50%; left:50%;
-  width:140%; height:140%;
-  transform:translate(-50%, -50%);
-  background:conic-gradient(from 0deg,
-    rgba(245,133,73, 0) 0deg,
-    rgba(245,133,73, .25) 20deg,
-    rgba(245,133,73, 0) 60deg,
-    rgba(245,133,73, 0) 360deg
-  );
-  border-radius:50%;
-  pointer-events:none;
-  z-index:1;
-  animation:drw-feat-vis-radar-sweep 6s linear infinite;
-}
-@keyframes drw-feat-vis-radar-sweep{
-  to { transform:translate(-50%, -50%) rotate(360deg); }
+@keyframes drw-feat-vis-manifest-row{
+  0%, 5%   { opacity:0; transform:translateY(4px); }
+  12%, 90% { opacity:1; transform:translateY(0); }
+  100%     { opacity:0; transform:translateY(4px); }
 }
 
 /* ───────────────────────── §05 AUTO-REMEDIATION · 4-step pipeline ─── */
@@ -6853,22 +6915,26 @@ html[data-theme="dark"] .drw-outcome-check{
 @media (max-width:640px){
   .drw-feat-vis-remed-flow{ flex-direction:column; }
   .drw-feat-vis-remed-arrow{ transform:rotate(90deg); }
-  .drw-feat-vis-radar-grid{ grid-template-columns:repeat(2, 1fr); }
+  /* Manifest · drop the "posture" column on small screens; the
+     verdict + lead carry the meaning. */
+  .drw-feat-vis-manifest-row{ grid-template-columns:1.2fr .9fr .7fr; }
+  .drw-feat-vis-manifest-posture{ display:none; }
+  .drw-feat-vis-manifest-head{ flex-direction:column; align-items:flex-start; }
 }
 @media (prefers-reduced-motion: reduce){
   .drw-feat-vis-sched-cell,
   .drw-feat-vis-sched-cell.is-biz,
   .drw-feat-vis-tide-capacity,
   .drw-feat-vis-tide-block,
-  .drw-feat-vis-radar-tile,
-  .drw-feat-vis-radar-sweep,
+  .drw-feat-vis-manifest-row,
+  .drw-feat-vis-manifest-pulse,
   .drw-feat-vis-remed-step,
   .drw-feat-vis-remed-card{ animation:none !important; }
   .drw-feat-vis-sched-cell.is-biz{ background:rgba(245,133,73,.65); }
   .drw-feat-vis-tide-capacity{ stroke-dashoffset:0; }
   .drw-feat-vis-tide-block{ transform:scaleY(.7); }
-  .drw-feat-vis-radar-tile{ background:rgba(127,178,54,.22); border-color:#7FB236; color:#F0EBDB; }
-  .drw-feat-vis-radar-sweep{ display:none; }
+  /* Manifest · settle every row in its final state, no stagger */
+  .drw-feat-vis-manifest-row{ opacity:1 !important; transform:none !important; }
   .drw-feat-vis-remed-step{ background:rgba(245,133,73,.14); border-color:rgba(245,133,73,.5); border-left-color:var(--zop-orange); }
   .drw-feat-vis-remed-card{ left:46%; opacity:1; }
 }
@@ -11202,28 +11268,86 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
             </div>
           </div>
 
-          <!-- Animated visual · radar arc sweeps over a 3×3 verdict
-               grid. As the arc crosses each tile it flips through
-               green / amber / red verdicts. -->
+          <!-- Animated visual · event-readiness manifest.
+               A pre-flight checklist anchored on a specific event.
+               Each scope row shows its posture (what the engine
+               will do), its verdict (ready or action required),
+               and the lead time at which the action was scheduled.
+               Rows surface sequentially with a 240ms stagger to
+               simulate the engine scoring the event scope by scope.
+               The countdown header makes the temporal anchor
+               explicit — this is BEFORE the event, not a status
+               snapshot. -->
           <div class="drw-feat-vis drw-feat-vis--readiness" aria-hidden="true">
-            <div class="drw-feat-vis-eyebrow">EVENT READINESS &middot; PER-SCOPE VERDICTS</div>
-            <div class="drw-feat-vis-radar-stage">
-              <div class="drw-feat-vis-radar-grid">
-                <span class="drw-feat-vis-radar-tile" style="--d:0ms">COMPUTE</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:200ms">DATABASE</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:400ms">QUEUES</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:600ms">CACHES</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:800ms">AUTOSCALER</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:1000ms">NETWORK</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:1200ms">STORAGE</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:1400ms">SECRETS</span>
-                <span class="drw-feat-vis-radar-tile" style="--d:1600ms">CDN</span>
+            <div class="drw-feat-vis-eyebrow">EVENT READINESS &middot; BLACK FRIDAY 2026</div>
+            <div class="drw-feat-vis-manifest">
+              <div class="drw-feat-vis-manifest-head">
+                <span class="drw-feat-vis-manifest-countdown">
+                  <span class="drw-feat-vis-manifest-pulse" aria-hidden="true"></span>
+                  T&minus;7d &middot; pre-scale runs in 6h 33m
+                </span>
+                <span class="drw-feat-vis-manifest-target">prod-us &middot; 2026-11-27 09:00 UTC</span>
               </div>
-              <span class="drw-feat-vis-radar-sweep" aria-hidden="true"></span>
+              <div class="drw-feat-vis-manifest-table">
+                <div class="drw-feat-vis-manifest-row drw-feat-vis-manifest-row--head">
+                  <span>SCOPE</span>
+                  <span>POSTURE</span>
+                  <span>VERDICT</span>
+                  <span>LEAD</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:0ms">
+                  <span class="drw-feat-vis-manifest-scope">Compute</span>
+                  <span class="drw-feat-vis-manifest-posture">4.2&times; baseline scheduled</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:200ms">
+                  <span class="drw-feat-vis-manifest-scope">Database</span>
+                  <span class="drw-feat-vis-manifest-posture">pool sized for 8M connections</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:400ms">
+                  <span class="drw-feat-vis-manifest-scope">Cache</span>
+                  <span class="drw-feat-vis-manifest-posture">warm-up scheduled T&minus;2h</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;2h</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:600ms">
+                  <span class="drw-feat-vis-manifest-scope">Queues</span>
+                  <span class="drw-feat-vis-manifest-posture">drain workers &times;6</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;3d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:800ms">
+                  <span class="drw-feat-vis-manifest-scope">Autoscaler</span>
+                  <span class="drw-feat-vis-manifest-posture">floor pinned to 24</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;14d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:1000ms">
+                  <span class="drw-feat-vis-manifest-scope">Network</span>
+                  <span class="drw-feat-vis-manifest-posture">peering announced, BGP confirmed</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:1200ms">
+                  <span class="drw-feat-vis-manifest-scope">CDN</span>
+                  <span class="drw-feat-vis-manifest-posture">APAC region not in event scope</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--action">action</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;3d</span>
+                </div>
+                <div class="drw-feat-vis-manifest-row" style="--d:1400ms">
+                  <span class="drw-feat-vis-manifest-scope">Secrets</span>
+                  <span class="drw-feat-vis-manifest-posture">rotation paused during window</span>
+                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
+                  <span class="drw-feat-vis-manifest-lead">T&minus;14d</span>
+                </div>
+              </div>
             </div>
             <div class="drw-feat-vis-foot">
-              <span class="drw-feat-vis-running">Black Friday &middot; 7&ndash;14 days lead time</span>
-              <span class="drw-feat-vis-counter">Verified <strong>per-scope verdicts</strong></span>
+              <span class="drw-feat-vis-running">7 scopes ready &middot; 1 action required</span>
+              <span class="drw-feat-vis-counter">Pre-scale at <strong>T&minus;7d</strong> &middot; scale-down at <strong>T+1d</strong></span>
             </div>
           </div>
           <!-- 3-COL STRIPE-STYLE PARAGRAPH BLOCK -->
