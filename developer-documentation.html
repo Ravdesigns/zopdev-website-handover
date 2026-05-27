@@ -110,41 +110,312 @@
    Right: long-form content blocks, each anchored for deep-linking.
    Drops to single-column below 960px (TOC moves above content).
    ====================================================================== */
-.docs-layout{
-  display:grid; grid-template-columns:260px 1fr;
-  gap:var(--sp-12);
-  max-width:var(--max); margin:0 auto;
-  padding:var(--sp-10) var(--gutter) var(--sp-14);
-}
-.docs-toc{
-  position:sticky; top:84px; align-self:start;
-  font-family:var(--mono); font-size:var(--t-12);
-  max-height:calc(100vh - 100px); overflow-y:auto;
-  padding-right:var(--sp-3);
-  border-right:1px solid var(--line);
-}
-.docs-toc h4{
-  font-size:var(--t-10); color:var(--ink-4);
-  letter-spacing:var(--ls-meta); text-transform:uppercase;
-  font-weight:var(--fw-medium); margin:0 0 var(--sp-3);
-}
-.docs-toc ol{ list-style:none; padding:0; margin:0; counter-reset:doc; }
-.docs-toc ol > li{ counter-increment:doc; margin:var(--sp-1) 0; }
-.docs-toc ol > li > a{
-  display:flex; gap:var(--sp-2);
-  color:var(--ink-3); padding:6px 0; line-height:1.4;
-  transition:color .14s;
-  border-left:2px solid transparent; padding-left:var(--sp-3); margin-left:calc(var(--sp-3) * -1);
-}
-.docs-toc ol > li > a::before{
-  content:counter(doc, decimal-leading-zero);
-  color:var(--ink-5); font-size:var(--t-10);
-  flex-shrink:0; padding-top:1px;
-}
-.docs-toc ol > li > a:hover{ color:var(--ink); border-left-color:var(--zop-orange); }
-.docs-toc ol > li > a.active{ color:var(--zop-orange); border-left-color:var(--zop-orange); }
+/* ── Docs page · 3-column Mintlify-style shell ─────────────────────
+   Shared with product-documentation.html · same chrome, same JS API.
+   The .docs-section / .docs-table / .docs-callout primitives below
+   keep their existing dev-docs density (tighter h2, denser line-height)
+   — only the SHELL is upgraded. */
 
-.docs-body{ min-width:0; }
+.docs-page{ padding:0; }
+
+.docs-topbar{
+  position:sticky; top:64px; z-index:60;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+html[data-theme="dark"] .docs-topbar{ background:#15151B; border-bottom-color:#2a2a30; }
+.docs-topbar-inner{
+  max-width:var(--max); margin:0 auto;
+  padding:14px var(--gutter);
+  display:flex; align-items:center; gap:var(--sp-6);
+}
+.docs-topbar-brand{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font); font-size:14px; font-weight:600;
+  letter-spacing:-.005em;
+  color:var(--ink); text-decoration:none;
+  white-space:nowrap;
+}
+.docs-topbar-brand-mark{
+  width:18px; height:18px; flex:none;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.docs-topbar-brand-mark svg{ width:100%; height:100%; display:block; }
+.docs-topbar-brand-tag{
+  display:inline-block; padding:2px 7px;
+  background:rgba(245,133,73,.10);
+  border:1px solid rgba(245,133,73,.4);
+  color:var(--zop-orange);
+  font-family:var(--mono); font-size:9.5px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+}
+
+.docs-topbar-search{
+  position:relative;
+  display:flex; align-items:center; gap:8px;
+  padding:0 14px;
+  height:34px; width:100%; max-width:420px;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  color:var(--ink-3);
+  font-family:var(--font); font-size:13px;
+  cursor:text;
+  transition:border-color .15s, background .15s;
+}
+.docs-topbar-search:hover{ border-color:var(--ink-4); }
+.docs-topbar-search:focus-within{ border-color:var(--ink); background:var(--paper); }
+html[data-theme="dark"] .docs-topbar-search{ background:#1B1B22; border-color:#2a2a30; }
+html[data-theme="dark"] .docs-topbar-search:focus-within{ background:#0F0F12; border-color:var(--ink); }
+.docs-topbar-search-icon{ width:14px; height:14px; flex:none; opacity:.55; }
+.docs-topbar-search-input{
+  flex:1; min-width:0;
+  background:transparent; border:0; outline:none;
+  font-family:var(--font); font-size:13px; color:var(--ink);
+  letter-spacing:-.005em;
+}
+.docs-topbar-search-input::placeholder{ color:var(--ink-4); }
+.docs-topbar-search-kbd{
+  display:inline-flex; align-items:center; gap:2px;
+  padding:2px 6px; flex:none;
+  font-family:var(--mono); font-size:10.5px; font-weight:600;
+  color:var(--ink-3); border:1px solid var(--line);
+  background:var(--paper);
+  letter-spacing:.04em;
+}
+html[data-theme="dark"] .docs-topbar-search-kbd{ background:#15151B; border-color:#3a3a42; }
+.docs-topbar-actions{
+  margin-left:auto;
+  display:inline-flex; align-items:center; gap:14px;
+}
+.docs-topbar-actions a{
+  font-family:var(--font); font-size:13px; font-weight:500;
+  color:var(--ink-2); text-decoration:none;
+  letter-spacing:-.005em;
+  transition:color .14s;
+}
+.docs-topbar-actions a:hover{ color:var(--ink); }
+.docs-topbar-actions .docs-topbar-cta{
+  padding:6px 12px;
+  background:var(--ink); color:var(--paper);
+  border:1px solid var(--ink);
+  transition:transform .14s, box-shadow .14s;
+}
+.docs-topbar-actions .docs-topbar-cta:hover{
+  color:var(--paper);
+  transform:translateY(-2px);
+  box-shadow:0 4px 0 -2px var(--zop-orange);
+}
+
+.docs-shell{
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr) 220px;
+  max-width:var(--max); margin:0 auto;
+  padding:0 var(--gutter);
+  align-items:flex-start;
+}
+.docs-sidebar{
+  position:sticky; top:120px;
+  align-self:start;
+  max-height:calc(100vh - 140px);
+  overflow-y:auto;
+  padding:var(--sp-7) var(--sp-5) var(--sp-10) 0;
+  border-right:1px solid var(--line);
+  font-family:var(--font);
+}
+
+.docs-product-switch{ position:relative; margin-bottom:var(--sp-6); }
+.docs-product-switch-label{
+  display:block;
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-4); margin-bottom:8px;
+}
+.docs-product-switch-btn{
+  display:flex; align-items:center; gap:10px;
+  width:100%; padding:10px 12px;
+  background:var(--paper); border:1px solid var(--line);
+  color:var(--ink); cursor:pointer;
+  font-family:var(--font); font-size:14px; font-weight:600;
+  letter-spacing:-.005em; text-align:left;
+  transition:border-color .14s, background .14s;
+}
+.docs-product-switch-btn:hover{ border-color:var(--ink); }
+.docs-product-switch-btn[aria-expanded="true"]{ border-color:var(--ink); }
+html[data-theme="dark"] .docs-product-switch-btn{ background:#15151B; border-color:#2a2a30; }
+.docs-product-switch-mark{
+  width:18px; height:18px; flex:none;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.docs-product-switch-mark svg{ width:100%; height:100%; display:block; }
+.docs-product-switch-name{ flex:1; }
+.docs-product-switch-caret{
+  width:10px; height:10px; flex:none;
+  border-right:1.4px solid var(--ink-3);
+  border-bottom:1.4px solid var(--ink-3);
+  transform:rotate(45deg) translate(-1px,-1px);
+  transition:transform .18s;
+}
+.docs-product-switch-btn[aria-expanded="true"] .docs-product-switch-caret{
+  transform:rotate(225deg) translate(0,2px);
+}
+.docs-product-switch-menu{
+  position:absolute; left:0; right:0; top:calc(100% + 6px);
+  background:var(--paper); border:1px solid var(--line);
+  box-shadow:0 14px 40px -8px rgba(0,0,0,.12), 0 3px 10px rgba(0,0,0,.05);
+  z-index:80; padding:4px;
+}
+html[data-theme="dark"] .docs-product-switch-menu{
+  background:#15151B; border-color:#2a2a30;
+  box-shadow:0 14px 40px -8px rgba(0,0,0,.55), 0 3px 10px rgba(0,0,0,.3);
+}
+.docs-product-switch-menu[hidden]{ display:none; }
+.docs-product-switch-opt{
+  display:flex; align-items:center; gap:10px;
+  width:100%; padding:9px 10px;
+  background:none; border:0; color:var(--ink); cursor:pointer;
+  font-family:var(--font); font-size:13.5px; font-weight:500;
+  text-align:left; letter-spacing:-.005em;
+  transition:background .14s;
+}
+.docs-product-switch-opt:hover{ background:var(--bg-2); }
+html[data-theme="dark"] .docs-product-switch-opt:hover{ background:#1B1B22; }
+.docs-product-switch-opt[aria-current="true"]{ background:rgba(245,133,73,.08); }
+.docs-product-switch-opt-mark{
+  width:18px; height:18px; flex:none;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.docs-product-switch-opt-mark svg{ width:100%; height:100%; display:block; }
+.docs-product-switch-opt-body{ display:flex; flex-direction:column; gap:1px; flex:1; }
+.docs-product-switch-opt-name{ font-weight:600; color:var(--ink); }
+.docs-product-switch-opt-meta{
+  font-family:var(--mono); font-size:10px; font-weight:500;
+  letter-spacing:.04em; color:var(--ink-4);
+}
+.docs-product-switch-opt-check{
+  width:14px; height:14px; flex:none;
+  color:var(--zop-orange); opacity:0;
+}
+.docs-product-switch-opt[aria-current="true"] .docs-product-switch-opt-check{ opacity:1; }
+
+.docs-nav{ display:flex; flex-direction:column; gap:var(--sp-4); }
+.docs-nav[hidden]{ display:none; }
+.docs-nav-group{ display:flex; flex-direction:column; gap:4px; }
+.docs-nav-group-head{
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-4); padding:8px 0 6px;
+}
+.docs-nav-group ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; }
+.docs-nav-group li{ margin:0; }
+.docs-nav-group a{
+  display:block; padding:6px 12px 6px 14px;
+  font-family:var(--font); font-size:13.5px; font-weight:500;
+  letter-spacing:-.005em;
+  color:var(--ink-3); text-decoration:none;
+  border-left:2px solid transparent;
+  margin-left:-2px;
+  transition:color .14s, border-color .14s, background .14s;
+}
+.docs-nav-group a:hover{ color:var(--ink); border-left-color:var(--ink-4); }
+.docs-nav-group a.is-active{
+  color:var(--zop-orange); border-left-color:var(--zop-orange); font-weight:600;
+}
+
+.docs-body{ min-width:0; padding:var(--sp-7) var(--sp-8); }
+.docs-body > [data-doc-content][hidden]{ display:none; }
+.docs-page-head{ margin-bottom:var(--sp-8); }
+.docs-page-head .crumb{
+  margin-bottom:var(--sp-3);
+  font-family:var(--mono); font-size:11.5px;
+  color:var(--ink-4); letter-spacing:.04em;
+}
+.docs-page-head .crumb a{ color:var(--ink-3); text-decoration:none; }
+.docs-page-head .crumb a:hover{ color:var(--zop-orange); }
+.docs-page-head .crumb .sep{ margin:0 6px; color:var(--ink-5); }
+.docs-page-head h1{
+  font-size:clamp(32px, 4vw, 48px); font-weight:700;
+  letter-spacing:-.025em; line-height:1.1;
+  margin:0 0 var(--sp-4); color:var(--ink);
+}
+.docs-page-head h1 em{ color:var(--zop-orange); font-style:normal; }
+.docs-page-head .lede{
+  font-size:17px; line-height:1.55;
+  color:var(--ink-2); margin:0; max-width:680px;
+}
+
+.docs-onthispage{
+  position:sticky; top:120px;
+  align-self:start;
+  max-height:calc(100vh - 140px);
+  overflow-y:auto;
+  padding:var(--sp-7) 0 var(--sp-10) var(--sp-5);
+  border-left:1px solid var(--line);
+}
+.docs-onthispage-head{
+  display:block;
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-4); margin-bottom:12px;
+}
+.docs-onthispage-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; }
+.docs-onthispage-list li{ margin:0; }
+.docs-onthispage-list a{
+  display:block; padding:5px 10px;
+  font-family:var(--font); font-size:12.5px; font-weight:500;
+  letter-spacing:-.005em; line-height:1.45;
+  color:var(--ink-3); text-decoration:none;
+  border-left:2px solid transparent;
+  margin-left:-2px;
+  transition:color .14s, border-color .14s;
+}
+.docs-onthispage-list a:hover{ color:var(--ink); border-left-color:var(--ink-4); }
+.docs-onthispage-list a.is-active{
+  color:var(--zop-orange); border-left-color:var(--zop-orange); font-weight:600;
+}
+.docs-onthispage-list .is-h3 a{
+  padding-left:24px; font-size:12px; color:var(--ink-4);
+}
+
+.docs-stub{
+  border:1px solid var(--line);
+  padding:var(--sp-6) var(--sp-6);
+  background:var(--bg-2);
+  margin:var(--sp-4) 0 var(--sp-6);
+  max-width:760px;
+}
+html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
+.docs-stub-tag{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:9.5px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--zop-orange);
+  border:1px solid var(--zop-orange);
+  padding:3px 8px;
+  margin-bottom:var(--sp-3);
+}
+.docs-stub h3{
+  font-size:18px; font-weight:600;
+  letter-spacing:-.01em; margin:0 0 var(--sp-2);
+  color:var(--ink);
+}
+.docs-stub p{
+  font-size:14px; line-height:1.6;
+  color:var(--ink-3); margin:0 0 var(--sp-3);
+}
+.docs-stub p:last-child{ margin-bottom:0; }
+.docs-stub .docs-stub-list{
+  list-style:none; padding:0; margin:var(--sp-3) 0 0;
+  display:flex; flex-direction:column; gap:6px;
+}
+.docs-stub-list li{
+  font-family:var(--mono); font-size:12px;
+  color:var(--ink-3);
+  padding-left:14px; position:relative;
+}
+.docs-stub-list li::before{
+  content:'›'; position:absolute; left:2px;
+  color:var(--zop-orange);
+}
 /* Audit · docs sections tightened for a denser reference-doc feel.
    Smaller h2, tighter section padding, shorter line-height — pattern
    matches the rest of the site's compact card vocabulary. */
@@ -232,9 +503,26 @@
 .docs-callout strong{ color:var(--ink); display:block; margin-bottom:var(--sp-1); font-weight:var(--fw-medium); }
 .docs-callout p{ margin:0; font-size:var(--t-14); }
 
+/* Responsive · drop right TOC at <1180px, collapse sidebar at <960px */
+@media (max-width:1180px){
+  .docs-shell{ grid-template-columns:280px minmax(0,1fr); }
+  .docs-onthispage{ display:none; }
+}
 @media (max-width:960px){
-  .docs-layout{ grid-template-columns:1fr; gap:var(--sp-6); }
-  .docs-toc{ position:static; max-height:none; border-right:0; border-bottom:1px solid var(--line); padding:0 0 var(--sp-5); }
+  .docs-shell{ grid-template-columns:1fr; }
+  .docs-sidebar{
+    position:static; max-height:none;
+    border-right:0; border-bottom:1px solid var(--line);
+    padding:var(--sp-5) 0;
+  }
+  .docs-body{ padding:var(--sp-5) 0; }
+  .docs-topbar-inner{ gap:var(--sp-3); }
+  .docs-topbar-search{ max-width:none; }
+}
+@media (max-width:700px){
+  .docs-topbar-brand-tag,
+  .docs-topbar-search-kbd{ display:none; }
+  .docs-topbar-actions a:not(.docs-topbar-cta){ display:none; }
 }
 </style>
 <script src="chrome-navmenu.js" defer></script>
@@ -744,38 +1032,191 @@
 <!-- ========================================================================
      TEMPLATE BLOCK 3 · page content between nav and footer
      ======================================================================== -->
-<main class="page">
+<main class="page docs-page" id="main-content">
 
-  <div class="crumb"><a href="/">home</a> <span class="sep">/</span> resources <span class="sep">/</span> developer documentation</div>
+  <!-- ════════════════════════════════════════════════════════════════
+       DOCS TOPBAR · sticky · brand + search + product-docs link
+       ════════════════════════════════════════════════════════════════ -->
+  <div class="docs-topbar">
+    <div class="docs-topbar-inner">
+      <a class="docs-topbar-brand" href="developer-documentation.html">
+        <span class="docs-topbar-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopdev"/></svg>
+        </span>
+        <span>ZopDev</span>
+        <span class="docs-topbar-brand-tag">API</span>
+      </a>
 
-  <header class="page-head">
-    <h1>Developer <em>documentation.</em></h1>
-    <p class="lede">REST API reference, authentication, SDKs, webhooks, and CI/CD integration patterns. <strong>80+ endpoints across 13 groups</strong>, every UI feature available programmatically. AES-256-GCM token encryption, idempotent operations, OpenAPI 3.0 schema.</p>
-  </header>
+      <label class="docs-topbar-search" for="docs-search-input">
+        <svg class="docs-topbar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <circle cx="7" cy="7" r="4.5"/>
+          <path d="M10.2 10.2 L14 14"/>
+        </svg>
+        <input id="docs-search-input" class="docs-topbar-search-input" type="search" placeholder="Search API reference&hellip;" autocomplete="off" />
+        <span class="docs-topbar-search-kbd" aria-hidden="true">&#8984;K</span>
+      </label>
 
-  <div class="docs-layout">
+      <div class="docs-topbar-actions">
+        <a href="changelog.html">Changelog</a>
+        <a href="product-documentation.html">Product docs</a>
+        <a class="docs-topbar-cta" href="signin.html">Sign in</a>
+      </div>
+    </div>
+  </div>
 
-    <!-- Sticky table of contents -->
-    <aside class="docs-toc" aria-label="Documentation table of contents">
-      <h4>// contents</h4>
-      <ol>
-        <li><a href="#introduction">Introduction</a></li>
-        <li><a href="#quickstart">Quickstart</a></li>
-        <li><a href="#authentication">Authentication</a></li>
-        <li><a href="#conventions">API conventions</a></li>
-        <li><a href="#endpoints">Endpoint reference</a></li>
-        <li><a href="#webhooks">Webhooks</a></li>
-        <li><a href="#sdks">SDKs &amp; libraries</a></li>
-        <li><a href="#cicd">CLI &amp; CI/CD</a></li>
-        <li><a href="#mcp-server">MCP server</a></li>
-        <li><a href="#errors">Error handling</a></li>
-        <li><a href="#rate-limits">Rate limits</a></li>
-        <li><a href="#changelog">Changelog</a></li>
-      </ol>
+  <!-- ════════════════════════════════════════════════════════════════
+       3-COLUMN DOCS SHELL · same JS API as product-documentation.html
+       ════════════════════════════════════════════════════════════════ -->
+  <div class="docs-shell" data-doc-product="zopnight">
+
+    <aside class="docs-sidebar" aria-label="API reference navigation">
+
+      <div class="docs-product-switch">
+        <span class="docs-product-switch-label">Product</span>
+        <button class="docs-product-switch-btn" type="button" data-doc-switch
+                aria-haspopup="listbox" aria-expanded="false">
+          <span class="docs-product-switch-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" focusable="false" data-doc-switch-mark><use href="#mark-zopnight"/></svg>
+          </span>
+          <span class="docs-product-switch-name" data-doc-switch-name>ZopNight</span>
+          <span class="docs-product-switch-caret" aria-hidden="true"></span>
+        </button>
+        <div class="docs-product-switch-menu" role="listbox" aria-label="Choose a product" hidden>
+          <button class="docs-product-switch-opt" type="button" role="option" data-doc-pick="zopnight" aria-current="true">
+            <span class="docs-product-switch-opt-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopnight"/></svg></span>
+            <span class="docs-product-switch-opt-body">
+              <span class="docs-product-switch-opt-name">ZopNight</span>
+              <span class="docs-product-switch-opt-meta">Cost &middot; FinOps API</span>
+            </span>
+            <svg class="docs-product-switch-opt-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5 L7 12 L13 5"/></svg>
+          </button>
+          <button class="docs-product-switch-opt" type="button" role="option" data-doc-pick="zopday">
+            <span class="docs-product-switch-opt-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopday"/></svg></span>
+            <span class="docs-product-switch-opt-body">
+              <span class="docs-product-switch-opt-name">ZopDay</span>
+              <span class="docs-product-switch-opt-meta">Deploy &middot; IDP API</span>
+            </span>
+            <svg class="docs-product-switch-opt-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5 L7 12 L13 5"/></svg>
+          </button>
+          <button class="docs-product-switch-opt" type="button" role="option" data-doc-pick="zopcloud">
+            <span class="docs-product-switch-opt-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopcloud"/></svg></span>
+            <span class="docs-product-switch-opt-body">
+              <span class="docs-product-switch-opt-name">ZopCloud</span>
+              <span class="docs-product-switch-opt-meta">Cloud platform API</span>
+            </span>
+            <svg class="docs-product-switch-opt-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5 L7 12 L13 5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav tree · ZopNight (current product) -->
+      <nav class="docs-nav" data-doc-nav="zopnight">
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Get started</span>
+          <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#quickstart">Quickstart</a></li>
+            <li><a href="#authentication">Authentication</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">API surface</span>
+          <ul>
+            <li><a href="#conventions">Conventions</a></li>
+            <li><a href="#endpoints">Endpoint reference</a></li>
+            <li><a href="#webhooks">Webhooks</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Clients</span>
+          <ul>
+            <li><a href="#sdks">SDKs &amp; libraries</a></li>
+            <li><a href="#cicd">CLI &amp; CI/CD</a></li>
+            <li><a href="#mcp-server">MCP server</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Operations</span>
+          <ul>
+            <li><a href="#errors">Error handling</a></li>
+            <li><a href="#rate-limits">Rate limits</a></li>
+            <li><a href="#changelog">Changelog</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Nav tree · ZopDay (stub) -->
+      <nav class="docs-nav" data-doc-nav="zopday" hidden>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Get started</span>
+          <ul>
+            <li><a href="#zd-api-introduction">Introduction</a></li>
+            <li><a href="#zd-api-quickstart">Quickstart</a></li>
+            <li><a href="#zd-api-auth">Authentication</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">API surface</span>
+          <ul>
+            <li><a href="#zd-api-deploys">Deploys</a></li>
+            <li><a href="#zd-api-environments">Environments</a></li>
+            <li><a href="#zd-api-templates">Templates</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Clients</span>
+          <ul>
+            <li><a href="#zd-api-cli">CLI</a></li>
+            <li><a href="#zd-api-sdk">SDKs</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Nav tree · ZopCloud (stub) -->
+      <nav class="docs-nav" data-doc-nav="zopcloud" hidden>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Get started</span>
+          <ul>
+            <li><a href="#zc-api-introduction">Introduction</a></li>
+            <li><a href="#zc-api-quickstart">Quickstart</a></li>
+            <li><a href="#zc-api-auth">Authentication</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Resources</span>
+          <ul>
+            <li><a href="#zc-api-compute">Compute</a></li>
+            <li><a href="#zc-api-network">Network</a></li>
+            <li><a href="#zc-api-storage">Storage</a></li>
+          </ul>
+        </div>
+        <div class="docs-nav-group">
+          <span class="docs-nav-group-head">Clients</span>
+          <ul>
+            <li><a href="#zc-api-cli">CLI</a></li>
+            <li><a href="#zc-api-sdk">SDKs</a></li>
+          </ul>
+        </div>
+      </nav>
     </aside>
 
-    <!-- Documentation sections -->
+    <!-- ── MIDDLE · API reference body ────────────────────────────── -->
     <article class="docs-body">
+
+      <header class="docs-page-head">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="index.html">home</a>
+          <span class="sep">/</span>
+          <a href="blog.html">resources</a>
+          <span class="sep">/</span>
+          <span data-doc-crumb>ZopNight API reference</span>
+        </nav>
+        <h1 data-doc-h1>Developer <em>documentation.</em></h1>
+        <p class="lede" data-doc-lede>REST API reference, authentication, SDKs, webhooks, and CI/CD integration patterns. <strong>80+ endpoints across 13 groups</strong>, every UI feature available programmatically. AES-256-GCM token encryption, idempotent operations, OpenAPI 3.0 schema.</p>
+      </header>
+
+      <!-- ZopNight API content (full · existing 12 sections) -->
+      <div data-doc-content="zopnight">
 
       <section class="docs-section" id="introduction">
         <div class="num">01 · introduction</div>
@@ -1234,9 +1675,209 @@ zn schedules pause --group grp_01HQ...</code></pre>
 
         <p style="margin-top:var(--sp-7);"><strong>Need help?</strong> Open a ticket at <a href="contact.html" style="color:var(--zop-orange);">support</a> or join the <a href="community.html" style="color:var(--zop-orange);">community</a> for async questions.</p>
       </section>
+      </div><!-- /data-doc-content=zopnight -->
+
+      <!-- ZopDay API stubs · planned IA for the deploy/IDP API surface -->
+      <div data-doc-content="zopday" hidden>
+        <section class="docs-section" id="zd-api-introduction">
+          <div class="num">01 &middot; introduction</div>
+          <h2>The ZopDay API. <em>What zd push uses underneath.</em></h2>
+          <p>ZopDay&rsquo;s REST API is the same surface the <code>zd</code> CLI calls. Trigger deploys, manage environments, fetch live state &mdash; everything the UI exposes is a documented HTTPS endpoint.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Full ZopDay API reference rolls out alongside GA.</h3>
+            <p>API surface overview, the conventions that mirror the ZopNight API (same auth, same error shapes), and how the deploy lifecycle is modelled in resource terms.</p>
+            <ul class="docs-stub-list">
+              <li>Resource model · projects &middot; envs &middot; deploys &middot; services</li>
+              <li>Lifecycle events &middot; webhooks &middot; idempotency</li>
+              <li>Auth model &middot; same bearer tokens as the rest of ZopDev</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-quickstart">
+          <div class="num">02 &middot; quickstart</div>
+          <h2>First deploy via the API in <em>under five minutes.</em></h2>
+          <p>Skip the dashboard. Trigger a deploy from a CI step or your own tooling using nothing but <code>curl</code> + a bearer token.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>One-page quickstart with copy-paste examples.</h3>
+            <p>Token issue, the single POST that triggers a deploy, polling the result, and the webhook receiver for asynchronous completion.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-auth">
+          <div class="num">03 &middot; authentication</div>
+          <h2>Bearer tokens. <em>Same as the rest of ZopDev.</em></h2>
+          <p>The ZopDay API uses the same authentication primitives as ZopNight &mdash; AES-256-GCM-encrypted bearer tokens, RBAC scoped, revocable from the dashboard.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Token types + scoping rules.</h3>
+            <p>Personal tokens, service tokens, environment tokens. How scoping interacts with the deploy lifecycle. CI-friendly token patterns.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-deploys">
+          <div class="num">04 &middot; deploys</div>
+          <h2>The <em>core endpoint.</em></h2>
+          <p>The /deploys collection drives every deploy ZopDay runs. POST creates, GET reads, the lifecycle is event-stream-able.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>POST /deploys + the deploy lifecycle.</h3>
+            <p>Request payload, response shape, status enum, transition events, retry semantics, idempotency keys.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-environments">
+          <div class="num">05 &middot; environments</div>
+          <h2>Long-lived envs and per-PR ephemerals. <em>One API.</em></h2>
+          <p>Create environments, attach config, swap targets, tear down. Ephemerals are first-class &mdash; same endpoints, scoped by lifetime policy.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>/environments resource model.</h3>
+            <p>Per-env config, secret bindings, traffic rules, ephemeral lifecycle, the cleanup webhook.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-templates">
+          <div class="num">06 &middot; templates</div>
+          <h2>Provision a service from a template. <em>Via the API.</em></h2>
+          <p>Templates are also addressable via REST &mdash; list available templates, instantiate a new service, override variables, publish your own.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>/templates reference.</h3>
+            <p>Template registry, variable schema, override patterns, publishing flow for org-local templates.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-cli">
+          <div class="num">07 &middot; CLI</div>
+          <h2>Every <code>zd</code> command. <em>Generated reference.</em></h2>
+          <p>The <code>zd</code> binary is the canonical client. Generated reference docs kept in sync with the binary release.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Auto-generated per-command pages.</h3>
+            <p>Usage, flags, exit codes, env vars, examples.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zd-api-sdk">
+          <div class="num">08 &middot; SDKs</div>
+          <h2>TypeScript, Python, Go, Rust.</h2>
+          <p>Type-safe clients generated from the OpenAPI spec. Same shapes, same auth, same retry semantics across all four languages.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Install, authenticate, ship.</h3>
+            <p>Per-language install + auth quickstart, common idioms, error handling, telemetry.</p>
+          </div>
+        </section>
+      </div><!-- /data-doc-content=zopday -->
+
+      <!-- ZopCloud API stubs · planned IA for the multi-cloud platform API -->
+      <div data-doc-content="zopcloud" hidden>
+        <section class="docs-section" id="zc-api-introduction">
+          <div class="num">01 &middot; introduction</div>
+          <h2>One API. <em>Three providers underneath.</em></h2>
+          <p>The ZopCloud API is a single REST surface that provisions across AWS, GCP, and Azure (or ZopDev&rsquo;s managed infrastructure). Same endpoints, same shapes, regardless of where the underlying resources actually run.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Full ZopCloud API reference rolls out alongside GA.</h3>
+            <p>API surface overview, the abstraction layer that maps single API calls to provider-specific operations, and the trade-offs of buying ZopCloud vs running each cloud&rsquo;s native API directly.</p>
+            <ul class="docs-stub-list">
+              <li>Resource model · compute &middot; network &middot; storage &middot; managed services</li>
+              <li>Provider abstraction &middot; how mapping decisions are made</li>
+              <li>BYOC vs managed &middot; how the API behaves in each mode</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-quickstart">
+          <div class="num">02 &middot; quickstart</div>
+          <h2>Your first VM <em>via the API.</em></h2>
+          <p>Authenticate, pick a region, POST one body, get back an addressable compute instance with networking and storage already wired.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>End-to-end quickstart with copy-paste examples.</h3>
+            <p>Token issue, the provisioning call, polling for ready state, SSH config retrieval, tear-down.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-auth">
+          <div class="num">03 &middot; authentication</div>
+          <h2>Bearer tokens. <em>Same shape across products.</em></h2>
+          <p>Identical auth surface to ZopNight and ZopDay. Scoping decides what you can read and mutate.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Token types + provider-scoping rules.</h3>
+            <p>How tokens are scoped to providers, regions, and resource categories. Audit log for every credentialed call.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-compute">
+          <div class="num">04 &middot; compute</div>
+          <h2>VMs, containers, <em>functions.</em></h2>
+          <p>Three compute primitives, addressable through one API. Provider mapping happens behind the scenes.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Compute resource reference.</h3>
+            <p>VM sizes, container runtime, function scaling, GPU SKUs, spot/preemptible flags.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-network">
+          <div class="num">05 &middot; network</div>
+          <h2>VPCs, peering, <em>edges.</em></h2>
+          <p>Network primitives the same way every cloud has &mdash; VPC, subnet, route, security group &mdash; plus peering and transit gateways as first-class API objects.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Network resource reference.</h3>
+            <p>VPC + subnet creation, route tables, security-group authoring, peering API, cross-region patterns.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-storage">
+          <div class="num">06 &middot; storage</div>
+          <h2>Block, object, <em>database.</em></h2>
+          <p>Three storage tiers via one API. Provider mapping picks the right backing service.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Storage resource reference.</h3>
+            <p>Block volumes, object buckets, managed databases. Per-tier durability and pricing characteristics.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-cli">
+          <div class="num">07 &middot; CLI</div>
+          <h2>Every <code>zc</code> command. <em>Generated reference.</em></h2>
+          <p>The <code>zc</code> binary is the canonical ZopCloud client.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Auto-generated per-command pages.</h3>
+            <p>Usage, flags, exit codes, env vars, examples.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="zc-api-sdk">
+          <div class="num">08 &middot; SDKs</div>
+          <h2>TypeScript, Python, Go, Rust.</h2>
+          <p>Type-safe clients generated from the OpenAPI spec. Provider abstraction is opaque to the SDK consumer.</p>
+          <div class="docs-stub">
+            <span class="docs-stub-tag">Coming soon</span>
+            <h3>Install, authenticate, ship.</h3>
+            <p>Per-language install + auth quickstart, common idioms, error handling, telemetry.</p>
+          </div>
+        </section>
+      </div><!-- /data-doc-content=zopcloud -->
 
     </article>
-  </div>
+
+    <!-- ── RIGHT · "On this page" anchor list ───────────────────── -->
+    <aside class="docs-onthispage" aria-label="On this page">
+      <span class="docs-onthispage-head">On this page</span>
+      <ol class="docs-onthispage-list" data-doc-onthispage></ol>
+    </aside>
+
+  </div><!-- /docs-shell -->
 
 </main>
 
@@ -1336,6 +1977,183 @@ zn schedules pause --group grp_01HQ...</code></pre>
       ann.style.display = 'none';
       try{ localStorage.setItem(key, '1'); }catch(e){}
     });
+  })();
+</script>
+
+<script>
+  // ────────────────────────────────────────────────────────────────
+  // Dev-docs · product switcher · on-this-page · scroll-spy · ⌘K focus
+  // (Mirror of the same handler in product-documentation.html, with
+  // dev-docs-specific PRODUCTS copy.)
+  // ────────────────────────────────────────────────────────────────
+  (function(){
+    var shell = document.querySelector('.docs-shell');
+    if(!shell) return;
+
+    var PRODUCTS = {
+      zopnight: {
+        name:  'ZopNight',
+        crumb: 'ZopNight API reference',
+        h1:    'Developer <em>documentation.</em>',
+        lede:  'REST API reference, authentication, SDKs, webhooks, and CI/CD integration patterns. <strong>80+ endpoints across 13 groups</strong>, every UI feature available programmatically. AES-256-GCM token encryption, idempotent operations, OpenAPI 3.0 schema.',
+        mark:  'mark-zopnight'
+      },
+      zopday: {
+        name:  'ZopDay',
+        crumb: 'ZopDay API reference',
+        h1:    'ZopDay <em>API reference.</em>',
+        lede:  'The REST API that the <code>zd</code> CLI calls underneath. Trigger deploys, manage environments, fetch live state &mdash; every UI surface exposed as documented HTTPS endpoints. <strong>Currently rolling out alongside GA.</strong>',
+        mark:  'mark-zopday'
+      },
+      zopcloud: {
+        name:  'ZopCloud',
+        crumb: 'ZopCloud API reference',
+        h1:    'ZopCloud <em>API reference.</em>',
+        lede:  'One REST surface across all providers. Compute, network, storage, and managed-database primitives addressable via a single API, whether the backing is AWS, GCP, Azure, or ZopDev managed. <strong>Currently rolling out alongside GA.</strong>',
+        mark:  'mark-zopcloud'
+      }
+    };
+    var STORAGE_KEY = 'zop-devdocs-product';
+
+    var crumbEl = shell.querySelector('[data-doc-crumb]');
+    var h1El    = shell.querySelector('[data-doc-h1]');
+    var ledeEl  = shell.querySelector('[data-doc-lede]');
+    var switchBtn  = shell.querySelector('[data-doc-switch]');
+    var switchMenu = shell.querySelector('.docs-product-switch-menu');
+    var switchMark = shell.querySelector('[data-doc-switch-mark]');
+    var switchName = shell.querySelector('[data-doc-switch-name]');
+    var pickBtns   = shell.querySelectorAll('[data-doc-pick]');
+    var onThisPage = shell.querySelector('[data-doc-onthispage]');
+
+    function resolveInitial(){
+      var h = (location.hash || '').replace('#','').toLowerCase();
+      if(PRODUCTS[h]) return h;
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if(PRODUCTS[saved]) return saved;
+      } catch(e){}
+      return 'zopnight';
+    }
+
+    function apply(product){
+      if(!PRODUCTS[product]) product = 'zopnight';
+      var def = PRODUCTS[product];
+      shell.setAttribute('data-doc-product', product);
+      shell.querySelectorAll('[data-doc-nav]').forEach(function(n){
+        if(n.getAttribute('data-doc-nav') === product) n.removeAttribute('hidden');
+        else n.setAttribute('hidden', '');
+      });
+      shell.querySelectorAll('[data-doc-content]').forEach(function(c){
+        if(c.getAttribute('data-doc-content') === product) c.removeAttribute('hidden');
+        else c.setAttribute('hidden', '');
+      });
+      if(crumbEl) crumbEl.textContent = def.crumb;
+      if(h1El)    h1El.innerHTML      = def.h1;
+      if(ledeEl)  ledeEl.innerHTML    = def.lede;
+      if(switchName) switchName.textContent = def.name;
+      if(switchMark) switchMark.innerHTML = '<use href="#' + def.mark + '"/>';
+      pickBtns.forEach(function(b){
+        b.setAttribute('aria-current', b.getAttribute('data-doc-pick') === product ? 'true' : 'false');
+      });
+      try { localStorage.setItem(STORAGE_KEY, product); } catch(e){}
+      buildOnThisPage(product);
+      var body = shell.querySelector('.docs-body');
+      if(body) body.scrollIntoView({ behavior:'auto', block:'start' });
+    }
+
+    function setMenuOpen(open){
+      if(!switchMenu || !switchBtn) return;
+      if(open){ switchMenu.removeAttribute('hidden'); switchBtn.setAttribute('aria-expanded','true'); }
+      else    { switchMenu.setAttribute('hidden','');  switchBtn.setAttribute('aria-expanded','false'); }
+    }
+    if(switchBtn){
+      switchBtn.addEventListener('click', function(){
+        var open = switchBtn.getAttribute('aria-expanded') === 'true';
+        setMenuOpen(!open);
+      });
+    }
+    document.addEventListener('click', function(e){
+      if(!switchBtn || !switchMenu) return;
+      if(switchBtn.contains(e.target) || switchMenu.contains(e.target)) return;
+      setMenuOpen(false);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') setMenuOpen(false);
+    });
+    pickBtns.forEach(function(b){
+      b.addEventListener('click', function(){
+        var pick = b.getAttribute('data-doc-pick');
+        if(!PRODUCTS[pick]) return;
+        history.replaceState(null, '', '#' + pick);
+        apply(pick);
+        setMenuOpen(false);
+      });
+    });
+
+    function buildOnThisPage(product){
+      if(!onThisPage) return;
+      onThisPage.innerHTML = '';
+      var contentEl = shell.querySelector('[data-doc-content="' + product + '"]');
+      if(!contentEl) return;
+      var headings = contentEl.querySelectorAll('section[id] h2, section[id] h3');
+      headings.forEach(function(h){
+        var section = h.closest('section');
+        var id = section ? section.id : h.id;
+        if(!id) return;
+        var li = document.createElement('li');
+        if(h.tagName === 'H3') li.className = 'is-h3';
+        var a  = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = h.textContent.replace(/\s+/g,' ').trim();
+        li.appendChild(a);
+        onThisPage.appendChild(li);
+      });
+    }
+
+    var spyTimer = null;
+    function runSpy(){
+      if(!onThisPage) return;
+      var anchors = onThisPage.querySelectorAll('a');
+      if(!anchors.length) return;
+      var best = anchors[0], bestTop = -Infinity;
+      anchors.forEach(function(a){
+        var id = a.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if(!el) return;
+        var top = el.getBoundingClientRect().top;
+        if(top <= 140 && top > bestTop){ bestTop = top; best = a; }
+      });
+      anchors.forEach(function(a){ a.classList.remove('is-active'); });
+      best.classList.add('is-active');
+      var matchHref = best.getAttribute('href');
+      shell.querySelectorAll('.docs-nav a').forEach(function(a){
+        a.classList.toggle('is-active', a.getAttribute('href') === matchHref);
+      });
+    }
+    window.addEventListener('scroll', function(){
+      if(spyTimer) return;
+      spyTimer = requestAnimationFrame(function(){
+        runSpy();
+        spyTimer = null;
+      });
+    }, { passive:true });
+
+    var searchInput = document.getElementById('docs-search-input');
+    document.addEventListener('keydown', function(e){
+      var isK = (e.key === 'k' || e.key === 'K');
+      if(!isK) return;
+      if(!(e.metaKey || e.ctrlKey)) return;
+      e.preventDefault();
+      if(searchInput) searchInput.focus();
+    });
+
+    window.addEventListener('hashchange', function(){
+      var h = (location.hash || '').replace('#','').toLowerCase();
+      if(PRODUCTS[h]) apply(h);
+    });
+
+    apply(resolveInitial());
+    requestAnimationFrame(runSpy);
   })();
 </script>
 
