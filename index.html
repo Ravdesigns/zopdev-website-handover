@@ -6737,116 +6737,142 @@ html[data-theme="dark"] .drw-outcome-check{
   70%      { transform:scaleY(.7); }
 }
 
-/* ───────────────────────── §04 EVENT READINESS · pre-flight manifest ─
-   A scope-by-scope readiness check anchored on a specific event.
-   Header carries the countdown ("T-7d · pre-scale runs in 6h 33m")
-   and the event target. The table below lists 8 scopes, each
-   surfaced sequentially with a 200ms stagger to simulate the
-   engine scoring the event scope by scope. Cycle is 6s, matching
-   the other drawer visuals; loops cleanly without an idle gap. */
-.drw-feat-vis-manifest{
-  display:flex; flex-direction:column;
-  gap:14px;
-  padding:8px 0 12px;
-}
+/* ───────────────────────── §04 EVENT READINESS · countdown + ramp ────
+   Three stacked elements tell the readiness story:
+     1. Countdown header  · a live "EVENT IN 06d 23h 11m" with a
+                            pulsing dot, the event name, the target
+     2. Capacity ramp SVG · the visual centerpiece — baseline,
+                            pre-scale ramp, EVENT window highlighted
+                            with incoming-traffic chevrons, scale-down
+     3. Scope chips       · per-scope verdicts on a single line so
+                            they support, not compete with, the ramp
+   Cycle 6s, matching the other drawer visuals. */
 
-/* Header · countdown pill + event target */
-.drw-feat-vis-manifest-head{
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:10px;
-  padding:10px 14px;
-  background:rgba(245,133,73,.06);
-  border:1px solid rgba(245,133,73,.28);
-  border-left:2px solid var(--zop-orange);
+/* 1 · Countdown header */
+.drw-rdy-countdown{
+  display:flex; align-items:center; gap:14px;
+  padding:12px 16px;
+  margin-bottom:14px;
+  background:rgba(74,102,212,.06);
+  border:1px solid rgba(74,102,212,.22);
+  border-left:2px solid #4A66D4;
 }
-.drw-feat-vis-manifest-countdown{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--mono); font-size:11px; font-weight:700;
-  letter-spacing:.08em; color:#F0EBDB;
-}
-.drw-feat-vis-manifest-pulse{
-  display:inline-block;
-  width:8px; height:8px;
+.drw-rdy-countdown-dot{
+  width:10px; height:10px;
   background:var(--zop-orange);
   box-shadow:0 0 0 0 rgba(245,133,73,.55);
-  animation:drw-feat-vis-manifest-pulse 1.8s cubic-bezier(.4,0,.6,1) infinite;
+  animation:drw-rdy-pulse 1.8s cubic-bezier(.4,0,.6,1) infinite;
+  flex:none;
 }
-@keyframes drw-feat-vis-manifest-pulse{
+@keyframes drw-rdy-pulse{
   0%   { box-shadow:0 0 0 0 rgba(245,133,73,.55); }
-  70%  { box-shadow:0 0 0 7px rgba(245,133,73,0); }
+  70%  { box-shadow:0 0 0 9px rgba(245,133,73,0); }
   100% { box-shadow:0 0 0 0 rgba(245,133,73,0); }
 }
-.drw-feat-vis-manifest-target{
-  font-family:var(--mono); font-size:10px;
-  letter-spacing:.08em; color:#9C9CA3;
+.drw-rdy-countdown-meta{
+  display:flex; flex-direction:column; gap:2px;
+  padding-right:14px; border-right:1px solid rgba(240,235,219,.12);
 }
-
-/* Manifest table · 4-col grid · scope · posture · verdict · lead */
-.drw-feat-vis-manifest-table{
-  display:flex; flex-direction:column;
-  background:rgba(240,235,219,.02);
-  border:1px solid #2A2A34;
-}
-.drw-feat-vis-manifest-row{
-  display:grid;
-  grid-template-columns:1.1fr 2fr .9fr .7fr;
-  gap:12px;
-  align-items:center;
-  padding:9px 14px;
-  border-top:1px solid #2A2A34;
-  font-family:var(--mono); font-size:10.5px;
-  color:#F0EBDB;
-}
-.drw-feat-vis-manifest-row:first-child{ border-top:0; }
-.drw-feat-vis-manifest-row--head{
-  background:rgba(240,235,219,.04);
-  padding:7px 14px;
-  font-size:9px; font-weight:700;
+.drw-rdy-countdown-eyebrow{
+  font-family:var(--mono); font-size:9px; font-weight:600;
   letter-spacing:.14em; text-transform:uppercase;
-  color:#7C7C84;
+  color:rgba(240,235,219,.6);
 }
-.drw-feat-vis-manifest-scope{
-  font-weight:600; letter-spacing:.04em; color:#F0EBDB;
-}
-.drw-feat-vis-manifest-posture{
-  color:#A8A8B0; font-weight:400;
-}
-.drw-feat-vis-manifest-lead{
-  color:#7C7C84; text-align:right;
+.drw-rdy-countdown-time{
+  font-family:var(--mono); font-size:18px; font-weight:700;
+  letter-spacing:.02em; color:#F0EBDB;
   font-variant-numeric:tabular-nums;
 }
-.drw-feat-vis-manifest-verdict{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:3px 10px;
-  font-size:9.5px; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  width:max-content;
+.drw-rdy-countdown-event{
+  display:flex; flex-direction:column; gap:2px;
+  min-width:0;
 }
-.drw-feat-vis-manifest-verdict--ready{
-  color:#7FB236;
-  border:1px solid rgba(127,178,54,.5);
-  background:rgba(127,178,54,.10);
+.drw-rdy-countdown-name{
+  font-family:var(--font); font-size:14px; font-weight:700;
+  letter-spacing:-.005em; color:#F0EBDB;
 }
-.drw-feat-vis-manifest-verdict--action{
-  color:var(--zop-orange);
-  border:1px solid rgba(245,133,73,.55);
-  background:rgba(245,133,73,.12);
+.drw-rdy-countdown-when{
+  font-family:var(--mono); font-size:10px;
+  letter-spacing:.06em; color:rgba(240,235,219,.55);
 }
 
-/* Row enter animation · each row surfaces sequentially.
-   Initial state: dimmed + offset-down. At its --d offset, slides
-   up into place with the verdict appearing. Stays visible for the
-   remainder of the 6s cycle, then resets at 90% for the loop. */
-.drw-feat-vis-manifest-row:not(.drw-feat-vis-manifest-row--head){
+/* 2 · Capacity ramp SVG container */
+.drw-rdy-ramp{
+  position:relative;
+  padding:8px 0 0;
+  margin-bottom:18px;
+}
+.drw-rdy-ramp svg{
+  display:block; width:100%; height:auto;
+  max-height:240px;
+}
+
+/* Ramp stroke · animated draw-in from left to right.
+   stroke-dasharray = path length. dashoffset starts at full
+   length (hidden) and animates to 0 (revealed) over the first
+   third of the cycle, then stays visible. */
+.drw-rdy-ramp-arc{
+  stroke-dasharray:760;
+  stroke-dashoffset:760;
+  animation:drw-rdy-arc-draw 6s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes drw-rdy-arc-draw{
+  0%       { stroke-dashoffset:760; }
+  35%, 92% { stroke-dashoffset:0; }
+  100%     { stroke-dashoffset:760; }
+}
+
+/* Incoming-traffic chevrons · subtle right-to-left drift just
+   before the event window, signalling traffic about to arrive */
+.drw-rdy-ramp-traffic{
+  animation:drw-rdy-traffic 1.6s linear infinite;
+}
+@keyframes drw-rdy-traffic{
+  0%   { transform:translateX(8px);  opacity:0; }
+  20%  { opacity:1; }
+  80%  { opacity:1; }
+  100% { transform:translateX(-8px); opacity:0; }
+}
+
+/* 3 · Scope verdict chips · compact row of per-scope pills */
+.drw-rdy-scopes{
+  display:flex; flex-wrap:wrap; gap:8px;
+  padding:0 4px;
+  margin-bottom:14px;
+}
+.drw-rdy-scope{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 10px;
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  letter-spacing:.04em;
+  border:1px solid #2A2A34;
+  background:rgba(240,235,219,.03);
+  color:#F0EBDB;
   opacity:0;
-  transform:translateY(4px);
-  animation:drw-feat-vis-manifest-row 6s cubic-bezier(.4,0,.6,1) infinite;
+  transform:translateY(3px);
+  animation:drw-rdy-scope-in 6s cubic-bezier(.4,0,.6,1) infinite;
   animation-delay:var(--d, 0ms);
 }
-@keyframes drw-feat-vis-manifest-row{
-  0%, 5%   { opacity:0; transform:translateY(4px); }
-  12%, 90% { opacity:1; transform:translateY(0); }
-  100%     { opacity:0; transform:translateY(4px); }
+.drw-rdy-scope i{
+  display:inline-block; width:7px; height:7px;
+  background:#7FB236;
+  flex:none;
+}
+.drw-rdy-scope--ready{
+  border-color:rgba(127,178,54,.4);
+  background:rgba(127,178,54,.06);
+}
+.drw-rdy-scope--ready i{ background:#7FB236; }
+.drw-rdy-scope--action{
+  border-color:rgba(245,133,73,.5);
+  background:rgba(245,133,73,.10);
+  color:var(--zop-orange);
+}
+.drw-rdy-scope--action i{ background:var(--zop-orange); }
+@keyframes drw-rdy-scope-in{
+  0%, 8%   { opacity:0; transform:translateY(3px); }
+  18%, 92% { opacity:1; transform:translateY(0); }
+  100%     { opacity:0; transform:translateY(3px); }
 }
 
 /* ───────────────────────── §05 AUTO-REMEDIATION · 4-step pipeline ─── */
@@ -6915,26 +6941,36 @@ html[data-theme="dark"] .drw-outcome-check{
 @media (max-width:640px){
   .drw-feat-vis-remed-flow{ flex-direction:column; }
   .drw-feat-vis-remed-arrow{ transform:rotate(90deg); }
-  /* Manifest · drop the "posture" column on small screens; the
-     verdict + lead carry the meaning. */
-  .drw-feat-vis-manifest-row{ grid-template-columns:1.2fr .9fr .7fr; }
-  .drw-feat-vis-manifest-posture{ display:none; }
-  .drw-feat-vis-manifest-head{ flex-direction:column; align-items:flex-start; }
+  /* Countdown · stack vertically, tighter padding */
+  .drw-rdy-countdown{ flex-wrap:wrap; padding:10px 12px; gap:10px; }
+  .drw-rdy-countdown-meta{ padding-right:0; border-right:0;
+                           border-bottom:1px solid rgba(240,235,219,.12);
+                           padding-bottom:8px; width:100%; }
+  .drw-rdy-countdown-time{ font-size:16px; }
+  .drw-rdy-countdown-event{ width:100%; }
+  /* Ramp · slightly more compact */
+  .drw-rdy-ramp svg{ max-height:200px; }
+  /* Scope chips · already wrap, no change */
 }
 @media (prefers-reduced-motion: reduce){
   .drw-feat-vis-sched-cell,
   .drw-feat-vis-sched-cell.is-biz,
   .drw-feat-vis-tide-capacity,
   .drw-feat-vis-tide-block,
-  .drw-feat-vis-manifest-row,
-  .drw-feat-vis-manifest-pulse,
+  .drw-rdy-countdown-dot,
+  .drw-rdy-ramp-arc,
+  .drw-rdy-ramp-traffic,
+  .drw-rdy-scope,
   .drw-feat-vis-remed-step,
   .drw-feat-vis-remed-card{ animation:none !important; }
   .drw-feat-vis-sched-cell.is-biz{ background:rgba(245,133,73,.65); }
   .drw-feat-vis-tide-capacity{ stroke-dashoffset:0; }
   .drw-feat-vis-tide-block{ transform:scaleY(.7); }
-  /* Manifest · settle every row in its final state, no stagger */
-  .drw-feat-vis-manifest-row{ opacity:1 !important; transform:none !important; }
+  /* Readiness · settle in final state — ramp fully drawn, scope
+     chips visible, no pulse on the countdown dot */
+  .drw-rdy-ramp-arc{ stroke-dashoffset:0 !important; }
+  .drw-rdy-ramp-traffic{ opacity:.6; transform:none; }
+  .drw-rdy-scope{ opacity:1 !important; transform:none !important; }
   .drw-feat-vis-remed-step{ background:rgba(245,133,73,.14); border-color:rgba(245,133,73,.5); border-left-color:var(--zop-orange); }
   .drw-feat-vis-remed-card{ left:46%; opacity:1; }
 }
@@ -11268,86 +11304,129 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
             </div>
           </div>
 
-          <!-- Animated visual · event-readiness manifest.
-               A pre-flight checklist anchored on a specific event.
-               Each scope row shows its posture (what the engine
-               will do), its verdict (ready or action required),
-               and the lead time at which the action was scheduled.
-               Rows surface sequentially with a 240ms stagger to
-               simulate the engine scoring the event scope by scope.
-               The countdown header makes the temporal anchor
-               explicit — this is BEFORE the event, not a status
-               snapshot. -->
+          <!-- Animated visual · event readiness · capacity ramp & countdown.
+               The visual is the temporal arc itself: a baseline that
+               ramps up before the event, peaks during the event
+               window, and descends after. The event moment is the
+               dramatic centerpiece — a vertical highlight at T-0
+               with the event identity inside it. A countdown
+               ticks in the header. Scope chips at the bottom carry
+               the per-scope verdicts without competing with the
+               main visual. This is event readiness as a CONCEPT,
+               not a status grid. -->
           <div class="drw-feat-vis drw-feat-vis--readiness" aria-hidden="true">
-            <div class="drw-feat-vis-eyebrow">EVENT READINESS &middot; BLACK FRIDAY 2026</div>
-            <div class="drw-feat-vis-manifest">
-              <div class="drw-feat-vis-manifest-head">
-                <span class="drw-feat-vis-manifest-countdown">
-                  <span class="drw-feat-vis-manifest-pulse" aria-hidden="true"></span>
-                  T&minus;7d &middot; pre-scale runs in 6h 33m
-                </span>
-                <span class="drw-feat-vis-manifest-target">prod-us &middot; 2026-11-27 09:00 UTC</span>
-              </div>
-              <div class="drw-feat-vis-manifest-table">
-                <div class="drw-feat-vis-manifest-row drw-feat-vis-manifest-row--head">
-                  <span>SCOPE</span>
-                  <span>POSTURE</span>
-                  <span>VERDICT</span>
-                  <span>LEAD</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:0ms">
-                  <span class="drw-feat-vis-manifest-scope">Compute</span>
-                  <span class="drw-feat-vis-manifest-posture">4.2&times; baseline scheduled</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:200ms">
-                  <span class="drw-feat-vis-manifest-scope">Database</span>
-                  <span class="drw-feat-vis-manifest-posture">pool sized for 8M connections</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:400ms">
-                  <span class="drw-feat-vis-manifest-scope">Cache</span>
-                  <span class="drw-feat-vis-manifest-posture">warm-up scheduled T&minus;2h</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;2h</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:600ms">
-                  <span class="drw-feat-vis-manifest-scope">Queues</span>
-                  <span class="drw-feat-vis-manifest-posture">drain workers &times;6</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;3d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:800ms">
-                  <span class="drw-feat-vis-manifest-scope">Autoscaler</span>
-                  <span class="drw-feat-vis-manifest-posture">floor pinned to 24</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;14d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:1000ms">
-                  <span class="drw-feat-vis-manifest-scope">Network</span>
-                  <span class="drw-feat-vis-manifest-posture">peering announced, BGP confirmed</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;7d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:1200ms">
-                  <span class="drw-feat-vis-manifest-scope">CDN</span>
-                  <span class="drw-feat-vis-manifest-posture">APAC region not in event scope</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--action">action</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;3d</span>
-                </div>
-                <div class="drw-feat-vis-manifest-row" style="--d:1400ms">
-                  <span class="drw-feat-vis-manifest-scope">Secrets</span>
-                  <span class="drw-feat-vis-manifest-posture">rotation paused during window</span>
-                  <span class="drw-feat-vis-manifest-verdict drw-feat-vis-manifest-verdict--ready">ready</span>
-                  <span class="drw-feat-vis-manifest-lead">T&minus;14d</span>
-                </div>
-              </div>
+            <div class="drw-feat-vis-eyebrow">EVENT READINESS</div>
+
+            <!-- Countdown header -->
+            <div class="drw-rdy-countdown">
+              <span class="drw-rdy-countdown-dot" aria-hidden="true"></span>
+              <span class="drw-rdy-countdown-meta">
+                <span class="drw-rdy-countdown-eyebrow">Event in</span>
+                <span class="drw-rdy-countdown-time">06d 23h 11m</span>
+              </span>
+              <span class="drw-rdy-countdown-event">
+                <span class="drw-rdy-countdown-name">Black Friday 2026</span>
+                <span class="drw-rdy-countdown-when">27 Nov &middot; 09:00 UTC &middot; prod-us</span>
+              </span>
             </div>
+
+            <!-- Capacity ramp · the temporal arc, EVENT centered -->
+            <div class="drw-rdy-ramp">
+              <svg viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <!-- Capacity grid lines · faint horizontal ticks -->
+                <g stroke="rgba(240,235,219,.05)" stroke-width="1">
+                  <line x1="40" y1="40"  x2="500" y2="40"/>
+                  <line x1="40" y1="80"  x2="500" y2="80"/>
+                  <line x1="40" y1="120" x2="500" y2="120"/>
+                </g>
+
+                <!-- Baseline (current steady-state capacity) -->
+                <line x1="40" y1="120" x2="500" y2="120"
+                      stroke="rgba(240,235,219,.22)" stroke-dasharray="3,4"/>
+                <text x="36" y="124" font-family="Space Grotesk, monospace" font-size="8.5"
+                      fill="rgba(240,235,219,.45)" text-anchor="end">baseline</text>
+
+                <!-- Y-axis label (capacity) -->
+                <text x="36" y="40" font-family="Space Grotesk, monospace" font-size="8.5"
+                      fill="rgba(240,235,219,.45)" text-anchor="end">peak</text>
+
+                <!-- Event window · tall vertical highlight -->
+                <rect x="288" y="22" width="64" height="118"
+                      fill="rgba(74,102,212,.12)"
+                      stroke="rgba(74,102,212,.55)" stroke-dasharray="3,3"/>
+
+                <!-- Pre-scale shaded region · ramp area fill -->
+                <path d="M 40 120 L 130 120 L 288 56 L 352 56 L 460 116 L 500 116 L 500 120 L 40 120 Z"
+                      fill="rgba(245,133,73,.18)"/>
+
+                <!-- Capacity arc · stroke -->
+                <path class="drw-rdy-ramp-arc"
+                      d="M 40 120 L 130 120 L 288 56 L 352 56 L 460 116 L 500 116"
+                      fill="none" stroke="var(--zop-orange, #F58549)"
+                      stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+
+                <!-- Milestone dots -->
+                <circle cx="130" cy="120" r="3.6"  fill="var(--zop-orange, #F58549)"/>
+                <circle cx="288" cy="56"  r="4.5"  fill="#4A66D4"/>
+                <circle cx="352" cy="56"  r="4.5"  fill="#4A66D4"/>
+                <circle cx="460" cy="116" r="3.6"  fill="var(--zop-orange, #F58549)"/>
+
+                <!-- Incoming-traffic chevrons · subtle right-side flow -->
+                <g class="drw-rdy-ramp-traffic" fill="none" stroke="rgba(74,102,212,.4)" stroke-width="1.4" stroke-linecap="round">
+                  <path d="M 252 48 L 260 56 L 252 64"/>
+                  <path d="M 264 48 L 272 56 L 264 64"/>
+                  <path d="M 276 48 L 284 56 L 276 64"/>
+                </g>
+
+                <!-- EVENT pill at peak -->
+                <rect x="290" y="34" width="60" height="14" fill="#4A66D4"/>
+                <text x="320" y="44" font-family="Space Grotesk, monospace" font-size="9"
+                      fill="#F0EBDB" text-anchor="middle" font-weight="700" letter-spacing="1">EVENT</text>
+
+                <!-- In-arc annotations -->
+                <text x="200" y="100" font-family="Space Grotesk, monospace" font-size="9.5"
+                      fill="#F0EBDB" text-anchor="middle" font-weight="600">pre-scale ramp</text>
+                <text x="410" y="100" font-family="Space Grotesk, monospace" font-size="9.5"
+                      fill="#F0EBDB" text-anchor="middle" font-weight="600">scale-down</text>
+
+                <!-- Time axis -->
+                <line x1="40" y1="146" x2="500" y2="146" stroke="rgba(240,235,219,.18)"/>
+                <g font-family="Space Grotesk, monospace" font-size="9" fill="rgba(240,235,219,.6)">
+                  <text x="40"  y="162" text-anchor="start">T&minus;14d</text>
+                  <text x="130" y="162" text-anchor="middle">T&minus;7d</text>
+                  <text x="220" y="162" text-anchor="middle">T&minus;3d</text>
+                  <text x="320" y="162" text-anchor="middle" fill="#4A66D4" font-weight="700">T&minus;0</text>
+                  <text x="430" y="162" text-anchor="middle">T+1d</text>
+                  <text x="500" y="162" text-anchor="end">T+3d</text>
+                </g>
+
+                <!-- Tick marks on the time axis -->
+                <g stroke="rgba(240,235,219,.3)">
+                  <line x1="40"  y1="143" x2="40"  y2="149"/>
+                  <line x1="130" y1="143" x2="130" y2="149"/>
+                  <line x1="220" y1="143" x2="220" y2="149"/>
+                  <line x1="320" y1="140" x2="320" y2="152" stroke="#4A66D4" stroke-width="1.4"/>
+                  <line x1="430" y1="143" x2="430" y2="149"/>
+                  <line x1="500" y1="143" x2="500" y2="149"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Scope verdict chips · per-scope verdicts in a compact row -->
+            <div class="drw-rdy-scopes">
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:0ms"><i></i>Compute</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:80ms"><i></i>Database</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:160ms"><i></i>Cache</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:240ms"><i></i>Queues</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:320ms"><i></i>Autoscaler</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:400ms"><i></i>Network</span>
+              <span class="drw-rdy-scope drw-rdy-scope--action" style="--d:480ms"><i></i>CDN &middot; action</span>
+              <span class="drw-rdy-scope drw-rdy-scope--ready"  style="--d:560ms"><i></i>Secrets</span>
+            </div>
+
             <div class="drw-feat-vis-foot">
-              <span class="drw-feat-vis-running">7 scopes ready &middot; 1 action required</span>
-              <span class="drw-feat-vis-counter">Pre-scale at <strong>T&minus;7d</strong> &middot; scale-down at <strong>T+1d</strong></span>
+              <span class="drw-feat-vis-running">7 scopes ready &middot; 1 requires attention</span>
+              <span class="drw-feat-vis-counter">Pre-scale fires at <strong>T&minus;7d</strong> &middot; scale-down at <strong>T+1d</strong></span>
             </div>
           </div>
           <!-- 3-COL STRIPE-STYLE PARAGRAPH BLOCK -->
