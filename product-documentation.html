@@ -124,44 +124,50 @@
 
 /* Docs topbar · sticky below the main site nav.
    Brand on the left, search in the middle, sign-in on the right. */
+/* Docs topbar · sticky below the main site nav.
+   Quiet visual weight — small brand, mid-width search, low-key links.
+   The site nav above is 64px tall; this bar sits flush below at 52px. */
 .docs-topbar{
-  position:sticky; top:64px; z-index:60;
+  position:sticky; top:64px; z-index:80;
   background:var(--paper);
   border-bottom:1px solid var(--line);
 }
 html[data-theme="dark"] .docs-topbar{ background:#15151B; border-bottom-color:#2a2a30; }
 .docs-topbar-inner{
-  max-width:var(--max); margin:0 auto;
-  padding:14px var(--gutter);
-  display:flex; align-items:center; gap:var(--sp-6);
+  max-width:1400px; margin:0 auto;
+  padding:10px var(--gutter);
+  display:flex; align-items:center; gap:18px;
+  min-height:52px;
 }
 .docs-topbar-brand{
-  display:inline-flex; align-items:center; gap:10px;
+  display:inline-flex; align-items:center; gap:8px;
   font-family:var(--font); font-size:14px; font-weight:600;
   letter-spacing:-.005em;
   color:var(--ink); text-decoration:none;
   white-space:nowrap;
+  padding-right:14px;
+  border-right:1px solid var(--line);
 }
+html[data-theme="dark"] .docs-topbar-brand{ border-right-color:#2a2a30; }
 .docs-topbar-brand-mark{
   width:18px; height:18px; flex:none;
   display:inline-flex; align-items:center; justify-content:center;
 }
 .docs-topbar-brand-mark svg{ width:100%; height:100%; display:block; }
 .docs-topbar-brand-tag{
-  display:inline-block; padding:2px 7px;
-  background:rgba(245,133,73,.10);
-  border:1px solid rgba(245,133,73,.4);
-  color:var(--zop-orange);
-  font-family:var(--mono); font-size:9.5px; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
+  display:inline-block;
+  font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.04em; text-transform:lowercase;
+  color:var(--ink-3);
+  margin-left:2px;
 }
 
-/* Search input · ⌘K hint chip, visual-only */
+/* Search input · ⌘K hint chip, visual-only · constrained width */
 .docs-topbar-search{
   position:relative;
   display:flex; align-items:center; gap:8px;
-  padding:0 14px;
-  height:34px; width:100%; max-width:420px;
+  padding:0 12px;
+  height:32px; flex:0 1 320px; min-width:0;
   background:var(--bg-2);
   border:1px solid var(--line);
   color:var(--ink-3);
@@ -195,19 +201,20 @@ html[data-theme="dark"] .docs-topbar-search-kbd{ background:#15151B; border-colo
 
 .docs-topbar-actions{
   margin-left:auto;
-  display:inline-flex; align-items:center; gap:14px;
+  display:inline-flex; align-items:center; gap:18px;
 }
 .docs-topbar-actions a{
   font-family:var(--font); font-size:13px; font-weight:500;
-  color:var(--ink-2); text-decoration:none;
+  color:var(--ink-3); text-decoration:none;
   letter-spacing:-.005em;
   transition:color .14s;
 }
 .docs-topbar-actions a:hover{ color:var(--ink); }
 .docs-topbar-actions .docs-topbar-cta{
-  padding:6px 12px;
+  padding:6px 14px;
   background:var(--ink); color:var(--paper);
   border:1px solid var(--ink);
+  font-weight:600;
   transition:transform .14s, box-shadow .14s;
 }
 .docs-topbar-actions .docs-topbar-cta:hover{
@@ -216,30 +223,37 @@ html[data-theme="dark"] .docs-topbar-search-kbd{ background:#15151B; border-colo
   box-shadow:0 4px 0 -2px var(--zop-orange);
 }
 
-/* 3-column shell */
+/* 3-column shell · wider envelope, slimmer sidebars
+   Total: 240 + content + 200 = sidebars 440px, leaves 960px+ for content
+   inside a 1400px max envelope. Was 280 + 220 = 500px, leaving ~780px. */
 .docs-shell{
   display:grid;
-  grid-template-columns:280px minmax(0,1fr) 220px;
-  max-width:var(--max); margin:0 auto;
+  grid-template-columns:240px minmax(0,1fr) 200px;
+  gap:48px;
+  max-width:1400px; margin:0 auto;
   padding:0 var(--gutter);
   align-items:flex-start;
 }
 
-/* LEFT · sidebar with product switcher + nav tree */
+/* LEFT · sidebar with product switcher + nav tree.
+   Top offset = site nav (64px) + docs topbar (52px) + 8px breathing.
+   Sticky max-height matches: viewport - 124px so the sidebar can scroll
+   independently when nav grows. */
 .docs-sidebar{
-  position:sticky; top:120px;
+  position:sticky; top:124px;
   align-self:start;
-  max-height:calc(100vh - 140px);
+  max-height:calc(100vh - 144px);
   overflow-y:auto;
-  padding:var(--sp-7) var(--sp-5) var(--sp-10) 0;
-  border-right:1px solid var(--line);
+  padding:var(--sp-7) var(--sp-4) var(--sp-10) 0;
   font-family:var(--font);
 }
 
 /* Product switcher · top of sidebar · dropdown style */
 .docs-product-switch{
   position:relative;
-  margin-bottom:var(--sp-6);
+  margin-bottom:var(--sp-5);
+  padding-bottom:var(--sp-5);
+  border-bottom:1px solid var(--line);
 }
 .docs-product-switch-label{
   display:block;
@@ -360,8 +374,10 @@ html[data-theme="dark"] .docs-product-switch-opt:hover{ background:#1B1B22; }
   font-weight:600;
 }
 
-/* MIDDLE · content area */
-.docs-body{ min-width:0; padding:var(--sp-7) var(--sp-8); }
+/* MIDDLE · content area · no horizontal padding (the .docs-shell
+   gutter + gap handles spacing). Top padding pushes content below the
+   sticky topbar visually. */
+.docs-body{ min-width:0; padding:var(--sp-7) 0 var(--sp-12); }
 .docs-body > [data-doc-content][hidden]{ display:none; }
 .docs-page-head{
   margin-bottom:var(--sp-8);
@@ -386,45 +402,48 @@ html[data-theme="dark"] .docs-product-switch-opt:hover{ background:#1B1B22; }
   max-width:680px;
 }
 
-/* RIGHT · "On this page" anchor list */
+/* RIGHT · "On this page" anchor list · clean alignment, no border,
+   just text in a sticky column. Active item gets an orange dot + bold. */
 .docs-onthispage{
-  position:sticky; top:120px;
+  position:sticky; top:124px;
   align-self:start;
-  max-height:calc(100vh - 140px);
+  max-height:calc(100vh - 144px);
   overflow-y:auto;
-  padding:var(--sp-7) 0 var(--sp-10) var(--sp-5);
-  border-left:1px solid var(--line);
+  padding:var(--sp-7) 0 var(--sp-10);
 }
 .docs-onthispage-head{
   display:block;
   font-family:var(--mono); font-size:10px; font-weight:700;
   letter-spacing:.14em; text-transform:uppercase;
   color:var(--ink-4);
-  margin-bottom:12px;
+  margin:0 0 14px;
+  padding:0 12px;
 }
 .docs-onthispage-list{
   list-style:none; padding:0; margin:0;
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column; gap:2px;
 }
 .docs-onthispage-list li{ margin:0; }
 .docs-onthispage-list a{
-  display:block; padding:5px 10px;
-  font-family:var(--font); font-size:12.5px; font-weight:500;
-  letter-spacing:-.005em; line-height:1.45;
+  display:block;
+  padding:5px 12px;
+  font-family:var(--font); font-size:13px; font-weight:500;
+  letter-spacing:-.005em; line-height:1.5;
   color:var(--ink-3); text-decoration:none;
-  border-left:2px solid transparent;
-  margin-left:-2px;
+  border-left:1.5px solid transparent;
   transition:color .14s, border-color .14s;
 }
-.docs-onthispage-list a:hover{ color:var(--ink); border-left-color:var(--ink-4); }
+.docs-onthispage-list a:hover{ color:var(--ink); }
 .docs-onthispage-list a.is-active{
   color:var(--zop-orange);
   border-left-color:var(--zop-orange);
   font-weight:600;
 }
+.docs-onthispage-list .is-h3{ margin-left:0; }
 .docs-onthispage-list .is-h3 a{
   padding-left:24px; font-size:12px; color:var(--ink-4);
 }
+.docs-onthispage-list .is-h3 a:hover{ color:var(--ink-2); }
 
 /* Stub content card · for ZopDay/ZopCloud sections with placeholder copy */
 .docs-stub{
