@@ -12511,6 +12511,716 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
             </div>
           </template>
         </article>
+
+        <!-- 06 · BLAST RADIUS · NEW (added with the May 2026 content update) -->
+        <article class="cap-card" data-cap="blastradius" tabindex="0">
+          <button class="feat-expand" aria-label="Expand Blast Radius details">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M 4 8 L 4 4 L 8 4 M 16 12 L 16 16 L 12 16 M 4 4 L 9 9 M 16 16 L 11 11"/></svg>
+          </button>
+          <span class="cap-num">06 &middot; Blast Radius</span>
+          <h4>Know what breaks before you make the change.</h4>
+          <p>Maps everything one hop out. Flags every connection affected, warning, or safe. One risk score, 0&ndash;100.</p>
+          <template class="feat-drawer-tpl">
+            <span class="drw-num"> 06 &middot; Blast Radius</span>
+
+            <div class="drw-rec-hero">
+              <div class="drw-rec-hero-text">
+                <h2 class="drw-rec-h">Blast Radius</h2>
+                <p class="drw-rec-sub">Know what a change breaks, before you make it.</p>
+                <p class="drw-lede">Before you delete, stop, or modify a resource, Blast Radius maps everything connected to it &mdash; shared security groups, load-balancer targets, attached storage, triggers, parent-child links &mdash; and flags each one affected, warning, or safe. A single risk score from 0 to 100 tells you how big the change really is, lit up on the architecture canvas. No guessing, no &ldquo;let&rsquo;s try it in staging and see.&rdquo;</p>
+                <div class="drw-rec-cta">
+                  <a class="btn btn-primary" href="signin.html">See a blast radius <span aria-hidden="true">&rarr;</span></a>
+                  <a class="btn btn-secondary" href="zopnight.html">See how it works <span aria-hidden="true">&rarr;</span></a>
+                </div>
+              </div>
+              <div class="drw-rec-hero-aside">
+                <ul class="drw-outcome-list">
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Maps everything one hop out</strong> &mdash; shared security groups, routes, attachments, triggers, parent-child</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Every connection flagged</strong> &mdash; affected, warning, or safe</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>One risk score, 0&ndash;100</strong> from impact, environment, and how many teams and schedules depend on it</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Right there</strong> before you apply a recommendation or tune an autoscaler policy</span>
+                  </li>
+                </ul>
+                <div class="drw-rec-diagram" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="10" width="208" height="76" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="16" y="24" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">BLAST RADIUS &middot; RISK 62</text>
+                    <line x1="16" y1="30" x2="204" y2="30" stroke="#D9D3BF"/>
+                    <!-- target (blue) -->
+                    <circle cx="110" cy="58" r="9" fill="#FAF7EC" stroke="#2A4494" stroke-width="2"/>
+                    <!-- affected (red) -->
+                    <circle cx="60" cy="48" r="6" fill="#D14545"/>
+                    <circle cx="60" cy="70" r="6" fill="#D14545"/>
+                    <!-- warning (amber) -->
+                    <circle cx="160" cy="44" r="6" fill="#F58549"/>
+                    <!-- safe (green) -->
+                    <circle cx="160" cy="70" r="6" fill="#7FB236"/>
+                    <!-- edges -->
+                    <line x1="66" y1="48" x2="101" y2="56" stroke="#D14545" stroke-width="1.2"/>
+                    <line x1="66" y1="70" x2="101" y2="62" stroke="#D14545" stroke-width="1.2"/>
+                    <line x1="119" y1="56" x2="154" y2="46" stroke="#F58549" stroke-width="1.2"/>
+                    <line x1="119" y1="60" x2="154" y2="70" stroke="#7FB236" stroke-width="1.2"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="drw-rec-three">
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <circle cx="12" cy="12" r="8"/>
+                    <path d="M12 4 L12 20 M4 12 L20 12" opacity=".5"/>
+                  </svg>
+                </div>
+                <h4>The hard part isn&rsquo;t the change. It&rsquo;s what&rsquo;s connected to it.</h4>
+                <p>Finding waste is easy; knowing what a delete or a resize takes down with it is the scary part. Blast Radius answers that before you act &mdash; it builds an adjacency graph from your resource metadata and walks one hop out to everything connected.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <rect x="4" y="4" width="6" height="6"/>
+                    <rect x="14" y="4" width="6" height="6"/>
+                    <rect x="4" y="14" width="6" height="6"/>
+                    <rect x="14" y="14" width="6" height="6"/>
+                  </svg>
+                </div>
+                <h4>It knows how each thing actually behaves.</h4>
+                <p>Classification is resource-type-aware: modifying a managed service is a live update (safe), restarting a VM takes its load balancer offline for a moment (warning), and deleting a parent destroys its children (affected). <strong>When it can&rsquo;t prove a change is safe, it defaults to warning</strong> &mdash; never the other way around.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7 V12 L15 14"/>
+                  </svg>
+                </div>
+                <h4>One score, and the whole map.</h4>
+                <p>A single risk score from 0 to 100 weighs impact severity, environment (prod counts more than dev), and how many teams and schedules depend on the target &mdash; and if nothing&rsquo;s affected, the score is zero. On the canvas, the target glows blue, affected resources red, warnings amber, safe green, with a side panel listing what&rsquo;s hit, who owns it, and why.</p>
+              </div>
+            </div>
+
+            <div class="drw-discover-head">More to discover</div>
+            <div class="drw-discover">
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <circle cx="110" cy="48" r="10" fill="#FAF7EC" stroke="#2A4494" stroke-width="1.8"/>
+                    <!-- 6 edges fanning out -->
+                    <line x1="100" y1="44" x2="40" y2="24" stroke="#525252" stroke-width="1"/>
+                    <line x1="100" y1="48" x2="40" y2="48" stroke="#525252" stroke-width="1"/>
+                    <line x1="100" y1="52" x2="40" y2="74" stroke="#525252" stroke-width="1"/>
+                    <line x1="120" y1="44" x2="180" y2="24" stroke="#525252" stroke-width="1"/>
+                    <line x1="120" y1="48" x2="180" y2="48" stroke="#525252" stroke-width="1"/>
+                    <line x1="120" y1="52" x2="180" y2="74" stroke="#525252" stroke-width="1"/>
+                    <text x="34" y="22" font-family="Space Grotesk, monospace" font-size="7" fill="#525252" text-anchor="end">SG</text>
+                    <text x="34" y="50" font-family="Space Grotesk, monospace" font-size="7" fill="#525252" text-anchor="end">LB</text>
+                    <text x="34" y="78" font-family="Space Grotesk, monospace" font-size="7" fill="#525252" text-anchor="end">STORAGE</text>
+                    <text x="186" y="22" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">TRIGGER</text>
+                    <text x="186" y="50" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">PARENT</text>
+                    <text x="186" y="78" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">REPLICA</text>
+                  </svg>
+                </div>
+                <h4>Six kinds of connection.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Shared security groups, load-balancer targets, attached volumes</li>
+                  <li>Event triggers, parent-child membership, cross-region replicas</li>
+                  <li>The real ways one resource can take another down</li>
+                </ul>
+                <a href="signin.html">See the edges &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">SAME TARGET &middot; THREE VERDICTS</text>
+                    <line x1="22" y1="32" x2="200" y2="32" stroke="#D9D3BF"/>
+                    <text x="22" y="48" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">MODIFY</text>
+                    <rect x="80" y="40" width="116" height="11" fill="rgba(127,178,54,.18)" stroke="#3f6320"/>
+                    <text x="138" y="48" font-family="Space Grotesk, monospace" font-size="7" fill="#3f6320" text-anchor="middle">SAFE</text>
+                    <text x="22" y="64" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">STOP</text>
+                    <rect x="80" y="56" width="116" height="11" fill="rgba(245,133,73,.20)" stroke="#F58549"/>
+                    <text x="138" y="64" font-family="Space Grotesk, monospace" font-size="7" fill="#F58549" text-anchor="middle">WARNING</text>
+                    <text x="22" y="80" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">DELETE</text>
+                    <rect x="80" y="72" width="116" height="11" fill="rgba(209,69,69,.20)" stroke="#D14545"/>
+                    <text x="138" y="80" font-family="Space Grotesk, monospace" font-size="7" fill="#D14545" text-anchor="middle">AFFECTED</text>
+                  </svg>
+                </div>
+                <h4>The verdict depends on the operation.</h4>
+                <ul class="drw-bullet-list">
+                  <li><strong>Stopping</strong> a resource preserves its attached storage (safe)</li>
+                  <li><strong>Deleting</strong> a parent destroys its children (affected)</li>
+                  <li>Touching a database is judged differently from touching the compute next to it</li>
+                </ul>
+                <a href="signin.html">See the classification &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="44" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">RECOMMENDATION</text>
+                    <line x1="22" y1="32" x2="200" y2="32" stroke="#D9D3BF"/>
+                    <text x="22" y="46" font-family="Space Grotesk, sans-serif" font-size="10" fill="#0F0F12">Stop t3.xlarge &middot; saves $84/mo</text>
+                    <rect x="20" y="64" width="100" height="18" fill="none" stroke="#F58549"/>
+                    <text x="70" y="76" font-family="Space Grotesk, monospace" font-size="8" fill="#F58549" text-anchor="middle">VIEW BLAST RADIUS</text>
+                  </svg>
+                </div>
+                <h4>Right where you&rsquo;d act.</h4>
+                <ul class="drw-bullet-list">
+                  <li>One click from a recommendation, or when you apply, tune, or remove an autoscaler policy</li>
+                  <li>The impact map appears <strong>before anything runs</strong></li>
+                  <li>So the check happens where the decision happens</li>
+                </ul>
+                <a href="signin.html">See it in context &rarr;</a>
+              </article>
+            </div>
+
+            <div class="drw-evidence">
+              <span class="drw-evidence-tag">Anonymised &middot; Fortune-1000 enterprise &middot; multi-cloud</span>
+              <div>
+                <blockquote>&ldquo;We used to clean up resources holding our breath. Now we open the blast radius first &mdash; it caught a shared security group other services were quietly leaning on, and saved us a delete we&rsquo;d have regretted.&rdquo;</blockquote>
+                <cite>Internal benchmark, anonymised at customer&rsquo;s request</cite>
+                <a class="drw-evidence-methodology" href="zopnight.html#section-5-proof">Read the methodology <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </template>
+        </article>
+
+        <!-- 07 · COST ANOMALY DETECTION · NEW -->
+        <article class="cap-card" data-cap="anomaly" tabindex="0">
+          <button class="feat-expand" aria-label="Expand Cost Anomaly Detection details">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M 4 8 L 4 4 L 8 4 M 16 12 L 16 16 L 12 16 M 4 4 L 9 9 M 16 16 L 11 11"/></svg>
+          </button>
+          <span class="cap-num">07 &middot; Anomalies</span>
+          <h4>Catch the spike the day it happens.</h4>
+          <p>Watches org, account, group, resource, and team levels. Every anomaly carries a root cause, not just a number.</p>
+          <template class="feat-drawer-tpl">
+            <span class="drw-num"> 07 &middot; Cost Anomaly Detection</span>
+
+            <div class="drw-rec-hero">
+              <div class="drw-rec-hero-text">
+                <h2 class="drw-rec-h">Cost Anomaly Detection</h2>
+                <p class="drw-rec-sub">Your bill spikes for a reason. We catch it the day it happens and name the reason.</p>
+                <p class="drw-lede">A resize here, a new cluster there, a reservation that quietly expired, a schedule that didn&rsquo;t fire &mdash; cloud spend jumps for a dozen reasons, and most of them you don&rsquo;t notice until the invoice. ZopNight watches your spend every day across five levels, flags what&rsquo;s out of pattern, and ships every alert with the root cause already attached.</p>
+                <div class="drw-rec-cta">
+                  <a class="btn btn-primary" href="signin.html">See your anomalies <span aria-hidden="true">&rarr;</span></a>
+                  <a class="btn btn-secondary" href="zopnight.html">See how it works <span aria-hidden="true">&rarr;</span></a>
+                </div>
+              </div>
+              <div class="drw-rec-hero-aside">
+                <ul class="drw-outcome-list">
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Watches five levels</strong> &mdash; org, account, resource group, resource, and team</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Severity that matches the jump</strong> &mdash; warning, critical</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Root cause attached</strong> to every anomaly, not just the number</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Quiet by design</strong> &mdash; ignores sub-dollar noise, moving averages, low-history series</span>
+                  </li>
+                </ul>
+                <div class="drw-rec-diagram" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="10" width="208" height="76" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="16" y="24" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">7-DAY SPEND</text>
+                    <line x1="16" y1="30" x2="204" y2="30" stroke="#D9D3BF"/>
+                    <!-- baseline points -->
+                    <polyline points="20,70 50,68 80,66 110,64 140,62 165,42" fill="none" stroke="#F58549" stroke-width="1.6"/>
+                    <!-- spike marker -->
+                    <circle cx="165" cy="42" r="4" fill="#D14545"/>
+                    <text x="170" y="40" font-family="Space Grotesk, monospace" font-size="7" fill="#D14545">+38%</text>
+                    <text x="20" y="84" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">Z-SCORE 3.2 &middot; ROOT: NEW ECS CLUSTER</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="drw-rec-three">
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <polyline points="3,18 9,12 13,15 21,5"/>
+                    <circle cx="13" cy="15" r="1.6" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h4>Two ways to spot it.</h4>
+                <p>ZopNight measures each day&rsquo;s spend in two ways &mdash; how far it deviates from a 7-day rolling average, and its z-score against the longer trend. <strong>An anomaly fires only when both agree</strong>, which keeps the alert worth reading. Severity is assigned from the size of the jump: warning for a few standard deviations, critical when it&rsquo;s a real outlier.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7 V13"/>
+                    <circle cx="12" cy="16.5" r="1" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h4>The reason, not just the number.</h4>
+                <p>A spike with no explanation is just anxiety. Every anomaly carries a root cause &mdash; an instance resized, a new resource provisioned, a reservation that expired, a schedule that didn&rsquo;t fire. <strong>The cause shows up on the cost trend as a marker on the spike day</strong>, so you see the change and the why together. Engineers fix the right thing, not the closest thing.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <path d="M6 4 L18 4 L18 16 L14 20 L6 20 Z"/>
+                    <path d="M9 9 L15 9 M9 13 L15 13"/>
+                  </svg>
+                </div>
+                <h4>Quiet when it should be.</h4>
+                <p>Noise kills an alert system. ZopNight ignores anomalies under a dollar a day, ones with too little history, and moving averages that haven&rsquo;t stabilised yet. <strong>You get fewer alerts and more of them are right.</strong> Threshold tuning lives in the UI, not in a config file you forgot you owned.</p>
+              </div>
+            </div>
+
+            <div class="drw-discover-head">More to discover</div>
+            <div class="drw-discover">
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="26" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">ANOMALY &middot; web-prod cluster</text>
+                    <rect x="158" y="20" width="40" height="8" fill="rgba(209,69,69,.16)" stroke="#D14545"/>
+                    <text x="178" y="26" font-family="Space Grotesk, monospace" font-size="6.5" fill="#D14545" text-anchor="middle">RESOURCE</text>
+                    <text x="22" y="42" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">ANOMALY &middot; payments team</text>
+                    <rect x="158" y="36" width="40" height="8" fill="rgba(245,133,73,.18)" stroke="#F58549"/>
+                    <text x="178" y="42" font-family="Space Grotesk, monospace" font-size="6.5" fill="#F58549" text-anchor="middle">TEAM</text>
+                    <text x="22" y="58" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">ANOMALY &middot; eu-staging account</text>
+                    <rect x="158" y="52" width="40" height="8" fill="rgba(245,133,73,.18)" stroke="#F58549"/>
+                    <text x="178" y="58" font-family="Space Grotesk, monospace" font-size="6.5" fill="#F58549" text-anchor="middle">ACCOUNT</text>
+                    <text x="22" y="74" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">ANOMALY &middot; org rollup</text>
+                    <rect x="158" y="68" width="40" height="8" fill="rgba(127,178,54,.18)" stroke="#3f6320"/>
+                    <text x="178" y="74" font-family="Space Grotesk, monospace" font-size="6.5" fill="#3f6320" text-anchor="middle">ORG</text>
+                  </svg>
+                </div>
+                <h4>Five levels, not just the total.</h4>
+                <ul class="drw-bullet-list">
+                  <li>A spike buried at the org level shows up where it actually lives</li>
+                  <li>Account, resource group, single resource, or team rollup</li>
+                  <li>Each anomaly carries the right level of granularity</li>
+                </ul>
+                <a href="signin.html">See the levels &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <polyline points="20,70 50,66 80,64 110,58 140,40 170,46 200,40" fill="none" stroke="#F58549" stroke-width="1.6"/>
+                    <!-- anomaly marker dots -->
+                    <circle cx="140" cy="40" r="3" fill="#D14545"/>
+                    <circle cx="170" cy="46" r="3" fill="#F58549"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="8" fill="#525252">COST TREND</text>
+                    <text x="138" y="34" font-family="Space Grotesk, monospace" font-size="6.5" fill="#D14545" text-anchor="middle">+38%</text>
+                  </svg>
+                </div>
+                <h4>Right on the trend.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Anomaly markers land on your cost-trend chart on the spike day</li>
+                  <li>See the spike and the reason together</li>
+                  <li>Click through to the resource that drove it</li>
+                </ul>
+                <a href="signin.html">See markers in context &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">ANOMALIES &middot; 6 active</text>
+                    <line x1="22" y1="32" x2="200" y2="32" stroke="#D9D3BF"/>
+                    <text x="22" y="46" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">slack: not configured</text>
+                    <text x="22" y="58" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">email: not configured</text>
+                    <text x="22" y="76" font-family="Space Grotesk, monospace" font-size="8" fill="#F58549" font-weight="700">&rarr; still tracking 6</text>
+                  </svg>
+                </div>
+                <h4>Alerts are optional. Detection isn&rsquo;t.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Detection runs whether you&rsquo;ve configured a channel or not</li>
+                  <li>The dashboard always shows the active anomaly list</li>
+                  <li>Slack, email, webhook &mdash; opt in when you&rsquo;re ready</li>
+                </ul>
+                <a href="signin.html">See alert routing &rarr;</a>
+              </article>
+            </div>
+
+            <div class="drw-evidence">
+              <span class="drw-evidence-tag">Anonymised &middot; Fortune-1000 enterprise &middot; multi-cloud</span>
+              <div>
+                <blockquote>&ldquo;We used to discover overruns on the monthly invoice. Now an anomaly shows up the morning it happens with the cause already attached &mdash; we fix it the same day instead of arguing about it three weeks later.&rdquo;</blockquote>
+                <cite>Internal benchmark, anonymised at customer&rsquo;s request</cite>
+                <a class="drw-evidence-methodology" href="zopnight.html#section-5-proof">Read the methodology <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </template>
+        </article>
+
+        <!-- 08 · MCP SERVER · NEW -->
+        <article class="cap-card" data-cap="mcp" tabindex="0">
+          <button class="feat-expand" aria-label="Expand MCP Server details">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M 4 8 L 4 4 L 8 4 M 16 12 L 16 16 L 12 16 M 4 4 L 9 9 M 16 16 L 11 11"/></svg>
+          </button>
+          <span class="cap-num">08 &middot; MCP Server</span>
+          <h4>Your cloud spend, one question away.</h4>
+          <p>Plug ZopNight into Claude, Cursor, Codex. Ask in plain English. Read-only, scoped to your RBAC.</p>
+          <template class="feat-drawer-tpl">
+            <span class="drw-num"> 08 &middot; MCP Server</span>
+
+            <div class="drw-rec-hero">
+              <div class="drw-rec-hero-text">
+                <h2 class="drw-rec-h">MCP Server</h2>
+                <p class="drw-rec-sub">Your cloud spend, one question away. Right inside Claude, Cursor, and Codex.</p>
+                <p class="drw-lede">ZopNight&rsquo;s MCP server plugs your cloud data into the AI assistant you already use &mdash; Claude Desktop, Cursor, Codex, Claude Code. Ask &ldquo;what did we spend on Kubernetes last month?&rdquo; in plain English, get the answer pulled from live ZopNight data. Read-only by design. Scoped to whatever your RBAC role can already see.</p>
+                <div class="drw-rec-cta">
+                  <a class="btn btn-primary" href="signin.html">Connect your assistant <span aria-hidden="true">&rarr;</span></a>
+                  <a class="btn btn-secondary" href="zopnight.html">See how it works <span aria-hidden="true">&rarr;</span></a>
+                </div>
+              </div>
+              <div class="drw-rec-hero-aside">
+                <ul class="drw-outcome-list">
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Works in the tools you use</strong> &mdash; Claude Desktop, Cursor, Codex, Claude Code</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>43 read-only tools</strong> for resources, costs, recommendations, schedules, anomalies, audit</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>RBAC-scoped</strong> &mdash; the assistant sees exactly what your role can see</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Org-level switch</strong>, token revocable, every write rejected</span>
+                  </li>
+                </ul>
+                <div class="drw-rec-diagram" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="10" width="208" height="76" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="16" y="24" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">CLAUDE &middot; CURSOR &middot; CODEX</text>
+                    <line x1="16" y1="30" x2="204" y2="30" stroke="#D9D3BF"/>
+                    <rect x="20" y="40" width="50" height="18" fill="none" stroke="#525252"/>
+                    <text x="45" y="52" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12" text-anchor="middle">CLAUDE</text>
+                    <rect x="80" y="40" width="50" height="18" fill="none" stroke="#525252"/>
+                    <text x="105" y="52" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12" text-anchor="middle">CURSOR</text>
+                    <rect x="140" y="40" width="50" height="18" fill="none" stroke="#525252"/>
+                    <text x="165" y="52" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12" text-anchor="middle">CODEX</text>
+                    <line x1="45" y1="58" x2="105" y2="72" stroke="#525252" stroke-width="0.8"/>
+                    <line x1="105" y1="58" x2="105" y2="72" stroke="#525252" stroke-width="0.8"/>
+                    <line x1="165" y1="58" x2="105" y2="72" stroke="#525252" stroke-width="0.8"/>
+                    <rect x="70" y="72" width="70" height="10" fill="#F58549"/>
+                    <text x="105" y="80" font-family="Space Grotesk, monospace" font-size="7" fill="#FAF7EC" text-anchor="middle" font-weight="700">ZOPNIGHT MCP</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="drw-rec-three">
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <rect x="4" y="6" width="16" height="12"/>
+                    <path d="M8 14 L11 10 L14 12 L17 8"/>
+                    <circle cx="11" cy="10" r="1" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h4>Ask in plain English.</h4>
+                <p>Point your assistant at ZopNight and ask the way you&rsquo;d ask a teammate &mdash; <em>&ldquo;what did we spend on Kubernetes last month?&rdquo;</em>, <em>&ldquo;which recs save the most this quarter?&rdquo;</em>, <em>&ldquo;show me yesterday&rsquo;s anomalies.&rdquo;</em> The MCP server translates the question into a call, pulls fresh data from ZopNight, and the assistant answers in the editor you&rsquo;re already in.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <rect x="5" y="10" width="14" height="10"/>
+                    <path d="M8 10 V7 a4 4 0 0 1 8 0 V10"/>
+                  </svg>
+                </div>
+                <h4>It can&rsquo;t touch your cloud.</h4>
+                <p>This is read access, full stop. <strong>Every write is rejected with &ldquo;operation not permitted.&rdquo;</strong> The assistant can pull data, summarise it, format it, hand it to you &mdash; but it cannot start a remediation, change a schedule, or apply an autoscaler policy. Mutations happen in the ZopNight UI where humans approve them.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <circle cx="12" cy="9" r="3"/>
+                    <path d="M6 21 c0-3 3-5 6-5 c3 0 6 2 6 5"/>
+                  </svg>
+                </div>
+                <h4>It only sees what you can.</h4>
+                <p>RBAC still applies. The MCP server is a stateless proxy, so the assistant is limited to exactly what your role is allowed to read in the dashboard. <strong>Read your team&rsquo;s spend, not the org&rsquo;s.</strong> If you&rsquo;re scoped to a single account, the assistant&rsquo;s scope is the same. No permission shadow, no over-share.</p>
+              </div>
+            </div>
+
+            <div class="drw-discover-head">More to discover</div>
+            <div class="drw-discover">
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="110" y="36" font-family="Space Grotesk, sans-serif" font-size="11" fill="#0F0F12" text-anchor="middle" font-weight="700">ZOPNIGHT MCP</text>
+                    <line x1="110" y1="40" x2="110" y2="50" stroke="#525252"/>
+                    <rect x="22" y="50" width="40" height="14" fill="none" stroke="#525252"/>
+                    <text x="42" y="60" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12" text-anchor="middle">CLAUDE</text>
+                    <rect x="68" y="50" width="40" height="14" fill="none" stroke="#525252"/>
+                    <text x="88" y="60" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12" text-anchor="middle">CURSOR</text>
+                    <rect x="114" y="50" width="40" height="14" fill="none" stroke="#525252"/>
+                    <text x="134" y="60" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12" text-anchor="middle">CODEX</text>
+                    <rect x="160" y="50" width="40" height="14" fill="none" stroke="#525252"/>
+                    <text x="180" y="60" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12" text-anchor="middle">CLI</text>
+                    <line x1="42" y1="50" x2="110" y2="48" stroke="#525252"/>
+                    <line x1="88" y1="50" x2="110" y2="48" stroke="#525252"/>
+                    <line x1="134" y1="50" x2="110" y2="48" stroke="#525252"/>
+                    <line x1="180" y1="50" x2="110" y2="48" stroke="#525252"/>
+                  </svg>
+                </div>
+                <h4>Plugs into your stack.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Claude Desktop, Cursor, Codex, Claude Code &mdash; <strong>any MCP-compatible client</strong></li>
+                  <li>No new IDE, no new tab, no copy-paste between dashboards</li>
+                  <li>Same questions you&rsquo;d type into Slack, answered with live data</li>
+                </ul>
+                <a href="signin.html">See the integrations &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="8" fill="#525252">YOU</text>
+                    <rect x="40" y="20" width="160" height="14" fill="rgba(245,133,73,.10)" stroke="#F58549"/>
+                    <text x="120" y="30" font-family="Space Grotesk, sans-serif" font-size="8.5" fill="#0F0F12" text-anchor="middle">which recs save the most?</text>
+                    <text x="22" y="50" font-family="Space Grotesk, monospace" font-size="8" fill="#525252">MCP</text>
+                    <rect x="40" y="42" width="160" height="36" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="48" y="54" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">1. Stop t3.xlarge dev (idle 14d)  $84/mo</text>
+                    <text x="48" y="64" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">2. Convert to spot, batch jobs        $312/mo</text>
+                    <text x="48" y="74" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">3. Right-size m5.large staging        $58/mo</text>
+                  </svg>
+                </div>
+                <h4>Ask it anything.</h4>
+                <ul class="drw-bullet-list">
+                  <li><em>&ldquo;which recs save the most?&rdquo;</em> &mdash; ranked answer from live data</li>
+                  <li><em>&ldquo;what did we spend on K8s last quarter?&rdquo;</em></li>
+                  <li><em>&ldquo;show me yesterday&rsquo;s anomalies for the payments team&rdquo;</em></li>
+                </ul>
+                <a href="signin.html">See sample prompts &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">ORG &middot; MCP</text>
+                    <line x1="22" y1="32" x2="200" y2="32" stroke="#D9D3BF"/>
+                    <rect x="22" y="40" width="28" height="14" fill="#F58549"/>
+                    <rect x="22" y="40" width="14" height="14" fill="#FAF7EC"/>
+                    <text x="58" y="50" font-family="Space Grotesk, monospace" font-size="8" fill="#0F0F12">ENABLED</text>
+                    <text x="22" y="68" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">TOKEN</text>
+                    <rect x="60" y="61" width="140" height="11" fill="none" stroke="#D9D3BF"/>
+                    <text x="64" y="69" font-family="Space Grotesk, monospace" font-size="7" fill="#0F0F12">zn_pat_a8f3 &middot; &middot; &middot; &middot; 9c1</text>
+                  </svg>
+                </div>
+                <h4>On with a token, off with a switch.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Turn the whole surface on or off at the org level</li>
+                  <li>Issue a personal access token, revoke it from the same page</li>
+                  <li>Every read is logged; mutations are blocked at the protocol layer</li>
+                </ul>
+                <a href="signin.html">See the controls &rarr;</a>
+              </article>
+            </div>
+
+            <div class="drw-evidence">
+              <span class="drw-evidence-tag">Anonymised &middot; Fortune-1000 enterprise &middot; multi-cloud</span>
+              <div>
+                <blockquote>&ldquo;Our engineers ask Cursor what something costs without leaving their editor, and because it&rsquo;s read-only and scoped to their role, security signed off in a week.&rdquo;</blockquote>
+                <cite>Internal benchmark, anonymised at customer&rsquo;s request</cite>
+                <a class="drw-evidence-methodology" href="zopnight.html#section-5-proof">Read the methodology <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </template>
+        </article>
+
+        <!-- 09 · UNIT ECONOMICS · NEW -->
+        <article class="cap-card" data-cap="unit" tabindex="0">
+          <button class="feat-expand" aria-label="Expand Unit Economics details">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M 4 8 L 4 4 L 8 4 M 16 12 L 16 16 L 12 16 M 4 4 L 9 9 M 16 16 L 11 11"/></svg>
+          </button>
+          <span class="cap-num">09 &middot; Unit Economics</span>
+          <h4>A bigger bill isn&rsquo;t the problem. A bigger bill per customer is.</h4>
+          <p>Infra cost &divide; your business metric. Per user, per order, per 1K requests. Plotted next to total spend.</p>
+          <template class="feat-drawer-tpl">
+            <span class="drw-num"> 09 &middot; Unit Economics</span>
+
+            <div class="drw-rec-hero">
+              <div class="drw-rec-hero-text">
+                <h2 class="drw-rec-h">Unit Economics</h2>
+                <p class="drw-rec-sub">A bigger bill isn&rsquo;t the problem. A bigger bill per customer is.</p>
+                <p class="drw-lede">Total cloud spend rises as you grow, which tells you nothing about efficiency. Unit Economics divides your real infrastructure cost by a denominator you define &mdash; monthly active users, orders, a thousand API calls, signups &mdash; and plots cost-per-unit on the same trend as your total spend. The number that tells you whether growth is getting cheaper or more expensive.</p>
+                <div class="drw-rec-cta">
+                  <a class="btn btn-primary" href="signin.html">See cost per unit <span aria-hidden="true">&rarr;</span></a>
+                  <a class="btn btn-secondary" href="zopnight.html">See how it works <span aria-hidden="true">&rarr;</span></a>
+                </div>
+              </div>
+              <div class="drw-rec-hero-aside">
+                <ul class="drw-outcome-list">
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Infra cost &divide; your business metric</strong> &mdash; per user, per order, per 1K requests, per signup</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Plotted on your cost trend</strong> as a second axis &mdash; total and per-unit, side by side</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Three ways to feed the denominator</strong> &mdash; Push API, CSV upload, or scheduled Pull</span>
+                  </li>
+                  <li>
+                    <span class="drw-outcome-check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 L7 12 L13 5"/></svg></span>
+                    <span><strong>Scoped and secure</strong> &mdash; org, team, or tag &middot; credentials in an encrypted vault</span>
+                  </li>
+                </ul>
+                <div class="drw-rec-diagram" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="10" width="208" height="76" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="16" y="24" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">TOTAL vs PER-UNIT</text>
+                    <line x1="16" y1="30" x2="204" y2="30" stroke="#D9D3BF"/>
+                    <!-- total bars rising -->
+                    <rect x="22" y="60" width="14" height="14" fill="rgba(245,133,73,.30)"/>
+                    <rect x="50" y="54" width="14" height="20" fill="rgba(245,133,73,.30)"/>
+                    <rect x="78" y="46" width="14" height="28" fill="rgba(245,133,73,.30)"/>
+                    <rect x="106" y="40" width="14" height="34" fill="rgba(245,133,73,.30)"/>
+                    <rect x="134" y="38" width="14" height="36" fill="rgba(245,133,73,.30)"/>
+                    <rect x="162" y="34" width="14" height="40" fill="rgba(245,133,73,.30)"/>
+                    <!-- per-unit line descending -->
+                    <polyline points="29,52 57,56 85,60 113,64 141,68 169,70" fill="none" stroke="#2A4494" stroke-width="1.8" stroke-linecap="round"/>
+                    <text x="22" y="84" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">TOTAL &uarr;  COST/USER &darr;</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="drw-rec-three">
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <path d="M4 20 H20 M4 20 V4"/>
+                    <path d="M4 16 L9 12 L13 14 L20 6"/>
+                  </svg>
+                </div>
+                <h4>The total spend hides.</h4>
+                <p>Unit Economics divides your reconciled infrastructure cost by a denominator you define &mdash; monthly active users, completed orders, API calls per thousand, signups. <strong>Total spend can climb while cost-per-unit falls</strong>, and that&rsquo;s the picture leadership wants. Define the unit once, watch the ratio every day.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <path d="M3 7 L12 12 L21 7"/>
+                    <path d="M3 7 V17 L12 22 L21 17 V7"/>
+                    <path d="M12 12 V22"/>
+                  </svg>
+                </div>
+                <h4>Feed it your way.</h4>
+                <p>Send the denominator however suits your pipeline: a <strong>Push API</strong> for a live feed from your analytics service, a <strong>CSV upload</strong> for backfill, or a scheduled <strong>Pull</strong> where ZopNight calls your endpoint on a cron. Test the fetch once before it goes live; the test runs the call, shows the returned values, and reports what failed if it did.</p>
+              </div>
+              <div class="drw-rec-pillar">
+                <div class="drw-rec-pillar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
+                    <rect x="5" y="10" width="14" height="10"/>
+                    <path d="M8 10 V7 a4 4 0 0 1 8 0 V10"/>
+                    <circle cx="12" cy="15" r="1" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h4>Scoped and secure.</h4>
+                <p>See cost-per-unit org-wide, or narrowed to a single team or tag &mdash; same denominator, different slice. <strong>Credentials for a Pull endpoint sit in an encrypted vault</strong>, scoped to ZopNight&rsquo;s service principal, never logged or printed. RBAC decides who can change the denominator or rotate the key.</p>
+              </div>
+            </div>
+
+            <div class="drw-discover-head">More to discover</div>
+            <div class="drw-discover">
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="8" fill="#525252">TOTAL ($K)</text>
+                    <text x="198" y="28" font-family="Space Grotesk, monospace" font-size="8" fill="#2A4494" text-anchor="end">$/USER</text>
+                    <!-- total bars -->
+                    <polyline points="20,60 40,56 60,52 80,48 100,44 120,42 140,40 160,38 180,36 200,34" fill="none" stroke="#F58549" stroke-width="1.6"/>
+                    <!-- per-unit line -->
+                    <polyline points="20,48 40,52 60,56 80,60 100,62 120,64 140,66 160,68 180,70 200,72" fill="none" stroke="#2A4494" stroke-width="1.6" stroke-dasharray="3,2"/>
+                  </svg>
+                </div>
+                <h4>On the cost trend.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Total spend on the primary axis, per-unit on a secondary</li>
+                  <li><strong>Same chart, two stories</strong></li>
+                  <li>Drop into any dashboard widget set</li>
+                </ul>
+                <a href="signin.html">See the chart &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="9" fill="#525252">TEST FETCH</text>
+                    <line x1="22" y1="32" x2="200" y2="32" stroke="#D9D3BF"/>
+                    <rect x="22" y="40" width="46" height="14" fill="#F58549"/>
+                    <text x="45" y="50" font-family="Space Grotesk, monospace" font-size="7" fill="#FAF7EC" text-anchor="middle" font-weight="700">RUN ONCE</text>
+                    <text x="22" y="68" font-family="Space Grotesk, monospace" font-size="7" fill="#3f6320">&#x2713; 200 OK &middot; 12,840 users</text>
+                    <text x="22" y="78" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">freshness: 2m ago</text>
+                  </svg>
+                </div>
+                <h4>Test the feed before it&rsquo;s live.</h4>
+                <ul class="drw-bullet-list">
+                  <li>Run the pull endpoint once before saving</li>
+                  <li>See the returned value, the response code, the freshness</li>
+                  <li>Catches the auth mistake before it shows up as gaps</li>
+                </ul>
+                <a href="signin.html">See the test &rarr;</a>
+              </article>
+              <article>
+                <div class="drw-vis" aria-hidden="true">
+                  <svg viewBox="0 0 220 96" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="14" y="14" width="192" height="68" fill="#FAF7EC" stroke="#D9D3BF"/>
+                    <!-- historical line solid -->
+                    <polyline points="20,62 50,58 80,55 110,52 140,49" fill="none" stroke="#2A4494" stroke-width="1.6"/>
+                    <!-- forecast line dashed -->
+                    <polyline points="140,49 170,46 200,43" fill="none" stroke="#2A4494" stroke-width="1.6" stroke-dasharray="3,3"/>
+                    <text x="22" y="28" font-family="Space Grotesk, monospace" font-size="8" fill="#525252">$ PER ACTIVE USER</text>
+                    <line x1="140" y1="30" x2="140" y2="78" stroke="#D9D3BF" stroke-dasharray="2,3"/>
+                    <text x="142" y="38" font-family="Space Grotesk, monospace" font-size="7" fill="#525252">today</text>
+                    <text x="198" y="78" font-family="Space Grotesk, monospace" font-size="7" fill="#525252" text-anchor="end">forecast</text>
+                  </svg>
+                </div>
+                <h4>A forecast, not just history.</h4>
+                <ul class="drw-bullet-list">
+                  <li>The per-unit line projects forward as a dashed segment</li>
+                  <li>See the trend bending early, not after the quarter ends</li>
+                  <li>Triggered by your real growth, not a curve fit</li>
+                </ul>
+                <a href="signin.html">See the forecast &rarr;</a>
+              </article>
+            </div>
+
+            <div class="drw-evidence">
+              <span class="drw-evidence-tag">Anonymised &middot; Fortune-1000 enterprise &middot; SaaS</span>
+              <div>
+                <blockquote>&ldquo;Our bill kept climbing and leadership kept asking if that was bad. Once we plotted cost per active user on the same chart, the answer was obvious &mdash; total up, per-unit down, growth is paying for itself.&rdquo;</blockquote>
+                <cite>Internal benchmark, anonymised at customer&rsquo;s request</cite>
+                <a class="drw-evidence-methodology" href="zopnight.html#section-5-proof">Read the methodology <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </template>
+        </article>
       </div>
     </div>
   </div>
@@ -12563,6 +13273,10 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
   .cap-strip.is-revealed .cap-card:nth-child(3){ animation-delay: 200ms; }
   .cap-strip.is-revealed .cap-card:nth-child(4){ animation-delay: 280ms; }
   .cap-strip.is-revealed .cap-card:nth-child(5){ animation-delay: 360ms; }
+  .cap-strip.is-revealed .cap-card:nth-child(6){ animation-delay: 440ms; }
+  .cap-strip.is-revealed .cap-card:nth-child(7){ animation-delay: 520ms; }
+  .cap-strip.is-revealed .cap-card:nth-child(8){ animation-delay: 600ms; }
+  .cap-strip.is-revealed .cap-card:nth-child(9){ animation-delay: 680ms; }
   @keyframes cap-card-in{
     from{ opacity:0; transform:translateY(28px) scale(0.97); }
     to  { opacity:1; transform:translateY(0) scale(1); }
