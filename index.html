@@ -10813,7 +10813,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M9 3 L9 21 M15 3 L15 21" opacity=".4"/>
                 </svg>
               </div>
-              <h4>30+ resource types, growing every sprint.</h4>
+              <h4>Know what&rsquo;s safe to stop.</h4>
               <p>VMs, Kubernetes clusters and node pools, Deployments, StatefulSets, CronJobs, managed databases (RDS, Cloud SQL, Azure MySQL/PostgreSQL Flexible), Databricks workspaces and clusters, ECS services, ASG capacity, App Runner, Beanstalk, EMR Serverless, SageMaker. <strong>v1.5</strong> extended Kubernetes coverage to Deployments, StatefulSets, and CronJobs across EKS, GKE, and AKS, surfaced live, schedulable from the same plane.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -10823,7 +10823,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M12 6 L12 12 L16 14"/>
                 </svg>
               </div>
-              <h4>Cron, in your timezone.</h4>
+              <h4>Schedule it the way your team actually works.</h4>
               <p>Schedules carry IANA timezones, not server timezones. DST transitions, on-call wake windows, and cross-team handoffs all land on the right side of the hour automatically. <strong>Multiple cron strings per schedule</strong>, a 9 AM wake and a 6 PM shutdown are one entity, not two.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -10835,7 +10835,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M5 8 L5 10 M5 14 L5 16" stroke-dasharray="1 1"/>
                 </svg>
               </div>
-              <h4>Dependency-aware, by default.</h4>
+              <h4>Turn it off in the right order &mdash; and back on before work.</h4>
               <p>Storage wakes before compute. Compute wakes before applications. Auto-sequencing derives from resource tier; per-group custom ordering when you need it. Start and stop delays in minutes. <strong>At 9 AM your dev environment isn&rsquo;t a half-loaded cluster waiting on a database that hasn&rsquo;t woken yet.</strong></p>
             </div>
           </div>
@@ -11032,7 +11032,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <rect x="15" y="3" width="6" height="18"/>
                 </svg>
               </div>
-              <h4>Three modes, scoped to your trust.</h4>
+              <h4>Tune what native leaves on the table.</h4>
               <p>The mode is auto-derived from the credential&rsquo;s permission level. <strong>Monitor</strong> is read-only, observe what would have happened. <strong>Recommend</strong> is read-write with manual apply, every change reviewed before it lands. <strong>Autopilot</strong> is read-write with automatic apply, for workloads you&rsquo;ve signed off in advance. Promote one workload from monitor to autopilot when its SLOs hold. Drop back to monitor on that one workload without disabling the rest.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -11042,7 +11042,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M12 3 V12 L17 17"/>
                 </svg>
               </div>
-              <h4>Quick-setup, smart defaults.</h4>
+              <h4>Targets from your numbers, not a default.</h4>
               <p>Pick a cloud account, pick a target. The wizard derives min, max, target utilisation, and cooldown from the workload&rsquo;s actual shape, CPU average, standard deviation, P90/P95/P99. Attach a schedule trigger from a preset, Business Hours, Peak Hours, Weekend Scale-Down, or compose your own cron. The policy goes live in monitor mode by default; <strong>you decide when it earns the next mode up.</strong></p>
             </div>
             <div class="drw-rec-pillar">
@@ -11053,7 +11053,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <rect x="13" y="14" width="8" height="6"/>
                 </svg>
               </div>
-              <h4>Recommendations land as policies.</h4>
+              <h4>Never a silent overwrite.</h4>
               <p>Six autoscaler rules across AWS, GCP, and Azure (<strong>RC-ASC-001..006</strong>) surface scaling opportunities the engine can convert directly into a policy. One-click apply from a recommendation creates the policy with the right floor, ceiling, and trigger already set. <strong>No second-system to translate findings into action.</strong></p>
             </div>
           </div>
@@ -11385,7 +11385,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M8 3 L8 7 M16 3 L16 7"/>
                 </svg>
               </div>
-              <h4>Define the event, scope the check.</h4>
+              <h4>You know the date. Be ready for it.</h4>
               <p>Pick a date and a target scope, a cluster, a database, a region, a team&rsquo;s stack. The capacity engine takes a multiplier (&times; baseline) or an expected request count, and computes per-target scaled min, max, and desired. Readiness is scored against current capacity, autoscaler policy posture for the workload, and recent activity-log signal, incidents, scaling thrash, change frequency. <strong>Each scope returns its own verdict.</strong></p>
             </div>
             <div class="drw-rec-pillar">
@@ -11396,7 +11396,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
                 </svg>
               </div>
-              <h4>Per-scope verdicts, with the action that flips them.</h4>
+              <h4>Tell it how big, it does the math.</h4>
               <p>Compute, database, queues, caches, every layer scored independently. A green scope means the layer is clear. An amber or red scope ships with the specific action that fixes it: scale this autoscaler floor, increase this connection pool, restage this read replica. Where the fix maps to an existing recommendation rule, it carries the same one-click apply as the recommendations engine. <strong>Databases stay monitor-only</strong>, connection-pool math, headroom, and suggested tier are surfaced; the DBA team owns the change.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -11409,7 +11409,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M12 14 L12 16"/>
                 </svg>
               </div>
-              <h4>Owner-routed, before traffic arrives.</h4>
+              <h4>Never touches your databases.</h4>
               <p>Each not-ready scope surfaces the owning team via the same RBAC scoping that runs everywhere else in ZopNight. Notifications fire to the channel the team already uses, Slack, Teams, GChat, or any webhook target. <strong>The launch lead doesn&rsquo;t chase down which on-call owns which red lock</strong>; the scope already carries the owner.</p>
             </div>
           </div>
@@ -11593,7 +11593,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M8 12 L11 15 L16 9" stroke-width="1.8"/>
                 </svg>
               </div>
-              <h4>Certified, end-to-end.</h4>
+              <h4>Fix the finding, not just read it.</h4>
               <p>Twenty rules certified end-to-end on real cloud as of 2026-05-07, split across three batches: <strong>Batch 1 (stop), Batch 2 (scale-to-zero), Batch 3 (pause)</strong>. The remaining ten rules surface as recommendation cards without the Remediate CTA, gated by an explicit denylist at <code>recommender/internal/remediation/certified</code>. As new rules pass cert, the denylist shrinks; when it&rsquo;s empty, the file deletes itself. Cards aren&rsquo;t certified silently, they earn the action.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -11606,7 +11606,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M3 13 L21 13"/>
                 </svg>
               </div>
-              <h4>Four steps. One audit trail.</h4>
+              <h4>Safe by construction.</h4>
               <p>Every remediation runs the same workflow: <strong>precondition</strong> (validate the resource state) &rarr; <strong>approval</strong> (admin gate for destructive ops) &rarr; <strong>cloud action</strong> (execute for start/stop, pause_service for pause) &rarr; <strong>validate</strong> (confirm the action landed). Approval-required emails go through the central notification service with template <code>remediation_approval_required</code>. Terminal success/failure emails are gated behind a feature flag, fewer alerts, more signal.</p>
             </div>
             <div class="drw-rec-pillar">
@@ -11616,7 +11616,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                   <path d="M9 14 L15 8 M15 14 L9 8"/>
                 </svg>
               </div>
-              <h4>Customer databases, never mutated.</h4>
+              <h4>Not wired? Here&rsquo;s the runbook.</h4>
               <p>The pause template carries an explicit exclude list: <code>rds*, aurora*, cloudsql*, elasticache*, azure-sql, postgres*, mysql*</code>. Even if a recommendation surfaces, even if an admin approves it, customer databases stay untouched. <strong>ZopNight surfaces what the database is costing you and what an optimised footprint looks like; the DBA team applies the change.</strong></p>
             </div>
           </div>
@@ -11740,7 +11740,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <ellipse cx="12" cy="12" rx="4" ry="9" opacity=".55"/>
                   </svg>
                 </div>
-                <h4>Scope.</h4>
+                <h4>Atlas &mdash; see the whole cloud.</h4>
                 <p>Every resource type across AWS, GCP, and Azure, <strong>380+ types</strong> covering compute, Kubernetes, serverless, databases, storage, networking, ML, and messaging. Resource Explorer 2 on AWS, Cloud Asset Inventory on GCP, Resource Graph on Azure, primary discovery, with per-service providers running alongside for the metadata each surface needs (S3 size, Artifact Registry image counts, ECS hierarchy, Databricks child resources).</p>
               </div>
               <div class="drw-rec-pillar">
@@ -11751,7 +11751,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M3 9 L11 9 M13 9 L21 9" opacity=".5"/>
                   </svg>
                 </div>
-                <h4>Two views, one workspace.</h4>
+                <h4>Canvas &mdash; work it, don&rsquo;t just watch it.</h4>
                 <p><strong>Canvas</strong> is the dependency graph, drag to explore, click to drill into a resource, filter by tag or team. <strong>Atlas</strong> is the inventory table, searchable, with a sticky bulk-action toolbar and a grouped account dropdown that collapses cross-provider account selection into one control. Same data behind both. Pick the one that fits the question you&rsquo;re asking.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -11909,7 +11909,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M9 9 L9 21 M15 9 L15 21" opacity=".5"/>
                   </svg>
                 </div>
-                <h4>Three tabs, every angle.</h4>
+                <h4>Trust the number.</h4>
                 <p>The Reports surface has three tabs: <strong>Organisation</strong> (org-wide totals plus trends), <strong>Teams</strong> (cost split equally across owning teams with provider and resource-type breakdowns), and <strong>Tags</strong> (cost attributed by cloud tags, GCP labels, Azure tags, and accepted auto-tag predictions). Tag-key pagination with batched values, slashful-key support via base64, so a tag like <code>app/v1</code> doesn&rsquo;t break the URL.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -11919,7 +11919,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M3 18 L9 18 C12 18 12 12 15 12" opacity=".55"/>
                   </svg>
                 </div>
-                <h4>Cost Flow Sankey, four columns deep.</h4>
+                <h4>See where it actually goes.</h4>
                 <p>Toggle the Cost Breakdown card from Trend to Flow. <strong>Provider &rarr; Account &rarr; Type &rarr; Team</strong> by default; the Layout dropdown swaps in service, region, purchase-type, or per-resource pivots. Click any node to drill, breadcrumb chips track the path, &ldquo;Clear all&rdquo; backs out. Savings overlay paints reclaimable spend in red with a deep-link straight into the matching recommendations view.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -11929,7 +11929,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <circle cx="16" cy="8" r="2"/>
                   </svg>
                 </div>
-                <h4>Anomalies, with root cause.</h4>
+                <h4>Catch the surprises early.</h4>
                 <p>Cost anomaly detection runs daily across five dimensions, org, cloud account, resource group, resource, and team. Severity tiers (warning, critical, emergency) computed from z-score and 7-day rolling percent-deviation, higher severity wins. Each anomaly carries a root-cause classification: <strong>instance resize, new resource, reservation expiry, schedule failure, unscheduled usage.</strong> Math-backed, not model-backed, no black-box ML, no agentic AI.</p>
               </div>
             </div>
@@ -12073,7 +12073,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <circle cx="12" cy="16" r="0.6" fill="currentColor"/>
                   </svg>
                 </div>
-                <h4>Predictions, with the signals behind them.</h4>
+                <h4>Rules, not a black box.</h4>
                 <p>For every resource that lacks proper tagging, the tagger predicts two things: <strong>environment</strong> (dev / test / stage / prod) and <strong>stop-eligibility</strong> (noStop: true / false). Each suggestion ships with the signals that fired, name regex matches, existing partial tags, parent-resource tags, instance configuration. The logic is rule-based, and it used to be ML. ZopNight ran an ML/ONNX prediction pipeline and replaced it with rules in production, because rules don&rsquo;t disagree with themselves between releases.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -12083,7 +12083,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M8 12 L11 15 L16 9"/>
                   </svg>
                 </div>
-                <h4>Accept, reject, or sync.</h4>
+                <h4>Nothing gets applied silently.</h4>
                 <p>Review every suggestion on the Tagger surface under Insights. <strong>Accept</strong> the ones that match, predicted tags apply to the resource. <strong>Reject</strong> the ones that are wrong. Optionally <strong>sync</strong> accepted tags back to the cloud provider, so the same <code>env: prod</code> that drives ZopNight scheduling also shows up in your billing exports, your IAM policy conditions, and the downstream FinOps tooling your platform team already wired.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -12094,7 +12094,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M3 12 H21" opacity=".55"/>
                   </svg>
                 </div>
-                <h4>Tagged spend, surfaced.</h4>
+                <h4>Labels that make everything smarter.</h4>
                 <p>Accepted auto-tag predictions flow into the same Reports surface as cloud-native tags. The <strong>Tag Coverage widget</strong> on the dashboard shows tagged versus untagged spend at a glance. The Reports &rarr; Tags tab attributes cost by tag key and value, and the <code>dimension_source</code> flag on each tag tells you which entries came from the tagger and which were already on the resource in the cloud.</p>
               </div>
             </div>
@@ -12242,7 +12242,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M3 19 C 5 15 11 15 13 19 M11 19 C 13 15 19 15 21 19"/>
                   </svg>
                 </div>
-                <h4>Team attribution, split equally for shared resources.</h4>
+                <h4>By team &mdash; split fairly.</h4>
                 <p>For each resource with owning teams assigned, cost is attributed daily into a unified allocation table. Resources owned by multiple teams <strong>split equally by team count (shareCount)</strong>, no implicit weighting, no hidden split. Unattributed cost, resources with no owning team, gets its own bucket, so untracked spend is visible rather than absorbed silently into the org total.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -12252,7 +12252,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <circle cx="9" cy="8" r="1.4" fill="currentColor"/>
                   </svg>
                 </div>
-                <h4>Tag attribution, every key, every value.</h4>
+                <h4>By tag &mdash; cloud and auto.</h4>
                 <p>Tag attribution attributes cost by cloud-native tags (AWS tags, GCP labels, Azure tags) plus accepted auto-tag predictions from the Tagger. Each <code>tag key:value</code> pair gets the full resource cost, no splitting, because a tag describes the resource, not a share of it. The <code>dimension_source</code> flag (cloud / auto) tells you which contributions came from your cloud directly and which the Tagger added.</p>
               </div>
               <div class="drw-rec-pillar">
@@ -12263,7 +12263,7 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
                     <path d="M9 9 L9 21 M15 9 L15 21" opacity=".5"/>
                   </svg>
                 </div>
-                <h4>Three tabs. One source of truth.</h4>
+                <h4>See the gap, not just the totals.</h4>
                 <p>The Reports surface has three tabs: <strong>Organisation, Teams, Tags</strong>. Tag keys paginate; tag values batch with the parent key in a single request. Trend charts filter by tag key, value, provider, or resource type. Slashful tag keys (<code>kubernetes.io/cluster</code>) survive URL transit via base64 so a copy-pasted Reports URL doesn&rsquo;t break on the punctuation.</p>
               </div>
             </div>
