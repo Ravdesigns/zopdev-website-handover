@@ -4811,6 +4811,9 @@ li::before{
   .post-toc, .blog-toc,
   /* Doc / API table-of-contents on developer + product docs pages */
   .docs-toc, .dev-toc, .doc-toc, .page-toc, .contents-list, .api-list, .endpoint-list,
+  /* New Mintlify-style docs shell · left nav + right on-this-page +
+     in-content "Coming soon" stub list. All structural, no bullets. */
+  .docs-nav, .docs-nav-group, .docs-onthispage-list, .docs-stub-list,
   /* Changelog filter chips + change-list rows (rows use grid layout,
      not bullet-marker layout) */
   .cl-filters, .change-list,
@@ -4848,6 +4851,9 @@ li::before{
   .post-toc, .blog-toc,
   /* Doc / API table-of-contents on developer + product docs pages */
   .docs-toc, .dev-toc, .doc-toc, .page-toc, .contents-list, .api-list, .endpoint-list,
+  /* New Mintlify-style docs shell · left nav + right on-this-page +
+     in-content "Coming soon" stub list. All structural, no bullets. */
+  .docs-nav, .docs-nav-group, .docs-onthispage-list, .docs-stub-list,
   /* Changelog filter chips + change-list rows */
   .cl-filters, .change-list,
   /* Ebook reader chapter TOC + reader content */
