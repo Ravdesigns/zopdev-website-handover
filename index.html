@@ -13296,21 +13296,20 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
   .cap-strip-eyebrow,
   .cap-strip-head,
   .cap-card .cap-num{ display:none !important; }
-  /* 5-card asymmetric grid · Architecture spans 2 cols at top-left (hero),
-     Reports top-right · then Tagging / Showback / Resources in a 1×3 row
-     below. Same chrome and hover signature as the engine bento above
+  /* Uniform 3×3 capability grid · 9 cards, every card the same size,
+     equal hierarchy. Previous layout had Architecture as a hero
+     spanning 2 cols + 4 smaller cards — that only worked for 5 cards;
+     adding the 4 new ones (Blast Radius, Anomalies, MCP, Unit Economics)
+     left an awkward orphan in the bottom row. Uniform grid scales
+     cleanly for any number of cards 6–12.
+     Same chrome and hover signature as the engine bento above
      (-4px lift + ink offset block + orange left-edge stripe). */
   .cap-grid{
     display:grid;
     grid-template-columns:repeat(3, minmax(0, 1fr));
-    grid-auto-rows:minmax(0, auto);
+    grid-auto-rows:minmax(160px, auto);
     gap:16px;
   }
-  .cap-card[data-cap="architecture"] { grid-column:1 / span 2; grid-row:1; min-height:160px; }
-  .cap-card[data-cap="reports"]      { grid-column:3;          grid-row:1; }
-  .cap-card[data-cap="tagging"]      { grid-column:1;          grid-row:2; }
-  .cap-card[data-cap="showback"]     { grid-column:2;          grid-row:2; }
-  .cap-card[data-cap="resources"]    { grid-column:3;          grid-row:2; }
 
   .cap-card{
     position:relative;                 /* anchor for the orange ::after stripe */
@@ -13338,17 +13337,19 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
   }
   .cap-card:hover::after{ transform:scaleY(1); }
 
-  /* Architecture (hero) gets a slightly bigger headline, more breathing room */
-  .cap-card[data-cap="architecture"] h4{ font-size:22px; }
-  .cap-card[data-cap="architecture"] p { font-size:14.5px; max-width:54ch; }
-
   .cap-num{
     font-family:var(--mono); font-size:11px; color:var(--g-500);
     letter-spacing:.06em; margin-bottom:6px;
+    /* Keep the eyebrow off the READ button at top-right */
+    padding-right:80px;
   }
   .cap-card h4{
-    font-size:17px; font-weight:600; line-height:1.2; letter-spacing:-.02em;
+    font-size:17px; font-weight:600; line-height:1.25; letter-spacing:-.02em;
     margin:0;
+    /* Reserve space for the absolutely-positioned READ button
+       (≈58px wide + 22px right offset). Without this, h4s longer
+       than ~24 chars flow under the button. */
+    padding-right:80px;
   }
   .cap-card p{
     font-size:13.5px; color:var(--g-600); line-height:1.5; margin:0;
@@ -13359,20 +13360,13 @@ html:not([data-theme="light"]) .hero h1 .hr-r2 em{
   }
   html[data-theme="dark"] .cap-card p{ color:var(--g-700); }
 
+  /* Tablet · 2 cols · cards flow in DOM order, no hardcoded placement */
+  @media (min-width: 901px) and (max-width: 1200px){
+    .cap-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  /* Mobile · single column · cards stack in DOM order */
   @media (max-width: 900px){
     .cap-grid{ grid-template-columns:1fr; }
-    .cap-card[data-cap]{
-      grid-column:1 !important;
-      grid-row:auto !important;
-    }
-  }
-  @media (min-width: 901px) and (max-width: 1200px){
-    .cap-grid{ grid-template-columns:repeat(2, 1fr); grid-auto-rows:minmax(0, auto); }
-    .cap-card[data-cap="architecture"] { grid-column:1 / span 2; grid-row:1; }
-    .cap-card[data-cap="reports"]      { grid-column:1;          grid-row:2; }
-    .cap-card[data-cap="tagging"]      { grid-column:2;          grid-row:2; }
-    .cap-card[data-cap="showback"]     { grid-column:1;          grid-row:3; }
-    .cap-card[data-cap="resources"]    { grid-column:2;          grid-row:3; }
   }
 </style>
 
