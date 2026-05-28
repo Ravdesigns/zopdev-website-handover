@@ -124,108 +124,101 @@
 
 /* Docs topbar · sticky below the main site nav.
    Brand on the left, search in the middle, sign-in on the right. */
-/* Docs topbar · sticky below the main site nav.
-   Quiet visual weight — small brand, mid-width search, low-key links.
-   The site nav above is 64px tall; this bar sits flush below at 52px. */
-.docs-topbar{
-  position:sticky; top:64px; z-index:80;
-  background:var(--paper);
+
+/* 3-column shell · wider envelope, slimmer sidebars
+   Total: 240 + content + 200 = sidebars 440px, leaves 960px+ for content
+   inside a 1400px max envelope. Was 280 + 220 = 500px, leaving ~780px. */
+
+/* Sidebar head · wordmark + compact search · the topbar is gone, this
+   is where the brand identity + the ⌘K search input live now. */
+.docs-sidebar-head{
+  display:flex; flex-direction:column; gap:12px;
+  padding-bottom:var(--sp-5);
+  margin-bottom:var(--sp-5);
   border-bottom:1px solid var(--line);
 }
-html[data-theme="dark"] .docs-topbar{ background:#15151B; border-bottom-color:#2a2a30; }
-.docs-topbar-inner{
-  max-width:1400px; margin:0 auto;
-  padding:10px var(--gutter);
-  display:flex; align-items:center; gap:18px;
-  min-height:52px;
-}
-.docs-topbar-brand{
+.docs-sidebar-brand{
   display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--font); font-size:14px; font-weight:600;
+  font-family:var(--font); font-size:15px; font-weight:600;
   letter-spacing:-.005em;
   color:var(--ink); text-decoration:none;
   white-space:nowrap;
-  padding-right:14px;
-  border-right:1px solid var(--line);
 }
-html[data-theme="dark"] .docs-topbar-brand{ border-right-color:#2a2a30; }
-.docs-topbar-brand-mark{
-  width:18px; height:18px; flex:none;
+.docs-sidebar-brand-mark{
+  width:20px; height:20px; flex:none;
   display:inline-flex; align-items:center; justify-content:center;
 }
-.docs-topbar-brand-mark svg{ width:100%; height:100%; display:block; }
-.docs-topbar-brand-tag{
-  display:inline-block;
-  font-family:var(--mono); font-size:11px; font-weight:600;
+.docs-sidebar-brand-mark svg{ width:100%; height:100%; display:block; }
+.docs-sidebar-brand-tag{
+  font-family:var(--mono); font-size:10.5px; font-weight:600;
   letter-spacing:.04em; text-transform:lowercase;
-  color:var(--ink-3);
-  margin-left:2px;
+  color:var(--ink-4); margin-left:2px;
 }
-
-/* Search input · ⌘K hint chip, visual-only · constrained width */
-.docs-topbar-search{
+/* Compact search · width follows the sidebar column, no chip clutter */
+.docs-sidebar-search{
   position:relative;
   display:flex; align-items:center; gap:8px;
-  padding:0 12px;
-  height:32px; flex:0 1 320px; min-width:0;
-  background:var(--bg-2);
-  border:1px solid var(--line);
+  padding:0 10px;
+  height:32px; width:100%;
+  background:var(--bg-2); border:1px solid var(--line);
   color:var(--ink-3);
   font-family:var(--font); font-size:13px;
   cursor:text;
   transition:border-color .15s, background .15s;
 }
-.docs-topbar-search:hover{ border-color:var(--ink-4); }
-.docs-topbar-search:focus-within{ border-color:var(--ink); background:var(--paper); }
-html[data-theme="dark"] .docs-topbar-search{ background:#1B1B22; border-color:#2a2a30; }
-html[data-theme="dark"] .docs-topbar-search:focus-within{ background:#0F0F12; border-color:var(--ink); }
-.docs-topbar-search-icon{
-  width:14px; height:14px; flex:none; opacity:.55;
-}
-.docs-topbar-search-input{
+.docs-sidebar-search:hover{ border-color:var(--ink-4); }
+.docs-sidebar-search:focus-within{ border-color:var(--ink); background:var(--paper); }
+html[data-theme="dark"] .docs-sidebar-search{ background:#1B1B22; border-color:#2a2a30; }
+html[data-theme="dark"] .docs-sidebar-search:focus-within{ background:#0F0F12; border-color:var(--ink); }
+.docs-sidebar-search-icon{ width:13px; height:13px; flex:none; opacity:.55; }
+.docs-sidebar-search-input{
   flex:1; min-width:0;
   background:transparent; border:0; outline:none;
   font-family:var(--font); font-size:13px; color:var(--ink);
   letter-spacing:-.005em;
 }
-.docs-topbar-search-input::placeholder{ color:var(--ink-4); }
-.docs-topbar-search-kbd{
-  display:inline-flex; align-items:center; gap:2px;
-  padding:2px 6px; flex:none;
-  font-family:var(--mono); font-size:10.5px; font-weight:600;
-  color:var(--ink-3); border:1px solid var(--line);
+.docs-sidebar-search-input::placeholder{ color:var(--ink-4); }
+.docs-sidebar-search-kbd{
+  display:inline-flex; align-items:center;
+  padding:1px 5px; flex:none;
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  color:var(--ink-4); border:1px solid var(--line);
   background:var(--paper);
   letter-spacing:.04em;
 }
-html[data-theme="dark"] .docs-topbar-search-kbd{ background:#15151B; border-color:#3a3a42; }
+html[data-theme="dark"] .docs-sidebar-search-kbd{ background:#15151B; border-color:#3a3a42; }
 
-.docs-topbar-actions{
-  margin-left:auto;
-  display:inline-flex; align-items:center; gap:18px;
+/* Sidebar foot · 2 quick links + 1 sign-in CTA, anchored at the
+   bottom of the sticky column */
+.docs-sidebar-foot{
+  display:flex; flex-direction:column; gap:8px;
+  padding:var(--sp-5) 0 var(--sp-3);
+  margin-top:var(--sp-6);
+  border-top:1px solid var(--line);
 }
-.docs-topbar-actions a{
+.docs-sidebar-foot a{
   font-family:var(--font); font-size:13px; font-weight:500;
-  color:var(--ink-3); text-decoration:none;
   letter-spacing:-.005em;
+  color:var(--ink-3); text-decoration:none;
+  padding:4px 0;
   transition:color .14s;
 }
-.docs-topbar-actions a:hover{ color:var(--ink); }
-.docs-topbar-actions .docs-topbar-cta{
-  padding:6px 14px;
-  background:var(--ink); color:var(--paper);
+.docs-sidebar-foot a:hover{ color:var(--ink); }
+.docs-sidebar-foot-cta{
+  display:inline-flex; align-items:center; justify-content:space-between;
+  padding:8px 12px !important;
+  margin-top:8px;
+  background:var(--ink); color:var(--paper) !important;
   border:1px solid var(--ink);
-  font-weight:600;
+  font-weight:600 !important;
   transition:transform .14s, box-shadow .14s;
 }
-.docs-topbar-actions .docs-topbar-cta:hover{
-  color:var(--paper);
+.docs-sidebar-foot-cta:hover{
+  color:var(--paper) !important;
   transform:translateY(-2px);
   box-shadow:0 4px 0 -2px var(--zop-orange);
 }
 
-/* 3-column shell · wider envelope, slimmer sidebars
-   Total: 240 + content + 200 = sidebars 440px, leaves 960px+ for content
-   inside a 1400px max envelope. Was 280 + 220 = 500px, leaving ~780px. */
 .docs-shell{
   display:grid;
   grid-template-columns:240px minmax(0,1fr) 200px;
@@ -240,9 +233,9 @@ html[data-theme="dark"] .docs-topbar-search-kbd{ background:#15151B; border-colo
    Sticky max-height matches: viewport - 124px so the sidebar can scroll
    independently when nav grows. */
 .docs-sidebar{
-  position:sticky; top:124px;
+  position:sticky; top:80px;
   align-self:start;
-  max-height:calc(100vh - 144px);
+  max-height:calc(100vh - 100px);
   overflow-y:auto;
   padding:var(--sp-7) var(--sp-4) var(--sp-10) 0;
   font-family:var(--font);
@@ -405,9 +398,9 @@ html[data-theme="dark"] .docs-product-switch-opt:hover{ background:#1B1B22; }
 /* RIGHT · "On this page" anchor list · clean alignment, no border,
    just text in a sticky column. Active item gets an orange dot + bold. */
 .docs-onthispage{
-  position:sticky; top:124px;
+  position:sticky; top:80px;
   align-self:start;
-  max-height:calc(100vh - 144px);
+  max-height:calc(100vh - 100px);
   overflow-y:auto;
   padding:var(--sp-7) 0 var(--sp-10);
 }
@@ -575,20 +568,16 @@ html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
   .docs-onthispage{ display:none; }
 }
 @media (max-width:960px){
-  .docs-shell{ grid-template-columns:1fr; }
+  .docs-shell{ grid-template-columns:1fr; gap:24px; }
   .docs-sidebar{
     position:static; max-height:none;
-    border-right:0; border-bottom:1px solid var(--line);
+    border-bottom:1px solid var(--line);
     padding:var(--sp-5) 0;
   }
+  .docs-sidebar-head{ flex-direction:row; align-items:center;
+    border-bottom:0; padding-bottom:0; margin-bottom:var(--sp-4); }
+  .docs-sidebar-search{ flex:1; max-width:360px; }
   .docs-body{ padding:var(--sp-5) 0; }
-  .docs-topbar-inner{ gap:var(--sp-3); }
-  .docs-topbar-search{ max-width:none; }
-}
-@media (max-width:700px){
-  .docs-topbar-brand-tag,
-  .docs-topbar-search-kbd{ display:none; }
-  .docs-topbar-actions a:not(.docs-topbar-cta){ display:none; }
 }
 </style>
 <script src="chrome-navmenu.js" defer></script>
@@ -1100,36 +1089,6 @@ html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
 <main class="page docs-page" id="main-content">
 
   <!-- ════════════════════════════════════════════════════════════════
-       DOCS TOPBAR · sticky · brand + search + sign-in
-       ════════════════════════════════════════════════════════════════ -->
-  <div class="docs-topbar">
-    <div class="docs-topbar-inner">
-      <a class="docs-topbar-brand" href="product-documentation.html">
-        <span class="docs-topbar-brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopdev"/></svg>
-        </span>
-        <span>ZopDev</span>
-        <span class="docs-topbar-brand-tag">Docs</span>
-      </a>
-
-      <label class="docs-topbar-search" for="docs-search-input">
-        <svg class="docs-topbar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-          <circle cx="7" cy="7" r="4.5"/>
-          <path d="M10.2 10.2 L14 14"/>
-        </svg>
-        <input id="docs-search-input" class="docs-topbar-search-input" type="search" placeholder="Search docs&hellip;" autocomplete="off" />
-        <span class="docs-topbar-search-kbd" aria-hidden="true">&#8984;K</span>
-      </label>
-
-      <div class="docs-topbar-actions">
-        <a href="changelog.html">Changelog</a>
-        <a href="developer-documentation.html">API reference</a>
-        <a class="docs-topbar-cta" href="signin.html">Sign in</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════
        3-COLUMN DOCS SHELL · sidebar + content + on-this-page
        data-doc-product attribute drives which product's nav + content
        is shown. JS swaps it on switcher selection.
@@ -1138,6 +1097,25 @@ html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
 
     <!-- ── LEFT · product switcher + grouped nav ─────────────────── -->
     <aside class="docs-sidebar" aria-label="Documentation navigation">
+
+      <!-- Wordmark + compact search at sidebar top -->
+      <div class="docs-sidebar-head">
+        <a class="docs-sidebar-brand" href="product-documentation.html">
+          <span class="docs-sidebar-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopdev"/></svg>
+          </span>
+          <span>ZopDev</span>
+          <span class="docs-sidebar-brand-tag">docs</span>
+        </a>
+        <label class="docs-sidebar-search" for="docs-search-input">
+          <svg class="docs-sidebar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.5"/>
+            <path d="M10.2 10.2 L14 14"/>
+          </svg>
+          <input id="docs-search-input" class="docs-sidebar-search-input" type="search" placeholder="Search&hellip;" autocomplete="off" />
+          <span class="docs-sidebar-search-kbd" aria-hidden="true">&#8984;K</span>
+        </label>
+      </div>
 
       <div class="docs-product-switch">
         <span class="docs-product-switch-label">Product</span>
@@ -1294,6 +1272,13 @@ html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
           </ul>
         </div>
       </nav>
+
+      <!-- Sidebar foot · quick links + sign in -->
+      <div class="docs-sidebar-foot">
+        <a href="changelog.html">Changelog</a>
+        <a href="developer-documentation.html">API reference</a>
+        <a class="docs-sidebar-foot-cta" href="signin.html">Sign in <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </aside>
 
     <!-- ── MIDDLE · documentation body ────────────────────────────── -->
