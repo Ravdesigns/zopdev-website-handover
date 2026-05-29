@@ -129,64 +129,34 @@
    Total: 240 + content + 200 = sidebars 440px, leaves 960px+ for content
    inside a 1400px max envelope. Was 280 + 220 = 500px, leaving ~780px. */
 
-/* Sidebar head · wordmark + compact search · the topbar is gone, this
-   is where the brand identity + the ⌘K search input live now. */
+/* Sidebar head · single minimal search input, matches the form-input
+   pattern used elsewhere on the site (signin, contact). No icon, no
+   kbd chip — just a clean bordered text field. ⌘K still focuses it. */
 .docs-sidebar-head{
-  display:flex; flex-direction:column; gap:12px;
-  padding-bottom:var(--sp-5);
   margin-bottom:var(--sp-5);
-  border-bottom:1px solid var(--line);
 }
-.docs-sidebar-brand{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--font); font-size:15px; font-weight:600;
-  letter-spacing:-.005em;
-  color:var(--ink); text-decoration:none;
-  white-space:nowrap;
-}
-.docs-sidebar-brand-mark{
-  width:20px; height:20px; flex:none;
-  display:inline-flex; align-items:center; justify-content:center;
-}
-.docs-sidebar-brand-mark svg{ width:100%; height:100%; display:block; }
-.docs-sidebar-brand-tag{
-  font-family:var(--mono); font-size:10.5px; font-weight:600;
-  letter-spacing:.04em; text-transform:lowercase;
-  color:var(--ink-4); margin-left:2px;
-}
-/* Compact search · width follows the sidebar column, no chip clutter */
-.docs-sidebar-search{
-  position:relative;
-  display:flex; align-items:center; gap:8px;
-  padding:0 10px;
-  height:32px; width:100%;
-  background:var(--bg-2); border:1px solid var(--line);
-  color:var(--ink-3);
-  font-family:var(--font); font-size:13px;
-  cursor:text;
-  transition:border-color .15s, background .15s;
-}
-.docs-sidebar-search:hover{ border-color:var(--ink-4); }
-.docs-sidebar-search:focus-within{ border-color:var(--ink); background:var(--paper); }
-html[data-theme="dark"] .docs-sidebar-search{ background:#1B1B22; border-color:#2a2a30; }
-html[data-theme="dark"] .docs-sidebar-search:focus-within{ background:#0F0F12; border-color:var(--ink); }
-.docs-sidebar-search-icon{ width:13px; height:13px; flex:none; opacity:.55; }
 .docs-sidebar-search-input{
-  flex:1; min-width:0;
-  background:transparent; border:0; outline:none;
-  font-family:var(--font); font-size:13px; color:var(--ink);
+  width:100%; height:38px;
+  padding:0 14px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  color:var(--ink);
+  font-family:var(--font); font-size:13.5px;
   letter-spacing:-.005em;
+  outline:none;
+  transition:border-color .14s, box-shadow .14s;
+  -webkit-appearance:none; appearance:none;
 }
 .docs-sidebar-search-input::placeholder{ color:var(--ink-4); }
-.docs-sidebar-search-kbd{
-  display:inline-flex; align-items:center;
-  padding:1px 5px; flex:none;
-  font-family:var(--mono); font-size:10px; font-weight:600;
-  color:var(--ink-4); border:1px solid var(--line);
-  background:var(--paper);
-  letter-spacing:.04em;
+.docs-sidebar-search-input::-webkit-search-cancel-button{ -webkit-appearance:none; }
+.docs-sidebar-search-input:hover{ border-color:var(--ink-4); }
+.docs-sidebar-search-input:focus,
+.docs-sidebar-search-input:focus-visible{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(245,133,73,.15);
 }
-html[data-theme="dark"] .docs-sidebar-search-kbd{ background:#15151B; border-color:#3a3a42; }
+html[data-theme="dark"] .docs-sidebar-search-input{ background:#15151B; border-color:#2a2a30; }
+html[data-theme="dark"] .docs-sidebar-search-input:focus{ border-color:var(--ink); }
 
 /* Sidebar foot · 2 quick links + 1 sign-in CTA, anchored at the
    bottom of the sticky column */
@@ -1098,23 +1068,9 @@ html[data-theme="dark"] .docs-stub{ background:#15151B; border-color:#2a2a30; }
     <!-- ── LEFT · product switcher + grouped nav ─────────────────── -->
     <aside class="docs-sidebar" aria-label="Documentation navigation">
 
-      <!-- Wordmark + compact search at sidebar top -->
+      <!-- Compact search at sidebar top -->
       <div class="docs-sidebar-head">
-        <a class="docs-sidebar-brand" href="product-documentation.html">
-          <span class="docs-sidebar-brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" focusable="false"><use href="#mark-zopdev"/></svg>
-          </span>
-          <span>ZopDev</span>
-          <span class="docs-sidebar-brand-tag">docs</span>
-        </a>
-        <label class="docs-sidebar-search" for="docs-search-input">
-          <svg class="docs-sidebar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <circle cx="7" cy="7" r="4.5"/>
-            <path d="M10.2 10.2 L14 14"/>
-          </svg>
-          <input id="docs-search-input" class="docs-sidebar-search-input" type="search" placeholder="Search&hellip;" autocomplete="off" />
-          <span class="docs-sidebar-search-kbd" aria-hidden="true">&#8984;K</span>
-        </label>
+        <input id="docs-search-input" class="docs-sidebar-search-input" type="search" placeholder="Search docs&hellip;" autocomplete="off" aria-label="Search docs" />
       </div>
 
       <div class="docs-product-switch">
