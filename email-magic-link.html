@@ -10,35 +10,48 @@
     · All styles inline · most clients (Gmail web, Outlook desktop) strip
       <style> blocks or only honor a subset. Inline survives.
     · Max-width 600px · industry standard, fits Gmail's reading pane.
+    · Dark-mode-aware · Apple Mail, iOS Mail, and Outlook.com honor the
+      prefers-color-scheme @media query (plus Outlook's data-ogsc/data-ogsb
+      attributes). Gmail web is half-supported. Both light + dark logo
+      PNGs are served via <picture> so iOS Mail can swap them; clients
+      that don't grok <picture> fall back to the light <img>.
     · System font stack first · web fonts don't render in Outlook /
       Yahoo / iOS Mail without explicit @font-face declarations + image
       fallbacks. Inter and Space Grotesk land as the closest "Helvetica"
       ancestor on every client.
-    · Variables to template (Mustache-style {{NAME}} placeholders):
-        {{RECIPIENT_NAME}}       · "Alex"  or fallback to ""
-        {{RECIPIENT_EMAIL}}      · "alex@company.com"
-        {{MAGIC_LINK}}           · the actual one-time URL
-        {{EXPIRY_MINUTES}}       · "15" (matches the signin.html copy)
-        {{REQUEST_LOCATION}}     · "Bengaluru, IN" (optional · IP geo)
-        {{REQUEST_DEVICE}}       · "macOS · Chrome 134" (optional · UA parse)
-        {{COMPANY_ADDRESS}}      · footer postal addr (legal requirement)
-        {{UNSUB_URL}}            · transactional emails skip this; for
-                                   marketing variants this is required
-                                   by CAN-SPAM / GDPR
-    · Brand · paper #FAF7EC bg, ink #0A0A0A text, orange #F58549 accent,
-      line #D9D3BF rules. Square corners only · no border-radius anywhere.
-    · Plain-text fallback · the dev MUST send a `text/plain` companion
-      version (most ESPs auto-generate from HTML, but auditing the
-      output prevents spam-folder triage). A draft is at the bottom of
-      this file in an HTML comment.
+
+  Hosted logo URLs (UPDATE BEFORE PRODUCTION SEND):
+    · Light · https://zop.dev/logo-zopdev-black.png  (120 KB · 2876x1120
+      — host on your CDN; the exported PNG lives at
+      logo-png-export/zopdev-logo-black.png in this repo)
+    · Dark  · https://zop.dev/logo-zopdev-white.png  (124 KB · 2876x1120
+      — logo-png-export/zopdev-logo-white.png)
+
+  Variables to template (Mustache-style {{NAME}} placeholders):
+    {{RECIPIENT_NAME}}       · "Alex"  or fallback to ""
+    {{RECIPIENT_EMAIL}}      · "alex@company.com"
+    {{MAGIC_LINK}}           · the actual one-time URL
+    {{EXPIRY_MINUTES}}       · "15" (matches the signin.html copy)
+    {{REQUEST_LOCATION}}     · "Bengaluru, IN" (optional · IP geo)
+    {{REQUEST_DEVICE}}       · "macOS · Chrome 134" (optional · UA parse)
+    {{COMPANY_ADDRESS}}      · footer postal addr (legal requirement)
+
+  Brand · paper #FAF7EC bg + ink #0A0A0A text + orange #F58549 accent
+  in light · #0F0F12 surround + #15151B card + #F0EBDB text in dark.
+  Square corners only · no border-radius anywhere.
+
+  Plain-text companion · the dev MUST send a `text/plain` companion
+  version (most ESPs auto-generate from HTML, but auditing the output
+  prevents spam-folder triage). A draft is at the bottom of this file
+  in an HTML comment.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="x-apple-disable-message-reformatting" />
-  <meta name="color-scheme" content="light" />
-  <meta name="supported-color-schemes" content="light" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="supported-color-schemes" content="light dark" />
   <title>Sign in to ZopDev</title>
 
   <!--[if mso]>
@@ -56,14 +69,44 @@
     img { border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
     body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
     a { color: #F58549; text-decoration: underline; }
-    /* Dark-mode-aware clients (Apple Mail mostly) · keep the paper card
-       even if the user's OS is dark. Email-dark-mode is a minefield;
-       cleanest move is to lock paper and let the recipient's reader
-       decide. */
+
+    /* ─── Dark mode · Apple Mail, iOS Mail, Outlook.com ────────────────
+       Targets every coloured element by class. !important is required
+       because email clients run their own dark-mode color-inversion on
+       top of ours and we want our values to win. The Outlook attribute
+       selectors below cover the Outlook dark variant (which sets
+       data-ogsc / data-ogsb on the element instead of honoring CSS). */
     @media (prefers-color-scheme: dark) {
-      body, .email-wrap { background: #0F0F12 !important; }
-      .email-card { background: #FAF7EC !important; }
+      .dm-wrap        { background: #0F0F12 !important; }
+      .dm-card        { background: #15151B !important; border-color: #2A2A30 !important; }
+      .dm-rule        { border-bottom-color: #2A2A30 !important; }
+      .dm-ink         { color: #F0EBDB !important; }
+      .dm-ink-2       { color: #D4CDB5 !important; }
+      .dm-ink-3       { color: #B8B0A0 !important; }
+      .dm-ink-4       { color: #8A8378 !important; }
+      .dm-mono        { color: #B8B0A0 !important; }
+      .dm-callout     { background: #1B1B22 !important; }
+      .dm-cta-btn     { background: #F0EBDB !important; border-color: #F0EBDB !important; }
+      .dm-cta-text    { color: #0A0A0A !important; }
+      .dm-light-only  { display: none !important; }
+      .dm-dark-only   { display: inline-block !important; }
     }
+    /* Outlook.com / Outlook iOS dark-mode equivalents · they tag the
+       root <body> with data-ogsc when dark mode is on. */
+    [data-ogsc] .dm-wrap        { background: #0F0F12 !important; }
+    [data-ogsc] .dm-card        { background: #15151B !important; border-color: #2A2A30 !important; }
+    [data-ogsc] .dm-rule        { border-bottom-color: #2A2A30 !important; }
+    [data-ogsc] .dm-ink         { color: #F0EBDB !important; }
+    [data-ogsc] .dm-ink-2       { color: #D4CDB5 !important; }
+    [data-ogsc] .dm-ink-3       { color: #B8B0A0 !important; }
+    [data-ogsc] .dm-ink-4       { color: #8A8378 !important; }
+    [data-ogsc] .dm-mono        { color: #B8B0A0 !important; }
+    [data-ogsc] .dm-callout     { background: #1B1B22 !important; }
+    [data-ogsc] .dm-cta-btn     { background: #F0EBDB !important; border-color: #F0EBDB !important; }
+    [data-ogsc] .dm-cta-text    { color: #0A0A0A !important; }
+    [data-ogsc] .dm-light-only  { display: none !important; }
+    [data-ogsc] .dm-dark-only   { display: inline-block !important; }
+
     /* Mobile · single-column already, just bump the body padding and
        collapse the CTA button to full width. */
     @media only screen and (max-width: 480px) {
@@ -84,30 +127,34 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 
-  <!-- Outer wrap · cream bg gives the card breathing room on every client -->
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="email-wrap" style="background:#F0EBDB;">
+  <!-- Outer wrap · cream bg gives the card breathing room on every client.
+       Dark-mode swap via .dm-wrap below. -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="email-wrap dm-wrap" style="background:#F0EBDB;">
     <tr>
       <td align="center" style="padding:32px 16px;">
 
         <!-- Email card · 600px max width · paper bg + 1px line border ·
              square corners as per brand. -->
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="email-card" style="width:600px; max-width:600px; background:#FAF7EC; border:1px solid #D9D3BF;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="email-card dm-card" style="width:600px; max-width:600px; background:#FAF7EC; border:1px solid #D9D3BF;">
 
-          <!-- ════════════ HEADER · brand mark + wordmark ════════════ -->
+          <!-- ════════════ HEADER · brand mark + wordmark ════════════
+               <picture> serves the white-on-dark logo to Apple Mail /
+               iOS Mail when prefers-color-scheme:dark resolves; every
+               other client falls back to the <img> below (light logo). -->
           <tr>
             <td class="email-padded" style="padding:32px 40px 24px 40px;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td valign="middle" align="left">
-                    <!-- Inline SVG · the ZopDev wordmark with brand
-                         square triplet (blue · orange · green). Width
-                         capped so it stays readable on phones. -->
-                    <img src="https://zop.dev/logo-zopdev-black.png"
-                         alt="ZopDev"
-                         width="140" height="38"
-                         style="display:block; width:140px; height:auto; border:0;" />
+                    <picture>
+                      <source srcset="https://zop.dev/logo-zopdev-white.png" media="(prefers-color-scheme: dark)" />
+                      <img src="https://zop.dev/logo-zopdev-black.png"
+                           alt="ZopDev"
+                           width="140" height="55"
+                           style="display:block; width:140px; height:auto; max-height:55px; border:0; outline:none;" />
+                    </picture>
                   </td>
-                  <td valign="middle" align="right" style="font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">
+                  <td valign="middle" align="right" class="dm-mono" style="font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">
                     Sign&nbsp;in
                   </td>
                 </tr>
@@ -115,11 +162,11 @@
             </td>
           </tr>
 
-          <!-- Thin orange rule under header · brand signature stripe -->
+          <!-- Thin rule under header · brand signature stripe -->
           <tr>
-            <td style="padding:0 40px;" class="email-padded">
+            <td class="email-padded" style="padding:0 40px;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr><td style="border-bottom:1px solid #D9D3BF; line-height:0; font-size:0;">&nbsp;</td></tr>
+                <tr><td class="dm-rule" style="border-bottom:1px solid #D9D3BF; line-height:0; font-size:0;">&nbsp;</td></tr>
               </table>
             </td>
           </tr>
@@ -127,7 +174,9 @@
           <!-- ════════════ HERO · greeting + eyebrow chip ════════════ -->
           <tr>
             <td class="email-padded" style="padding:36px 40px 8px 40px;">
-              <!-- Eyebrow · brand orange square + mono label -->
+              <!-- Eyebrow · brand orange square + mono label · stays
+                   orange in both modes (orange has AA contrast on both
+                   paper and near-black). -->
               <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td valign="middle" style="padding-right:10px;">
@@ -146,7 +195,7 @@
           <!-- Headline -->
           <tr>
             <td class="email-padded" style="padding:14px 40px 0 40px;">
-              <h1 style="margin:0; font-family:'Inter','Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:30px; font-weight:700; line-height:1.15; letter-spacing:-0.75px; color:#0A0A0A;">
+              <h1 class="dm-ink" style="margin:0; font-family:'Inter','Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:30px; font-weight:700; line-height:1.15; letter-spacing:-0.75px; color:#0A0A0A;">
                 Sign in to ZopDev.
               </h1>
             </td>
@@ -155,13 +204,16 @@
           <!-- Body copy -->
           <tr>
             <td class="email-padded" style="padding:18px 40px 0 40px;">
-              <p style="margin:0; font-size:15px; line-height:1.55; color:#525252;">
-                We received a sign-in request for <strong style="color:#0A0A0A;">{{RECIPIENT_EMAIL}}</strong>. Click the button below to continue to your dashboard. No password needed.
+              <p class="dm-ink-2" style="margin:0; font-size:15px; line-height:1.55; color:#525252;">
+                We received a sign-in request for <strong class="dm-ink" style="color:#0A0A0A;">{{RECIPIENT_EMAIL}}</strong>. Click the button below to continue to your dashboard. No password needed.
               </p>
             </td>
           </tr>
 
-          <!-- ════════════ CTA · primary button ════════════ -->
+          <!-- ════════════ CTA · primary button ════════════
+               Light · ink button (cream text on near-black bg).
+               Dark · inverted (near-black text on cream bg) ·
+               matches the signin page's primary-button dark treatment. -->
           <tr>
             <td class="email-padded" align="left" style="padding:28px 40px 0 40px;">
               <!--[if mso]>
@@ -173,8 +225,8 @@
               <!--[if !mso]><!-->
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="cta-btn">
                 <tr>
-                  <td bgcolor="#0A0A0A" style="background:#0A0A0A; border:1px solid #0A0A0A;">
-                    <a href="{{MAGIC_LINK}}" target="_blank"
+                  <td bgcolor="#0A0A0A" class="dm-cta-btn" style="background:#0A0A0A; border:1px solid #0A0A0A;">
+                    <a href="{{MAGIC_LINK}}" target="_blank" class="dm-cta-text"
                        style="display:inline-block; padding:14px 28px; font-family:'Inter','Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif; font-size:14px; font-weight:700; letter-spacing:0.3px; color:#FAF7EC; text-decoration:none;">
                       Sign in to ZopDev &nbsp;&rarr;
                     </a>
@@ -188,7 +240,7 @@
           <!-- Fallback raw URL · for clients that strip buttons -->
           <tr>
             <td class="email-padded" style="padding:18px 40px 0 40px;">
-              <p style="margin:0; font-size:12px; line-height:1.55; color:#9C9588; font-family:'Space Grotesk',Menlo,Monaco,monospace; word-break:break-all;">
+              <p class="dm-ink-4" style="margin:0; font-size:12px; line-height:1.55; color:#9C9588; font-family:'Space Grotesk',Menlo,Monaco,monospace; word-break:break-all;">
                 Or paste this URL into your browser:<br/>
                 <a href="{{MAGIC_LINK}}" style="color:#F58549; text-decoration:underline; word-break:break-all;">{{MAGIC_LINK}}</a>
               </p>
@@ -198,14 +250,14 @@
           <!-- ════════════ SECURITY NOTE · framed callout ════════════ -->
           <tr>
             <td class="email-padded" style="padding:32px 40px 0 40px;">
-              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#F0EBDB; border-left:3px solid #F58549;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="dm-callout" style="background:#F0EBDB; border-left:3px solid #F58549;">
                 <tr>
                   <td style="padding:16px 20px;">
-                    <p style="margin:0 0 6px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">
+                    <p class="dm-mono" style="margin:0 0 6px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">
                       Security
                     </p>
-                    <p style="margin:0; font-size:13.5px; line-height:1.55; color:#525252;">
-                      This link expires in <strong style="color:#0A0A0A;">{{EXPIRY_MINUTES}} minutes</strong> and can only be used once. Request from <strong style="color:#0A0A0A;">{{REQUEST_LOCATION}}</strong> &middot; {{REQUEST_DEVICE}}.
+                    <p class="dm-ink-2" style="margin:0; font-size:13.5px; line-height:1.55; color:#525252;">
+                      This link expires in <strong class="dm-ink" style="color:#0A0A0A;">{{EXPIRY_MINUTES}} minutes</strong> and can only be used once. Request from <strong class="dm-ink" style="color:#0A0A0A;">{{REQUEST_LOCATION}}</strong> &middot; {{REQUEST_DEVICE}}.
                     </p>
                   </td>
                 </tr>
@@ -216,7 +268,7 @@
           <!-- Didn't request? -->
           <tr>
             <td class="email-padded" style="padding:24px 40px 0 40px;">
-              <p style="margin:0; font-size:13px; line-height:1.6; color:#9C9588;">
+              <p class="dm-ink-4" style="margin:0; font-size:13px; line-height:1.6; color:#9C9588;">
                 Didn't request this? You can safely ignore this email &mdash; your account stays signed out and no further action is needed. If you're seeing repeated unexpected sign-in attempts, reach out to <a href="mailto:security@zop.dev" style="color:#F58549;">security@zop.dev</a>.
               </p>
             </td>
@@ -226,7 +278,7 @@
           <tr>
             <td class="email-padded" style="padding:32px 40px 0 40px;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr><td style="border-bottom:1px solid #D9D3BF; line-height:0; font-size:0;">&nbsp;</td></tr>
+                <tr><td class="dm-rule" style="border-bottom:1px solid #D9D3BF; line-height:0; font-size:0;">&nbsp;</td></tr>
               </table>
             </td>
           </tr>
@@ -237,10 +289,10 @@
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td valign="top">
-                    <p style="margin:0 0 4px 0; font-family:'Inter','Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif; font-size:13px; font-weight:600; color:#0A0A0A;">
+                    <p class="dm-ink" style="margin:0 0 4px 0; font-family:'Inter','Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif; font-size:13px; font-weight:600; color:#0A0A0A;">
                       ZopDev
                     </p>
-                    <p style="margin:0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; line-height:1.6; color:#9C9588;">
+                    <p class="dm-ink-4" style="margin:0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; line-height:1.6; color:#9C9588;">
                       {{COMPANY_ADDRESS}}<br/>
                       <a href="https://zop.dev/trust.html" style="color:#9C9588; text-decoration:underline;">trust &amp; security</a>
                       &nbsp;&middot;&nbsp;
@@ -248,7 +300,7 @@
                     </p>
                   </td>
                   <td valign="top" align="right" style="padding-left:16px;">
-                    <p style="margin:0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:#9C9588;">
+                    <p class="dm-ink-4" style="margin:0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:#9C9588;">
                       Transactional<br/>email
                     </p>
                   </td>
