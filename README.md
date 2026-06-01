@@ -51,6 +51,29 @@ This repo is the **static prototype + design system + acceptance criteria** for 
 | Images | Founders, brand covers, ebook covers, hex tile mocks |
 | Config | `robots.txt`, `manifest.json` (PWA), `sitemap.xml`, `vercel.json` (cache rules) |
 
+### Transactional emails
+
+| File | Purpose |
+|---|---|
+| [`email-template.html`](email-template.html) | Reusable email skeleton. Self-contained (base64 logo, table-based layout, MSO VML button fallback, plain-text companion, dark-mode rules + `[data-ogsc]` Outlook fallback). Drop merge-fields and content blocks in; ship. |
+| [`email-showcase.html`](email-showcase.html) | 9-slide carousel of every transactional email use case rendered from the **PM-approved "Revamped Copy" doc**. Use this for stakeholder review. Each slide is the visual the user receives in their inbox. |
+
+**The 9 use cases** (carousel order, matches PM's doc):
+
+| # | Use case | Subject |
+|---|---|---|
+| 01 | New blog post (single-post drop) | `New on the ZopDev blog: {{post_title}}` |
+| 02 | Weekly digest | `This week on ZopDev — {{week_label}}` |
+| 03 | Contact-form ack | `We've received your message — ZopDev` |
+| 04 | Welcome (subscriber onboarding) | `Welcome to ZopDev` |
+| 05 | Demo booked (sales confirmation) | `You're on the calendar — ZopDev` |
+| 06 | ZopCloud waitlist | `You're on the ZopCloud waitlist` |
+| 07 | Changelog subscription | `You're subscribed to the ZopDev changelog` |
+| 08 | Ebook download delivery | `Your copy of {{ebook_title}}` |
+| 09 | ZopNight Reclaim Forecast | `Your ZopNight Reclaim Forecast` |
+
+> **For devs wiring this into a transactional service** (SendGrid / Postmark / Resend): start from `email-template.html`, copy the relevant slide's body from `email-showcase.html`, swap merge-fields for the service's variable syntax. The logo is already base64-embedded so no asset hosting needed.
+
 ---
 
 ## How to run locally
