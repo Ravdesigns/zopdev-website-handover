@@ -1,15 +1,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
   ════════════════════════════════════════════════════════════════════════
-  ZopDev · Magic-link sign-in email · production-ready transactional email
+  ZopDev · Reusable transactional email template
   ════════════════════════════════════════════════════════════════════════
 
-  Authoring notes for the dev who'll wire this up:
+  ONE TEMPLATE · MANY USE CASES
+  ────────────────────────────────────────────────────────────────────────
+  The shipped example below is a magic-link sign-in email. The chrome
+  (header logo strip + footer + dark-mode rules + Outlook fallbacks)
+  is reused unchanged across every email ZopDev sends. The MIDDLE
+  three blocks — Eyebrow + Headline + Body + CTA + Detail callout —
+  are the part you swap per use case:
+
+    Use case             Eyebrow             CTA                  Callout
+    ─────────────────────────────────────────────────────────────────────────
+    Magic-link sign-in   Welcome back        Sign in to ZopDev    Security
+    Welcome onboarding   Welcome to ZopDev   Get started          Next steps
+    Anomaly alert        Cost anomaly        Investigate          Spike detail
+    Deploy notification  Deploy succeeded    View deploy log      Deploy meta
+    Weekly digest        Weekly report       See all findings     Top 3 stats
+    Invoice receipt      Invoice paid        Download PDF         Invoice meta
+    Password reset       Reset request       Reset password       Security
+
+  The CTA can be a button OR a code block (for tokens / URLs) OR a
+  stat row (for digests). The Detail callout can be a single paragraph
+  OR a key-value table OR a bullet list. See the "Block alternatives"
+  reference at the bottom of this file for ready-to-paste swaps.
+
+  Engineering notes
+  ────────────────────────────────────────────────────────────────────────
     · Table-based layout · Outlook 2007-19 use Word's HTML engine so
       flexbox/grid don't render; classic <table> nesting is the safe path.
     · All styles inline · most clients (Gmail web, Outlook desktop) strip
       <style> blocks or only honor a subset. Inline survives.
-    · Max-width 600px · industry standard, fits Gmail's reading pane.
+    · Max-width 600 px · industry standard, fits Gmail's reading pane.
     · Dark-mode-aware · Apple Mail, iOS Mail, and Outlook.com honor the
       prefers-color-scheme @media query (plus Outlook's data-ogsc/data-ogsb
       attributes). Gmail web is half-supported. Both light + dark logo
@@ -19,26 +43,37 @@
       Yahoo / iOS Mail without explicit @font-face declarations + image
       fallbacks. Inter and Space Grotesk land as the closest "Helvetica"
       ancestor on every client.
+    · Square corners only · no border-radius (matches the site brand).
 
   Hosted logo URLs (UPDATE BEFORE PRODUCTION SEND):
-    · Light · https://zop.dev/logo-zopdev-black.png  (120 KB · 2876x1120
+    · Light · https://zop.dev/logo-zopdev-black.png  (120 KB · 2876×1120
       — host on your CDN; the exported PNG lives at
       logo-png-export/zopdev-logo-black.png in this repo)
-    · Dark  · https://zop.dev/logo-zopdev-white.png  (124 KB · 2876x1120
+    · Dark  · https://zop.dev/logo-zopdev-white.png  (124 KB · 2876×1120
       — logo-png-export/zopdev-logo-white.png)
 
-  Variables to template (Mustache-style {{NAME}} placeholders):
-    {{RECIPIENT_NAME}}       · "Alex"  or fallback to ""
-    {{RECIPIENT_EMAIL}}      · "alex@company.com"
-    {{MAGIC_LINK}}           · the actual one-time URL
-    {{EXPIRY_MINUTES}}       · "15" (matches the signin.html copy)
-    {{REQUEST_LOCATION}}     · "Bengaluru, IN" (optional · IP geo)
-    {{REQUEST_DEVICE}}       · "macOS · Chrome 134" (optional · UA parse)
-    {{COMPANY_ADDRESS}}      · footer postal addr (legal requirement)
+  Generic merge fields (rename per-use-case as needed, Mustache-style):
+    Universal (every email)
+      {{RECIPIENT_NAME}}     · "Alex" or "" fallback
+      {{RECIPIENT_EMAIL}}    · "alex@company.com"
+      {{COMPANY_ADDRESS}}    · footer postal addr (CAN-SPAM requirement)
+      {{HEADER_CONTEXT}}     · top-right mono label · "Sign in" /
+                               "Onboarding" / "Alert" / "Deploy" / "Digest"
+      {{EYEBROW}}            · eyebrow text · "Welcome back" /
+                               "Cost anomaly" / etc.
+      {{HEADLINE}}           · h1 text · "Sign in to ZopDev." /
+                               "We caught a spend spike." / etc.
+      {{BODY}}               · 1-2 sentence body paragraph
+      {{CTA_LABEL}}          · button text · "Sign in to ZopDev" /
+                               "Investigate the spike" / etc.
+      {{CTA_URL}}            · the action target URL
+    Optional · only for sign-in / security-flavored emails
+      {{EXPIRY_MINUTES}}     · "15"
+      {{REQUEST_LOCATION}}   · "Bengaluru, IN" (IP-geo string)
+      {{REQUEST_DEVICE}}     · "macOS · Chrome 134" (UA parse)
 
   Brand · paper #FAF7EC bg + ink #0A0A0A text + orange #F58549 accent
   in light · #0F0F12 surround + #15151B card + #F0EBDB text in dark.
-  Square corners only · no border-radius anywhere.
 
   Plain-text companion · the dev MUST send a `text/plain` companion
   version (most ESPs auto-generate from HTML, but auditing the output
@@ -345,3 +380,120 @@ https://zop.dev/trust.html  ·  https://zop.dev/trust.html
 
 This is a transactional email. We send it only when you request to sign in.
 -->
+
+<!--
+═══════════════════════════════════════════════════════════════════════
+BLOCK ALTERNATIVES · paste these in to adapt the template per use case
+═══════════════════════════════════════════════════════════════════════
+
+The default content above is a magic-link email. To adapt for a
+different use case, swap the relevant block(s) below. Outer chrome
+(header / footer / dark-mode CSS / Outlook fallbacks) stays unchanged.
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-CTA · code-block style · for tokens, OTP codes, verification PINs
+───────────────────────────────────────────────────────────────────────
+Replaces the <table class="cta-btn"> block. Renders a monospace pill
+with a large readable code instead of a button.
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="dm-callout" style="background:#F0EBDB; border:1px solid #D9D3BF;">
+    <tr>
+      <td style="padding:18px 28px; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:28px; font-weight:700; letter-spacing:6px; color:#0A0A0A;" class="dm-ink">
+        {{VERIFICATION_CODE}}
+      </td>
+    </tr>
+  </table>
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-CTA · stat row · for weekly digest / metric summary emails
+───────────────────────────────────────────────────────────────────────
+Replaces the <table class="cta-btn"> block with a 3-stat strip.
+Each stat = mono label + big sans number.
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+      <td valign="top" style="padding-right:16px;" width="33%">
+        <p style="margin:0 0 4px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#9C9588;" class="dm-ink-4">Savings this week</p>
+        <p style="margin:0; font-family:'Inter',sans-serif; font-size:24px; font-weight:700; color:#F58549;">${{STAT_1_VALUE}}</p>
+      </td>
+      <td valign="top" style="padding-right:16px;" width="33%">
+        <p style="margin:0 0 4px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#9C9588;" class="dm-ink-4">New findings</p>
+        <p style="margin:0; font-family:'Inter',sans-serif; font-size:24px; font-weight:700; color:#0A0A0A;" class="dm-ink">{{STAT_2_VALUE}}</p>
+      </td>
+      <td valign="top" width="33%">
+        <p style="margin:0 0 4px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#9C9588;" class="dm-ink-4">Anomalies</p>
+        <p style="margin:0; font-family:'Inter',sans-serif; font-size:24px; font-weight:700; color:#0A0A0A;" class="dm-ink">{{STAT_3_VALUE}}</p>
+      </td>
+    </tr>
+  </table>
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-CALLOUT · key-value table · for deploy / invoice / event metadata
+───────────────────────────────────────────────────────────────────────
+Replaces the <table class="dm-callout"> "Security" block with a tidy
+key-value grid · 2 columns · paper bg · orange left rail kept.
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="dm-callout" style="background:#F0EBDB; border-left:3px solid #F58549;">
+    <tr><td style="padding:14px 20px;">
+      <p class="dm-mono" style="margin:0 0 10px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">{{CALLOUT_TITLE}}</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:13px; line-height:1.7;">
+        <tr><td class="dm-ink-4" style="color:#9C9588; padding-right:14px; width:140px; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em;">Environment</td><td class="dm-ink" style="color:#0A0A0A; font-weight:600;">{{ENV_NAME}}</td></tr>
+        <tr><td class="dm-ink-4" style="color:#9C9588; padding-right:14px; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em;">Commit</td><td class="dm-ink" style="color:#0A0A0A; font-family:'Space Grotesk',Menlo,Monaco,monospace;">{{COMMIT_SHA}}</td></tr>
+        <tr><td class="dm-ink-4" style="color:#9C9588; padding-right:14px; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em;">Duration</td><td class="dm-ink" style="color:#0A0A0A;">{{DURATION}}</td></tr>
+      </table>
+    </td></tr>
+  </table>
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-CALLOUT · bullet list · for "next steps" / onboarding emails
+───────────────────────────────────────────────────────────────────────
+Each item = orange square pip + ink heading + muted sub-line.
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="dm-callout" style="background:#F0EBDB; border-left:3px solid #F58549;">
+    <tr><td style="padding:16px 20px;">
+      <p class="dm-mono" style="margin:0 0 12px 0; font-family:'Space Grotesk',Menlo,Monaco,monospace; font-size:10.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#525252;">Next steps</p>
+      <!-- repeat the <table> below per item -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:10px;">
+        <tr>
+          <td valign="top" width="14" style="padding-top:6px;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td width="8" height="8" bgcolor="#F58549" style="background:#F58549; line-height:0; font-size:0;">&nbsp;</td></tr></table>
+          </td>
+          <td valign="top" style="padding-left:10px;">
+            <p class="dm-ink" style="margin:0 0 2px 0; font-size:13.5px; font-weight:600; color:#0A0A0A;">{{STEP_TITLE}}</p>
+            <p class="dm-ink-2" style="margin:0; font-size:13px; line-height:1.55; color:#525252;">{{STEP_DESC}}</p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-BODY · 2-paragraph body · for emails that need more context
+───────────────────────────────────────────────────────────────────────
+The default email has a single body paragraph. For onboarding /
+status-update emails that need 2-3 paragraphs, just repeat the <tr>
+that wraps the <p class="dm-ink-2"> tag. Keep the same 18 px top
+spacing between paragraphs.
+
+
+───────────────────────────────────────────────────────────────────────
+ALT-CONTEXT · header right-side label · per use-case
+───────────────────────────────────────────────────────────────────────
+Top-right of the header strip · short mono label.
+  Magic-link sign-in    →   "Sign in"
+  Welcome onboarding    →   "Onboarding"
+  Anomaly alert         →   "Alert"
+  Deploy notification   →   "Deploy"
+  Weekly digest         →   "Digest"
+  Invoice / receipt     →   "Invoice"
+  Password reset        →   "Security"
+
+Change "Transactional · email" footer chip to "Weekly · digest" or
+similar for non-transactional emails.
+-->
+
