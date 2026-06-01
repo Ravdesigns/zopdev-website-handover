@@ -619,25 +619,32 @@
   <p class="lead">Every transactional email ZopDev sends, rendered in the canonical email chrome. Showcase carousel for stakeholder review; reusable skeleton for devs wiring this into SendGrid / Postmark / Resend. PM copy locked.</p>
 
   <div class="dl">
+    <a class="dl-card" href="emails/index.html">
+      <div class="preview paper"><svg viewBox="0 0 80 56" width="120" height="84" fill="none"><rect x="0" y="0" width="80" height="56" fill="#FAF7EC" stroke="#0F0F12" stroke-width="1.2"/><rect x="0" y="0" width="80" height="10" fill="#F58549"/><rect x="6" y="3" width="20" height="4" fill="#FAF7EC"/><rect x="6" y="16" width="10" height="2.5" fill="#F58549"/><rect x="6" y="22" width="56" height="3" fill="#0F0F12"/><rect x="6" y="28" width="36" height="2" fill="#525252"/><rect x="6" y="32" width="48" height="2" fill="#525252"/><rect x="6" y="36" width="44" height="2" fill="#525252"/><rect x="6" y="44" width="24" height="6" fill="#0F0F12"/></svg></div>
+      <div class="meta"><span>9 files &middot; html</span><span>production</span></div>
+      <h4>Production &middot; 9 ready-to-ship emails</h4>
+      <p>One self-contained <code style="font-family:var(--mono); font-size:11.5px;">.html</code> per use case. Table-based, MSO-fallback, base64-logo, plain-text-companion-included. Drop into SendGrid / Postmark / Resend.</p>
+      <span class="link">Browse the 9 emails &rarr;</span>
+    </a>
     <a class="dl-card" href="email-showcase.html">
       <div class="preview paper"><svg viewBox="0 0 80 56" width="120" height="84" fill="none"><rect x="0" y="0" width="80" height="56" fill="#FAF7EC" stroke="#0F0F12" stroke-width="1.2"/><rect x="0" y="0" width="80" height="10" fill="#0F0F12"/><rect x="6" y="3" width="14" height="4" fill="#F58549"/><rect x="6" y="16" width="10" height="2.5" fill="#F58549"/><rect x="6" y="22" width="48" height="3" fill="#0F0F12"/><rect x="6" y="28" width="36" height="2" fill="#525252"/><rect x="6" y="32" width="44" height="2" fill="#525252"/><rect x="6" y="40" width="24" height="6" fill="#0F0F12"/></svg></div>
       <div class="meta"><span>html &middot; carousel</span><span>9 slides</span></div>
-      <h4>Showcase &middot; all 9 emails</h4>
-      <p>Arrow-keys carousel through every use case &mdash; blog, digest, contact ack, welcome, demo booked, waitlist, changelog, ebook, reclaim forecast. Visual review for stakeholders.</p>
+      <h4>Showcase &middot; visual review</h4>
+      <p>Arrow-keys carousel through every use case &mdash; blog, digest, contact ack, welcome, demo booked, waitlist, changelog, ebook, reclaim forecast. For stakeholder review.</p>
       <span class="link">Open showcase &rarr;</span>
     </a>
     <a class="dl-card" href="email-template.html">
       <div class="preview paper"><svg viewBox="0 0 80 56" width="120" height="84" fill="none"><rect x="0" y="0" width="80" height="56" fill="#FAF7EC" stroke="#0F0F12" stroke-width="1.2" stroke-dasharray="3 2"/><rect x="0" y="0" width="80" height="10" fill="#0F0F12"/><rect x="6" y="3" width="14" height="4" fill="#F58549"/><rect x="6" y="16" width="10" height="2.5" fill="#F58549"/><rect x="6" y="22" width="56" height="3" fill="#0F0F12"/><rect x="6" y="28" width="68" height="2" fill="#D9D3BF"/><rect x="6" y="32" width="56" height="2" fill="#D9D3BF"/><rect x="6" y="36" width="62" height="2" fill="#D9D3BF"/><rect x="6" y="44" width="24" height="6" fill="#0F0F12"/></svg></div>
-      <div class="meta"><span>html &middot; skeleton</span><span>self-contained</span></div>
+      <div class="meta"><span>html &middot; skeleton</span><span>extensible</span></div>
       <h4>Template &middot; reusable skeleton</h4>
-      <p>Table-based layout. Base64-embedded logo (no asset hosting). MSO VML button fallback for Outlook desktop. Dark-mode rules + <code style="font-family:var(--mono); font-size:11.5px;">[data-ogsc]</code> Outlook fallback. Plain-text companion at the bottom.</p>
+      <p>Same engineering as the 9 production files but with <code style="font-family:var(--mono); font-size:11.5px;">{{HEADLINE}}</code> placeholders. Use when adding a 10th transactional email later.</p>
       <span class="link">Open template &rarr;</span>
     </a>
   </div>
 
   <div style="margin-top:24px; padding:18px 22px; background:var(--bg-1); border:1px solid var(--line-2); border-left:3px solid var(--zop-orange);">
     <p style="margin:0 0 8px; font-family:var(--mono); font-size:11px; color:var(--zop-orange); letter-spacing:.14em; text-transform:uppercase;">Dev workflow</p>
-    <p style="margin:0; font-size:14px; color:var(--ink-2); line-height:1.6;">Open <code style="font-family:var(--mono); font-size:13px;">email-template.html</code> as the skeleton. Copy the relevant slide's middle blocks (eyebrow + headline + body + CTA + callout) from <code style="font-family:var(--mono); font-size:13px;">email-showcase.html</code>. Swap merge-fields (<code style="font-family:var(--mono); font-size:13px;">{{first_name}}</code>, <code style="font-family:var(--mono); font-size:13px;">{{post_title}}</code>, &hellip;) for the transactional service's variable syntax. The PM-approved subject lines and preheaders sit in the comment header of each showcase slide.</p>
+    <p style="margin:0; font-size:14px; color:var(--ink-2); line-height:1.6;">Open <a href="emails/index.html" style="color:var(--zop-orange);">emails/index.html</a> to browse the 9 production files. Each is fully engineered &mdash; just swap the <code style="font-family:var(--mono); font-size:13px;">{{merge_field}}</code> Mustache syntax for your service&rsquo;s variable format (SendGrid / Postmark / Resend keep the same syntax; Mailgun uses <code style="font-family:var(--mono); font-size:13px;">%recipient.var%</code>). Subject + preheader sit in the comment header of each file. The showcase is for visual stakeholder review; the template is for when you need to add a 10th transactional email.</p>
   </div>
 </section>
 

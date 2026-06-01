@@ -55,8 +55,9 @@ This repo is the **static prototype + design system + acceptance criteria** for 
 
 | File | Purpose |
 |---|---|
-| [`email-template.html`](email-template.html) | Reusable email skeleton. Self-contained (base64 logo, table-based layout, MSO VML button fallback, plain-text companion, dark-mode rules + `[data-ogsc]` Outlook fallback). Drop merge-fields and content blocks in; ship. |
-| [`email-showcase.html`](email-showcase.html) | 9-slide carousel of every transactional email use case rendered from the **PM-approved "Revamped Copy" doc**. Use this for stakeholder review. Each slide is the visual the user receives in their inbox. |
+| [`emails/`](emails/) | **9 production-ready HTML emails**, one per use case. Each is self-contained, table-based, MSO-fallback, base64-logo, plain-text-companion-included &mdash; drop-in for SendGrid / Postmark / Resend. Open [`emails/index.html`](emails/index.html) to browse them. |
+| [`email-template.html`](email-template.html) | Reusable email skeleton (without specific copy). Same engineering as the 9 production files but with `{{HEADLINE}} / {{BODY}}` placeholders &mdash; use this when adding a 10th transactional email later. |
+| [`email-showcase.html`](email-showcase.html) | 9-slide carousel of every email use case rendered from the **PM-approved "Revamped Copy" doc**. Use this for stakeholder review. |
 
 **The 9 use cases** (carousel order, matches PM's doc):
 
