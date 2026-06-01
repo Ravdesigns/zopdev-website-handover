@@ -45,12 +45,17 @@
       ancestor on every client.
     · Square corners only · no border-radius (matches the site brand).
 
-  Hosted logo URLs (UPDATE BEFORE PRODUCTION SEND):
-    · Light · https://zop.dev/logo-zopdev-black.png  (120 KB · 2876×1120
-      — host on your CDN; the exported PNG lives at
-      logo-png-export/zopdev-logo-black.png in this repo)
-    · Dark  · https://zop.dev/logo-zopdev-white.png  (124 KB · 2876×1120
-      — logo-png-export/zopdev-logo-white.png)
+  Logo paths (UPDATE BEFORE PRODUCTION SEND):
+    · The <picture> in the header points to RELATIVE paths so the
+      template renders correctly when you open this file in a browser
+      (file://) or serve it from the project root — same place
+      logo-png-export/ lives.
+    · Light · logo-png-export/zopdev-logo-black.png   (120 KB · 2876×1120)
+    · Dark  · logo-png-export/zopdev-logo-white.png   (124 KB · 2876×1120)
+    · For production email sends, swap both to absolute CDN URLs.
+      Gmail / Apple Mail / Outlook strip or refuse relative paths.
+      Hosted example: https://zop.dev/logo-zopdev-black.png
+                      https://zop.dev/logo-zopdev-white.png
 
   Generic merge fields (rename per-use-case as needed, Mustache-style):
     Universal (every email)
@@ -182,8 +187,18 @@
                 <tr>
                   <td valign="middle" align="left">
                     <picture>
-                      <source srcset="https://zop.dev/logo-zopdev-white.png" media="(prefers-color-scheme: dark)" />
-                      <img src="https://zop.dev/logo-zopdev-black.png"
+                      <!-- ⚠ Logo URLs · these are RELATIVE so the
+                           template renders correctly when opened
+                           directly in a browser (file://) or served
+                           from the project root. For production email
+                           sends, swap to absolute CDN URLs (most ESPs
+                           require them — relative paths don't resolve
+                           inside Gmail / Apple Mail / etc.). Hosted
+                           example:
+                             https://zop.dev/logo-zopdev-black.png
+                             https://zop.dev/logo-zopdev-white.png -->
+                      <source srcset="logo-png-export/zopdev-logo-white.png" media="(prefers-color-scheme: dark)" />
+                      <img src="logo-png-export/zopdev-logo-black.png"
                            alt="ZopDev"
                            width="140" height="55"
                            style="display:block; width:140px; height:auto; max-height:55px; border:0; outline:none;" />
